@@ -109,24 +109,24 @@ const CustomerFollowUp: React.FC<CustomerFollowUpProps> = () => {
       return (<span>{followLog.followUserName}</span>)
       }
     },
-    {
-      title: '操作',
-      dataIndex: 'operation',
-      key: 'operation',
-      fixed: 'right',
-      align: 'center',
-      hideInSearch: true,
-      width: 80,
-      // @ts-ignore
-      render: (_, record) => {
-        // const { customerId } = record;
-        return (
-          <>
-            <Button type="link" onClick={() => history.push(`/order/follup/profile`)}>详情</Button>
-          </>
-        )
-      }
-    }
+    // {
+    //   title: '操作',
+    //   dataIndex: 'operation',
+    //   key: 'operation',
+    //   fixed: 'right',
+    //   align: 'center',
+    //   hideInSearch: true,
+    //   width: 80,
+    //   // @ts-ignore
+    //   render: (_, record) => {
+    //     // const { customerId } = record;
+    //     return (
+    //       <>
+    //         <Button type="link" onClick={() => history.push(`/order/follup/profile`)}>详情</Button>
+    //       </>
+    //     )
+    //   }
+    // }
   ]
   return (
     <PageHeaderWrapper>

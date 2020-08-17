@@ -102,7 +102,7 @@ const CustomerInfo: React.FC<{
       fixed: 'right',
       align: 'center',
       hideInSearch: true,
-      width: 380,
+      width: 300,
       // @ts-ignore
       render: (_, record) => {
         const { customerId, workNo } = record;
@@ -117,8 +117,8 @@ const CustomerInfo: React.FC<{
                 history.push(`/order/customer/sign?customerId=${customerId}&workNo=${workNo}`)
               }
             }}>签单</Button>
-            <Divider type="vertical"/>
-            <Button type="link">转入贷后</Button>
+            {/* <Divider type="vertical"/> */}
+            {/* <Button type="link">转入贷后</Button> */}
           </>
         )
       }

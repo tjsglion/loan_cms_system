@@ -4,33 +4,29 @@ import { Col, Row, Tooltip } from 'antd';
 import { FormattedMessage } from 'umi';
 import React from 'react';
 import numeral from 'numeral';
-import { ChartCard, MiniArea } from './Charts';
-import { VisitDataType } from '../data.d';
+import { ChartCard, /* MiniArea */ } from './Charts';
+// import { VisitDataType } from '../data.d';
 import Yuan from '../utils/Yuan';
 
 
-const IntroduceRow = ({ loading, visitData }: { loading: boolean; visitData: VisitDataType[] }) => (
+const IntroduceRow = ({ loading, visitData }: { loading: boolean; visitData: {[key: string]: any} }) => (
   <Row gutter={24}>
     <Col span={8}>
       <ChartCard
         bordered={false}
-        title={
-          <FormattedMessage id="dashboardanalysis.analysis.total-sales" defaultMessage="Total Sales" />
-        }
+        title="意向客户"
         action={
           <Tooltip
-            title={
-              <FormattedMessage id="dashboardanalysis.analysis.introduce" defaultMessage="Introduce" />
-            }
+            title='意向客户'
           >
             <InfoCircleOutlined />
           </Tooltip>
         }
         loading={loading}
-        total={() => <Yuan>126560</Yuan>}
+        total={() => <Yuan>{visitData.loanCustomerCount || 0}</Yuan>}
         contentHeight={46}
       >
-        <MiniArea color="#975FE4" data={visitData} />
+        {/* <MiniArea color="#975FE4" data={visitData} /> */}
       </ChartCard>
     </Col>
 
@@ -38,40 +34,36 @@ const IntroduceRow = ({ loading, visitData }: { loading: boolean; visitData: Vis
       <ChartCard
         bordered={false}
         loading={loading}
-        title={<FormattedMessage id="dashboardanalysis.analysis.visits" defaultMessage="Visits" />}
+        title="签约客户"
         action={
           <Tooltip
-            title={
-              <FormattedMessage id="dashboardanalysis.analysis.introduce" defaultMessage="Introduce" />
-            }
+            title="签约客户"
           >
             <InfoCircleOutlined />
           </Tooltip>
         }
-        total={numeral(8846).format('0,0')}
+        total={numeral(`${visitData.potentialCustomerCount || 0}`).format('0,0')}
         contentHeight={46}
       >
-        <MiniArea color="#975FE4" data={visitData} />
+        {/* <MiniArea color="#975FE4" data={visitData} /> */}
       </ChartCard>
     </Col>
     <Col span={8}>
       <ChartCard
         bordered={false}
         loading={loading}
-        title={<FormattedMessage id="dashboardanalysis.analysis.payments" defaultMessage="Payments" />}
+        title="放款金额"
         action={
           <Tooltip
-            title={
-              <FormattedMessage id="dashboardanalysis.analysis.introduce" defaultMessage="Introduce" />
-            }
+            title='放款金额'
           >
             <InfoCircleOutlined />
           </Tooltip>
         }
-        total={numeral(6560).format('0,0')}
+        total={`￥${  numeral(`${visitData.totalLoanMoney}`).format('0,0')}`}
         contentHeight={46}
       >
-        <MiniArea color="#975FE4" data={visitData} />
+        {/* <MiniArea color="#975FE4" data={visitData} /> */}
       </ChartCard>
     </Col>
   </Row>

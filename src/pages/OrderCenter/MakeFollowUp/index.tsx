@@ -77,24 +77,24 @@ const MakeFollowUp: React.FC<MakeFollowUpProps> = () => {
       hideInSearch: true,
       width: '8%'
     },
-    {
-      title: '操作',
-      dataIndex: 'operation',
-      key: 'operation',
-      fixed: 'right',
-      align: 'center',
-      hideInSearch: true,
-      width: 80,
-      // @ts-ignore
-      render: (_, record) => {
-        // const { customerId } = record;
-        return (
-          <>
-            <Button type="link" onClick={() => history.push(`/order/make/follup/profile`)}>详情</Button>
-          </>
-        )
-      }
-    }
+    // {
+    //   title: '操作',
+    //   dataIndex: 'operation',
+    //   key: 'operation',
+    //   fixed: 'right',
+    //   align: 'center',
+    //   hideInSearch: true,
+    //   width: 80,
+    //   // @ts-ignore
+    //   render: (_, record) => {
+    //     // const { customerId } = record;
+    //     return (
+    //       <>
+    //         <Button type="link" onClick={() => history.push(`/order/make/follup/profile`)}>详情</Button>
+    //       </>
+    //     )
+    //   }
+    // }
   ];
   return (
     <PageHeaderWrapper>
