@@ -179,12 +179,14 @@ export const routes = [
               {
                 path: '/account/role/add',
                 name: 'role.add',
-                component: './Authorities/Role/AddOrEditRole'
+                component: './Authorities/Role/AddOrEditRole',
+                hideInMenu: true
               },
               {
                 path: '/account/role/edit',
-                name: 'role.add',
-                component: './Authorities/Role/AddOrEditRole'
+                name: 'role.edit',
+                component: './Authorities/Role/AddOrEditRole',
+                hideInMenu: true
               },
               {
                 path: '/account/department',

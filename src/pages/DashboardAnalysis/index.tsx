@@ -48,7 +48,17 @@ class DashboardAnalysis extends Component<
   // @ts-ignore
   state = {
     adLists: [],
-    staticData: {}
+    staticData: {},
+    signData: [
+      {
+        x: '续费签约',
+        y: 45
+      },
+      {
+        x: '待转化客户',
+        y: 56
+      },
+    ]
   }
   
   // isActive = (type: 'today' | 'week' | 'month' | 'year') => {
@@ -121,7 +131,7 @@ class DashboardAnalysis extends Component<
       },
     ];
 
-    const {adLists, staticData} = this.state;
+    const {adLists, staticData, signData} = this.state;
 
     return (
       <GridContent>
@@ -134,13 +144,30 @@ class DashboardAnalysis extends Component<
             <Row justify="space-between">
               <Col span={11}>
                 <h2>公司动态</h2>
-                  <Pie
+                  {/* <Pie
                     animate={false}
                     inner={0.8}
                     tooltip={false}
                     margin={[0, 0, 0, 0]}
                     percent={90 * 100}
                     height={200}
+                  /> */}
+                  <Pie
+                    hasLegend
+                    animate={false}
+                    title="签约"
+                    subTitle="签约"
+                    data={signData}
+                    total={() => (
+                      <span
+                        dangerouslySetInnerHTML={{
+                          __html: signData.reduce((pre, now) => now.y + pre, 0)
+                        }}
+                      />
+                    )}
+                    valueFormat={val => <span dangerouslySetInnerHTML={{ __html: val }} />}
+                    height={155}
+                    lineWidth={0}
                   />
 
                   <List

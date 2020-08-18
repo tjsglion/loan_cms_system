@@ -37,4 +37,6 @@ export default defineConfig({
   manifest: {
     basePath: '/',
   },
+  base: process.env.NODE_ENV === 'development' ? '/' : '/',
+  publicPath: process.env.NODE_ENV === 'development' ? '/' : '/'
 });

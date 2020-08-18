@@ -7,6 +7,7 @@ import { notification } from 'antd';
 import { history } from 'umi';
 import { stringify } from 'qs';
 import { getPageQuery, sessionKey } from './utils';
+import { prod } from '@/core/http.request';
 
 const crypto = require('crypto');
 
@@ -161,7 +162,44 @@ const errorHandler = (error: ResponseError) => {
 const request = extend({
   errorHandler, // 默认错误处理
   credentials: 'include', // 默认请求是否带上cookie
-  // prefix: product ? '' : '/proxy'
+  // prefix: prod ? '/api/crm-manage-api' : '/api'
+});
+
+request.interceptors.request.use((url, options) => {
+  // console.log(url, options);
+  let $url = ''
+  if (!prod) {
+    $url = `/api${url}`;
+  } else {
+    $url = `/crm-manage-api${url}`
+  }
+  // console.log($url);
+  return {
+    url: $url,
+    options
+  }
+})
+
+// 定义全局拦截器: 401 403
+request.interceptors.response.use(async (response) => {
+  const {status} = response;
+  if ([401, 403].includes(status)) {
+    localStorage.clear();
+    const { redirect } = getPageQuery();
+    if (window.location.pathname !== '/user/login' && !redirect) {
+      history.replace({
+        pathname: '/user/login',
+        search: stringify({
+          redirect: window.location.href,
+        }),
+      });
+    }
+    notification.error({
+      message: 'ERROR: Authoration Not Passed',
+      description: codeMessage[status]
+    });
+  }
+  return response;
 });
 
 export default request;
