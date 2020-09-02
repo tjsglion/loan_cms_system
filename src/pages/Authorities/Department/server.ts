@@ -2,7 +2,7 @@
 import HttpClient from '@/core/http.request';
 
 // 分页查找
-export async function queryLists (
+export async function queryDepLists (
   params: {[key: string]: any}
 ) {
   return HttpClient.list('/api/user/department/list', params)

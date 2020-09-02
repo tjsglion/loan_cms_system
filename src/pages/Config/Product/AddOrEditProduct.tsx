@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable no-param-reassign */
-import React from 'react';
+import React, { useState } from 'react';
 import { Form, Input, Select } from 'antd';
 import { formItemLayout2, submitFormLayout, OPTIONSPLACEHOLDER } from '@/constants';
 import SubmitFormBtn from '@/pages/components/SubmitFormBtn';
@@ -12,6 +12,7 @@ import { fetchAddOrEditProduct } from './server';
 interface AddOrEditProductProps {
   isEdit?: boolean;
   baseInfo?: {[key: string]: any };
+  funders?: {[key: string]: any }
   // funders: {[key: string]: any};
   onSuccess: () => void;
 }
@@ -21,9 +22,11 @@ const { Option } = Select;
 
 const AddOrEditProduct: React.FC<AddOrEditProductProps> = (props) => {
 
-  const { baseInfo = {}, /* funders = [], */ onSuccess, isEdit = false} = props;
+  const { baseInfo = {}, funders = [], onSuccess, isEdit = false} = props;
+  const [capitalType, setcapitalType] = useState('');
   const [form] = Form.useForm();
 
+  // console.log('出资方信息:', funders);
   const handleDescChange = (val: string) => {
     form.setFieldsValue({
       'productDesc': val
@@ -35,6 +38,9 @@ const AddOrEditProduct: React.FC<AddOrEditProductProps> = (props) => {
     values.maxLimitMoney = transfNumbToFloat(values.maxLimitMoney);
     values.minMonthRate = transfNumbToFloat(values.minMonthRate);
     values.maxMonthRate = transfNumbToFloat(values.maxMonthRate);
+    values.maxLimitLoanTime = +values.maxLimitLoanTime;
+    values.minLimitLoanTime = +values.minLimitLoanTime;
+    values.capitalType = capitalType;
     values.coverRegions = values.coverRegions.join(',');
     if (isEdit) {
       values.productId = baseInfo.productId;
@@ -50,6 +56,11 @@ const AddOrEditProduct: React.FC<AddOrEditProductProps> = (props) => {
   // 重围
   const handleResetForm = () => {
     form.resetFields();
+  }
+
+  // @ts-ignore
+  const handleChange = (e, options) => {
+    setcapitalType(options.children)
   }
 
   return (
@@ -91,7 +102,7 @@ const AddOrEditProduct: React.FC<AddOrEditProductProps> = (props) => {
         </Select>
       </FormItem>
       <FormItem
-        name="capitalType"
+        name="capitalId"
         label="出资方类型"
         rules={
           [
@@ -99,7 +110,12 @@ const AddOrEditProduct: React.FC<AddOrEditProductProps> = (props) => {
           ]
         }
       >
-       <Input type="text" placeholder="请输入"/>
+       {/* <Input type="text" placeholder="请输入"/> */}
+       <Select onChange={handleChange} {...OPTIONSPLACEHOLDER}>
+          {
+            funders.map((f: {[key: string]: any}) => <Option key={f.capitalId} value={f.capitalId}>{f.name}</Option>)
+          }
+        </Select>
       </FormItem>
       {/* <FormItem
         name="secondTitle"

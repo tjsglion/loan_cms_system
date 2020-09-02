@@ -3,11 +3,12 @@ import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { DATETIME } from '@/constants';
 import moment from 'moment';
 import { Modal, Button, Skeleton, message } from 'antd';
+import Authorized from '@/components/Authorized/Authorized';
 import ProTable, { ProColumns, ActionType } from '@ant-design/pro-table';
 import { PlusOutlined } from '@ant-design/icons';
 import AddOrEditDepartment from '../Components/department/AddOrEditorDepartment';
 import { DepartmentItem, DepartmentParmas } from './data';
-import { queryLists, queryAddDepartment, queryUpdateDepartment } from './server';
+import { queryDepLists, queryAddDepartment, queryUpdateDepartment } from './server';
 
 const Department: React.FC<{}> = () => {
   
@@ -47,13 +48,16 @@ const Department: React.FC<{}> = () => {
       valueType: 'option',
       render: (_, record) => (
         <>
-          <a onClick={() => {
-            setFormValues(record);
-            setType('update');
-            setVisible(true)
-          }}>
-            编辑
-          </a>
+          <Authorized authority={['admin', '50']}>
+            <a onClick={() => {
+              setFormValues(record);
+              setType('update');
+              setVisible(true)
+            }}>
+              编辑
+            </a>
+          </Authorized>
+          
         </>
       )
     }
@@ -61,7 +65,7 @@ const Department: React.FC<{}> = () => {
 
   const getAllDepartment = () => {
     // 获取所有的部门信息
-    queryLists({
+    queryDepLists({
       pageIndex: 1,
       pageSize: 1000
     }).then((res: {[key: string]: any}) => {
@@ -116,19 +120,22 @@ const Department: React.FC<{}> = () => {
               // eslint-disable-next-line no-underscore-dangle
               delete tempParams._timestamp;
               delete tempParams.current;
-              return queryLists(tempParams)
+              return queryDepLists(tempParams)
             }
             return { data: []}
           }
         }
         toolBarRender={() => [
-          <Button type="primary" onClick={() => { 
-            setVisible(true); 
-            setType('add');
-            setFormValues({});
-          }}>
-            <PlusOutlined /> 新增部门
-          </Button>,
+          <Authorized authority={['admin', '49']}>
+            <Button type="primary" onClick={() => { 
+              setVisible(true); 
+              setType('add');
+              setFormValues({});
+            }}>
+              <PlusOutlined /> 新增部门
+            </Button>,
+          </Authorized>
+          
         ]}
         pagination={{
           defaultPageSize: 10,

@@ -203,6 +203,21 @@ const AddOrEditInfo: React.FC<AddOrEditInfoProps> = (props) => {
               </FormItem>
             </Col>
 
+            {/* <Col {...COLSPAN}>
+              <FormItem label="所选产品" name="product" {...RULES}>
+                <InputNumber disabled={isDisabled} style={{ width: '100%' }} min={1} {...TEXTINFO}/>
+              </FormItem>
+            </Col>
+            <Col {...COLSPAN}>
+              <FormItem label="被拒原因" name="reason" {...RULES}>
+                <Select disabled={isDisabled} {...OPTIONSPLACEHOLDER}>
+                  {
+                    HightEducation.map(item => <Option key={`h_${item.value}`} value={item.value}>{item.key}</Option>)
+                  }
+                </Select>
+              </FormItem>
+            </Col> */}
+
             <Col {...COLSPAN}>
               <FormItem label="身份证号" name="idCardNo" rules={
                 [
@@ -228,8 +243,8 @@ const AddOrEditInfo: React.FC<AddOrEditInfoProps> = (props) => {
                   headers={headers()}
                   action={
                     prod
-                      ? '/api/msg-developer/api/application/uploadImg' 
-                      : '/api/base/file/upload'
+                      ? '/api/msg-developer/api/api/application/uploadImg' 
+                      : '/api/api/base/file/upload'
                   }
                   beforeUpload={beforeUpload}
                   onChange={handleChange}

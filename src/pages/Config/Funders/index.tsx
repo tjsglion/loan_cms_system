@@ -6,6 +6,7 @@ import moment from 'moment';
 import { PlusOutlined } from '@ant-design/icons';
 import { Button, Modal, Skeleton } from 'antd';
 import { DATETIME } from '@/constants';
+import Authorized from '@/components/Authorized/Authorized';
 import { fetchFundersList } from './server';
 import { FundersItem, FundersParmas } from './data';
 import AddOrEditFunders from './AddOrEditFunders';
@@ -44,13 +45,15 @@ const Product: React.FC<ProductProps> = () => {
       align: 'center',
       render: (_, record) => (
         <>
-          <a onClick={() => {
-            setVisible(true);
-            setFormValues(record);
-            setType('update');
-          }}>
-            编辑
-          </a>
+          <Authorized authority={['admin', '60']}>
+            <a onClick={() => {
+              setVisible(true);
+              setFormValues(record);
+              setType('update');
+            }}>
+              编辑
+            </a>
+          </Authorized>
         </>
       )
     }
@@ -62,11 +65,14 @@ const Product: React.FC<ProductProps> = () => {
         actionRef={actionRef}
         headerTitle="出资方列表"
         toolBarRender={() => [
-          <Button type="primary" onClick={() => {
-            setVisible(true);
-            setType('add')
-            setFormValues({})
-          }}><PlusOutlined />新增</Button>
+          <Authorized authority={['admin', '59']}>
+            <Button type="primary" onClick={() => {
+              setVisible(true);
+              setType('add')
+              setFormValues({})
+            }}><PlusOutlined />新增</Button>
+          </Authorized>
+          
         ]}
         columns={columns}
         // @ts-ignore

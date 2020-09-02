@@ -16,7 +16,7 @@ const proSettings: DefaultSettings = {
   menu: {
     locale: true,
   },
-  title: 'CMS',
+  title: '助贷CMS',
   pwa: false,
   iconfontUrl: '',
 };

@@ -62,15 +62,18 @@ const AddOrEditCompany: React.FC<AddOrEditCompanyProps> = (props) => {
     fetchSubmitCompany(params, type).then(res => {
       const {status, info, data} = res;
       if (status === 0) {
+        setIsDisabled(true);
         message.success(info);
         // 保存企业id号
-        const {id} = data;
-        dispatch({
-          type: 'customerCenter/addCompanyId',
-          payload: {
-            companyId: id
-          }
-        });
+        if (type === 'add') {
+          const {id} = data;
+          dispatch({
+            type: 'customerCenter/addCompanyId',
+            payload: {
+              companyId: id
+            }
+          });
+        }
       }
     });
   } 

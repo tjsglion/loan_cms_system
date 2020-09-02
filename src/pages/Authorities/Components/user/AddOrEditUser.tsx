@@ -1,10 +1,20 @@
+/* eslint-disable prefer-object-spread */
+/* eslint-disable @typescript-eslint/no-unused-expressions */
+/* eslint-disable no-param-reassign */
 import React from 'react';
-import { Form, Input, Select, Button, Radio } from 'antd';
+import { Form, Input, Select, Button, Radio, message } from 'antd';
+import { history } from 'umi';
 import { formItemLayout2, submitFormLayout, OPTIONSPLACEHOLDER, TEXTINFO } from '@/constants';
 import SubmitFormBtn from '@/pages/components/SubmitFormBtn';
+import { queryAddAccount } from './server';
+// import { getLocalUser } from '@/utils/utils';
+// import { queryDepLists } from '../../Department/server';
 
 interface AddOrEditUserProps {
   baseInfo?: {[key: string]: any };
+  roles?: Array<{[key: string]: any}>;
+  deps?: Array<{[key: string]: any}>;
+  onFinish?: () => void;
 }
 
 const FormItem = Form.Item;
@@ -12,13 +22,22 @@ const { Option } = Select;
 
 const AddOrEditUser: React.FC<AddOrEditUserProps> = (props) => {
 
-  const { baseInfo } = props;
+  const { baseInfo = {}, roles = [], deps = [], onFinish } = props;
   const [form] = Form.useForm();
 
   // 提交
   const handleFinish = (values: {[key: string]: any}) => {
-    console.log(values);
-    // values.productDesc = values
+    const {id} = baseInfo;
+    // values.createdBy = createdBy;
+    const type = id ? 'edit' : 'add';
+    const params = type === 'add' ? values : Object.assign({...values}, {id});
+    queryAddAccount(params, type).then(res => {
+      // console.log('添加账号成功:', res);
+      if (res.status === 0) {
+        message.success(res.info);
+        onFinish && onFinish();
+      }
+    });
   }
   // 重围
   const handleResetForm = () => {
@@ -33,6 +52,34 @@ const AddOrEditUser: React.FC<AddOrEditUserProps> = (props) => {
       initialValues={baseInfo}
     >
       <FormItem
+        name="operAccount"
+        label="账号"
+        rules={
+          [
+            {required: true, message: '运营账号不能为空'}
+          ]
+        }
+      >
+        <Input disabled={baseInfo.id} placeholder={TEXTINFO.placeholder}/>
+      </FormItem>
+
+      <Form.Item
+        name="departmentId"
+        label="部门"
+        rules={[{ required: true, message: '部门信息不能为空' }]}
+      >
+        <Select 
+          // mode="multiple"
+          placeholder={OPTIONSPLACEHOLDER.placeholder}
+          style={{ width: '100%' }}
+        >
+          {
+            deps.map(role => <Option key={role.id} value={role.id}>{role.name}</Option>)
+          }
+        </Select>
+      </Form.Item>
+
+      <FormItem
         name="name"
         label="姓名"
         rules={
@@ -43,29 +90,17 @@ const AddOrEditUser: React.FC<AddOrEditUserProps> = (props) => {
       >
         <Input placeholder={TEXTINFO.placeholder}/>
       </FormItem>
-      <FormItem
-        name="ext1"
-        label="昵称"
-      >
-        <Input placeholder={TEXTINFO.placeholder}/>
-      </FormItem>
-      <FormItem
-        name="password"
-        label="用户密码"
-        rules={
-          [
-            {required: true, message: '用户密码不能为空'}
-          ]
-        }
-      >
-       <Input type="password" placeholder={TEXTINFO.placeholder}/>
-      </FormItem>
+      
       <FormItem
         name="phone"
         label="手机号码"
         rules={
           [
-            {required: true, message: '手机号码不能为空'}
+            {required: true, message: '手机号码不能为空'},
+            {
+              pattern: /^1[3456789]\d{9}$/,
+              message: '手机号格式不正确'
+            },
           ]
         }
       >
@@ -76,7 +111,11 @@ const AddOrEditUser: React.FC<AddOrEditUserProps> = (props) => {
         label="电子邮箱"
         rules={
           [
-            {required: true, message: '电子邮箱不能为空'}
+            {required: true, message: '电子邮箱不能为空'},
+            {
+              pattern: /^\w+((.\w+)|(-\w+))@[A-Za-z0-9]+((.|-)[A-Za-z0-9]+).[A-Za-z0-9]+$/,
+              message: '手机号格式不正确'
+            },
           ]
         }
       >
@@ -90,25 +129,30 @@ const AddOrEditUser: React.FC<AddOrEditUserProps> = (props) => {
           style={{ display: 'inline-block', width: 'calc(80% - 8px)' }}
         >
           <Select 
-            mode="multiple"
             placeholder={OPTIONSPLACEHOLDER.placeholder}
             style={{ width: '100%' }}
           >
-            <Option key="1" value={1}>1</Option>
+            {
+              roles.map(role => <Option key={role.id} value={`${role.id}`}>{role.name}</Option>)
+            }
           </Select>
         </Form.Item>
         <Form.Item
           style={{ display: 'inline-block', width: 'calc(20% - 8px)', margin: '0 8px' }}
         >
-          <Button type="link">添加角色</Button>
+          <Button type="link" onClick={() => history.push('/account/role')}>添加角色</Button>
         </Form.Item>
       </Form.Item>
 
-      <FormItem label="状态" name="status">
+      <FormItem 
+        label="状态"
+        name="status"
+        rules={[{ required: true, message: '状态不能为空' }]}
+      >
         <Radio.Group>
           <Radio value={1} key="1">正常</Radio>
-          <Radio value={2} key="1">停用</Radio>
-          <Radio value={3} key="2">删除</Radio>
+          <Radio value={2} key="2">停用</Radio>
+          <Radio value={3} key="3">删除</Radio>
         </Radio.Group>
       </FormItem>
       

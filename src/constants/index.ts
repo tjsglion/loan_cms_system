@@ -76,6 +76,12 @@ export const LENDER = [
   { key: '非银', value: 1 }
 ]
 
+export const Repayment = [
+  { key: '等额本息', value: 1 },
+  { key: '先息后本', value: 2 },
+  { key: '一次性还息归本', value: 3 },
+]
+
 
 export const RULES = {
   rules: [

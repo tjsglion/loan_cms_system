@@ -45,7 +45,7 @@ export default {
   'menu.account.user': '用户管理',
   'menu.account.role': '角色管理',
   'menu.account.role.add': '新增角色',
-  'menu.account.role.edit': '编辑管理',
+  'menu.account.role.edit': '编辑角色',
   'menu.account.center': '个人中心',
   'menu.account.settings': '个人设置',
   'menu.account.trigger': '触发报错',
@@ -65,6 +65,8 @@ export default {
   'menu.order.customerFollowUp.profile': '客户跟进详情',
   'menu.order.makeFollowUp': '做单跟进',
   'menu.order.makeFollowUp.profile': '做单跟进详情',
+  'menu.order.makeFollowUp.sign': '签单',
+  'menu.order.makeFollowUp.editSign': '编辑签单',
   'menu.order.customerAllot': '客户分配',
   'menu.order.customerAllot.profile': '客户分配详情',
   // 基础配置

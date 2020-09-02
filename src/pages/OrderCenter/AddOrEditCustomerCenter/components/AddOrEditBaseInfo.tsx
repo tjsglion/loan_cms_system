@@ -52,6 +52,7 @@ const AddOrEditBaseInfo: React.FC<AddOrEditBaseInfoProps> = (props) => {
     const params = type === 'add' ? {...values, customerId} : ({...values, id: baseInfoForm.id});
     fetchSubmitBaseInfo(params, type).then(res => {
       const {status, info} = res;
+      setIsDisabled(false);
       if (status === 0) {
         message.success(info);
       }

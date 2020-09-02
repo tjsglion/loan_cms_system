@@ -30,24 +30,26 @@ const AddOrEditCourt: React.FC<AddOrEditCourtProps> = (props) => {
   }, [courtInfo]);
 
   const columns: Array<{[key: string]: any}> = [
-    { label: '序号', span: 2 },
-    { label: '变更日期', span: 4},
-    { label: '案由', span: 3 },
-    { label: '判决标题', span: 4 },
+    // { label: '序号', span: 2 },
+    { label: '日期', span: 3},
+    { label: '案由', span: 4 },
+    { label: '判决标题', span: 3 },
     { label: '案件身份', span: 3 },
     { label: '案号', span: 3 },
     { label: '法院名称', span: 3 },
+    { label: '涉案金额', span: 3 },
     { label: '操作',  span: 2 }
   ];
   const formItems: Array<{[key: string]: any}> = [
     // name: 表单字段名 type: 表单类型 rules: 验证规则  width: 所占宽度，默认自动， options: 下拉时的选择值  addonAfter: 后缀
-    { type: 'index', span: 2},
-    { name: 'judgeTime', rules: [], type: 'datepick', span: 4, options: [], addonAfter: ''},
-    { name: 'caseReason', rules: [], type: 'input', span: 3, options: [], addonAfter: ''},
-    { name: 'title', rules: [], type: 'input', span: 4, options: [], addonAfter: ''},
+    // { type: 'index', span: 2},
+    { name: 'judgeTime', rules: [], type: 'datepick', span: 3, options: [], addonAfter: ''},
+    { name: 'caseReason', rules: [], type: 'input', span: 4, options: [], addonAfter: ''},
+    { name: 'title', rules: [], type: 'input', span: 3, options: [], addonAfter: ''},
     { name: 'identity', rules: [], type: 'select',span: 3, options: [{key: '原告', value: 1}, {key: '被告', value: 2}]},
     { name: 'judgeNo', rules: [], type: 'input', span: 3, options: [], addonAfter: ''},
     { name: 'courtName', rules: [], type: 'input', span: 3, options: [], addonAfter: ''},
+    { name: 'involveMoney', rules: [], type: 'input', inputType: 'number', span: 3, options: [], addonAfter: ''},
     { type: 'option', span: 2 }
   ];
 

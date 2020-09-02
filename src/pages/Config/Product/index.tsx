@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable no-param-reassign */
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import ProTable, { ProColumns, ActionType } from '@ant-design/pro-table';
 // import moment from 'moment';
@@ -10,6 +10,7 @@ import { Button, Skeleton, Drawer } from 'antd';
 import { fetchProductList } from './server';
 import { ProductItem, ProductParmas } from './data';
 import AddOrEditProduct from './AddOrEditProduct';
+import { fetchFundersList } from '../Funders/server';
 
 interface ProductProps {}
 
@@ -20,6 +21,21 @@ const Product: React.FC<ProductProps> = () => {
   const [type, setType] = useState('add');
   const [visible, setVisible] = useState(false);
   const actionRef = useRef<ActionType>();
+  // 出资方列表
+  const [funders, setFunders] = useState<Array<{[key:string]:any}>>([]);
+
+  useEffect(() => {
+    fetchFundersList({
+      pageIndex: 1,
+      pageSize: 1000
+    }).then(res => {
+      const {data} = res;
+      if (data) {
+        // @ts-ignore
+        setFunders(data);
+      }
+    })
+  }, []);
 
   const columns: ProColumns<ProductItem>[] = [
     {
@@ -128,6 +144,8 @@ const Product: React.FC<ProductProps> = () => {
       )}
     }
   ];
+
+  console.log('信息: ', funders);
   return (
     <PageHeaderWrapper>
       <ProTable<ProductItem> 
@@ -179,6 +197,7 @@ const Product: React.FC<ProductProps> = () => {
             ? <AddOrEditProduct 
                 isEdit={type !== 'add'}
                 baseInfo={formValues}
+                funders={funders}
                 onSuccess={
                   () => {
                     setVisible(false)

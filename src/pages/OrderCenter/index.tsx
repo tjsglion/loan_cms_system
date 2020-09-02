@@ -1,6 +1,6 @@
 import React from 'react';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
-import { Button, Divider, Select } from 'antd';
+import { Button, Divider } from 'antd';
 import ProTable, { ProColumns } from '@ant-design/pro-table';
 import { history, connect } from 'umi';
 import { PlusOutlined } from '@ant-design/icons/lib/icons';
@@ -8,8 +8,8 @@ import { PlusOutlined } from '@ant-design/icons/lib/icons';
 import { queryCustomerLists } from './server';
 import { CustomerInfoItem, CustomerInfoParmas } from './data';
 import { StateType } from './AddOrEditCustomerCenter/model';
+import Authorized from '@/components/Authorized/Authorized';
 
-const { Option } = Select;
 const CustomerInfo: React.FC<{
   // @ts-ignore
   dispatch: Dispatch<any>
@@ -22,79 +22,42 @@ const CustomerInfo: React.FC<{
       key: 'name',
       // width: '8%'
     },
-    // {
-    //   title: '借款人',
-    //   dataIndex: 'borrower',
-    //   key: 'borrower',
-    //   // width: '8%'
-    // },
-    {
-      title: '客户性别',
-      dataIndex: 'sex',
-      key: 'sex',
-      initialValue: -1,
-      // @ts-ignore
-      render: (val: number) => {
-        return val === 1 ? '男' : '女'
-      },
-      renderFormItem: (
-        item: ProColumns<CustomerInfoItem>,
-        config: {
-          value?: any;
-          onChange?: (value: any) => void;
-        },
-      ) => (
-        <Select value={config.value} onChange={config.onChange}>
-          <Option value={-1} key="-1">全部</Option>
-          <Option value={1} key="1">男</Option>
-          <Option value={2} key="2">女</Option>
-        </Select>
-      )
-    },
-    // {
-    //   title: '期望额度',
-    //   dataIndex: 'expect',
-    //   key: 'expect',
-    //   // width: '8%'
-    // },
-    {
-      title: '联系电话',
-      dataIndex: 'phone',
-      key: 'phone',
-      hideInSearch: true
-      // width: '8%'
-    },
     {
       title: '客户年龄',
       dataIndex: 'age',
       key: 'age',
-      hideInSearch: true
+      width: 80,
+      render: (val) => `${val}岁`
+    },
+    {
+      title: '客户经理',
+      dataIndex: 'product',
+      key: 'product',
       // width: '8%'
     },
     {
-      title: '客户地址',
-      dataIndex: 'address',
-      key: 'address',
-      width: '8%',
-      hideInSearch: true
+      title: '联系电话',
+      dataIndex: 'phone',
+      key: 'phone',
+      // width: '8%'
     },
-    // {
-    //   title: '客户类型',
-    //   dataIndex: 'userType',
-    //   key: 'userType',
-    //   // width: '8%'
-    // },
-    // {
-    //   title: '做单',
-    //   dataIndex: 'department',
-    //   key: 'department',
-    // },
-    // {
-    //   title: '跟进专员',
-    //   dataIndex: 'commissioner',
-    //   key: 'commissioner',
-    //   // width: '8%'
-    // },
+    {
+      title: '公司名称',
+      dataIndex: 'company',
+      key: 'company',
+      // width: '8%'
+    },
+    {
+      title: '地区',
+      dataIndex: 'area',
+      key: 'area',
+    },
+    {
+      title: '产品名称',
+      dataIndex: 'product',
+      key: 'product',
+      // width: '8%'
+    },
     {
       title: '操作',
       dataIndex: 'operation',
@@ -103,22 +66,27 @@ const CustomerInfo: React.FC<{
       align: 'center',
       hideInSearch: true,
       width: 300,
+      // fixed: 'right',
       // @ts-ignore
       render: (_, record) => {
         const { customerId, workNo } = record;
         return (
           <>
-            <Button type="link" onClick={() => history.push(`/order/customer/profile?customerId=${customerId}`)}>编辑</Button>
-            <Divider type="vertical"/>
-            <Button type="link" onClick={() => history.push(`/order/customer/followup?customerId=${customerId}`)}>客户跟进</Button>
-            <Divider type="vertical"/>
-            <Button type="link" onClick={() => {
-              if (workNo) {
-                history.push(`/order/customer/sign?customerId=${customerId}&workNo=${workNo}`)
-              }
-            }}>签单</Button>
-            {/* <Divider type="vertical"/> */}
-            {/* <Button type="link">转入贷后</Button> */}
+            <Authorized authority={['admin', '4']}>
+              <Button type="link" onClick={() => history.push(`/order/customer/profile?customerId=${customerId}`)}>编辑</Button>
+            </Authorized>
+            <Authorized authority={['admin', '6']}>
+              <Divider type="vertical"/>
+              <Button type="link" onClick={() => history.push(`/order/customer/followup?customerId=${customerId}`)}>客户跟进</Button>
+            </Authorized>
+            <Authorized authority={['admin', '8']}>
+              <Divider type="vertical"/>
+              <Button type="link" onClick={() => {
+                if (workNo) {
+                  history.push(`/order/customer/sign?customerId=${customerId}&workNo=${workNo}`)
+                }
+              }}>签单</Button>
+            </Authorized>
           </>
         )
       }
@@ -145,21 +113,24 @@ const CustomerInfo: React.FC<{
           //     icon={<UploadOutlined />}
           //   >批量导入</Button>
           //   </Upload>,
-          <Button icon={<PlusOutlined />} type="primary" onClick={() => {
-            dispatch({
-              type: 'customerCenter/addCustomerId',
-              payload: {
-                customerId: ''
-              }
-            });
-            dispatch({
-              type: 'customerCenter/addCompanyId',
-              payload: {
-                companyId: ''
-              }
-            });
-            history.push('/order/customer/profile');
-          }}>新增客户</Button>
+          <Authorized authority={['admin', '3']}>
+            <Button icon={<PlusOutlined />} type="primary" onClick={() => {
+              dispatch({
+                type: 'customerCenter/addCustomerId',
+                payload: {
+                  customerId: ''
+                }
+              });
+              dispatch({
+                type: 'customerCenter/addCompanyId',
+                payload: {
+                  companyId: ''
+                }
+              });
+              history.push('/order/customer/profile');
+            }}>新增客户</Button>
+          </Authorized>
+          
         ]}
         columns={columns}
         // @ts-ignore
@@ -173,6 +144,8 @@ const CustomerInfo: React.FC<{
                 pageSize: params.pageSize || 10
               }
               delete tempParms.current;
+              // @ts-ignore
+              delete tempParms._timestamp;
               return queryCustomerLists(tempParms)
             }
             return {data: []}

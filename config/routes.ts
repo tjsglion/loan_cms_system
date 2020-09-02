@@ -29,28 +29,6 @@ export const routes = [
             path: '/dashboardanalysis',
             component: './DashboardAnalysis',
           },
-          {
-            path: '/admin',
-            name: 'admin',
-            icon: 'crown',
-            component: './Admin',
-            authority: ['admin'],
-            routes: [
-              {
-                path: '/admin/sub-page',
-                name: 'sub-page',
-                icon: 'smile',
-                component: './Welcome',
-                authority: ['admin'],
-              },
-            ],
-          },
-          // {
-          //   name: 'list.table-list',
-          //   icon: 'table',
-          //   path: '/list',
-          //   component: './ListTableList',
-          // },
           // 做单中心
           {
             name: 'order',
@@ -67,6 +45,7 @@ export const routes = [
                 path: '/order/customer',
                 icon: 'user',
                 name: 'customerCenter',
+                authority: ['admin', '1', '2', '4', '5', '6', '7', '9', '11'],
                 component: './OrderCenter'
               },
               {
@@ -94,6 +73,7 @@ export const routes = [
               {
                 path: '/order/follup',
                 name: 'customerFollowUp',
+                authority: ['admin', '6', '7', '10', '8', '9'],
                 component: './OrderCenter/CustomerFollowUp'
               },
               {
@@ -111,6 +91,7 @@ export const routes = [
               {
                 path: '/order/make/follup',
                 name: 'makeFollowUp',
+                authority: ['admin', '11', '12', '13', '14'],
                 component: './OrderCenter/MakeFollowUp'
               },
               {
@@ -119,10 +100,24 @@ export const routes = [
                 component: './OrderCenter/MakeFollowUp/Profile',
                 hideInMenu: true
               },
+              {
+                path: '/order/make/follup/sign',
+                name: 'makeFollowUp.sign',
+                component: './OrderCenter/MakeFollowUp/Sign',
+                hideInMenu: true
+              },
+              {
+                path: '/order/make/follup/editSign',
+                name: 'makeFollowUp.editSign',
+                component: './OrderCenter/MakeFollowUp/Sign',
+                hideInMenu: true
+              },
+              
               // 客户分配
               {
                 path: '/order/allot',
                 name: 'customerAllot',
+                authority: ['admin', '15', '16', '17', '18'],
                 component: './OrderCenter/CustomerAllot'
               },
               {
@@ -138,6 +133,7 @@ export const routes = [
             name: 'loan',
             icon: 'table',
             path: '/loan',
+            authority: ['admin', '19', '20', '21'],
             routes: [
               {
                 path: '/loan',
@@ -161,23 +157,32 @@ export const routes = [
             name: 'account',
             icon: 'user',
             path: '/account',
+            authority: ['admin', '33', '34', '35', '36', '37', '38', '39', '40', '41' , '42', '43', '44', '45', '46', '47', '48', '49', '50', '51'],
             routes: [
               {
                 path: '/account',
-                redirect: '/account/user'
+                redirect: '/account/user',
               },
               {
                 path: '/account/user',
                 name: 'user',
+                authority: ['admin', '39', '40', '41' , '42', '43', '44', '45', '46'],
                 component: './Authorities'
               },
               {
                 path: '/account/role',
                 name: 'role',
+                authority: ['admin', '33', '34', '35', '36', '37', '38'],
                 component: './Authorities/Role'
               },
               {
                 path: '/account/role/add',
+                name: 'role.add',
+                component: './Authorities/Role/AddOrEditRole',
+                hideInMenu: true
+              },
+              {
+                path: '/account/role/edit',
                 name: 'role.add',
                 component: './Authorities/Role/AddOrEditRole',
                 hideInMenu: true
@@ -191,6 +196,7 @@ export const routes = [
               {
                 path: '/account/department',
                 name: 'department',
+                authority: ['admin', '47', '48', '49', '50', '51'],
                 component: './Authorities/Department'
               }
             ]
@@ -208,16 +214,19 @@ export const routes = [
               {
                 path: '/config/product',
                 name: 'product',
+                authority: ['admin', '52'],
                 component: './Config/Product'
               },
               {
                 path: '/config/funders',
                 name: 'funders',
+                authority: ['admin', '57', '58', '59', '60', '61'],
                 component: './Config/Funders'
               },
               {
                 path: '/config/logs',
                 name: 'logs',
+                authority: ['admin', '62', '63'],
                 component: './Config/Logs'
               },
               {

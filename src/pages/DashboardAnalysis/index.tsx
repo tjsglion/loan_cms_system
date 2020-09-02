@@ -1,11 +1,14 @@
-/* eslint-disable @typescript-eslint/lines-between-class-members */
+/* eslint-disable react/no-access-state-in-setstate */
+/* eslint-disable prefer-object-spread */
 import { Col, Row, Card, List } from 'antd';
 import React, { Component, Suspense } from 'react';
 import { GridContent } from '@ant-design/pro-layout';
 import { RangePickerProps } from 'antd/es/date-picker/generatePicker';
 import moment from 'moment';
 import { connect } from 'umi';
+import numeral from 'numeral';
 import ProTable, { ProColumns } from '@ant-design/pro-table';
+import { DATETIME } from '@/constants';
 import PageLoading from './components/PageLoading';
 // import { getTimeDistance } from './utils/utils';
 import { AnalysisData } from './data.d';
@@ -13,6 +16,8 @@ import { AnalysisData } from './data.d';
 import { Pie } from './components/Charts';
 import { fetchAdList } from '../Config/Ad/server';
 import { fetchStaticData } from './service';
+import { fetchFollowLogList } from '../OrderCenter/MakeFollowUp/server';
+import { MakeFollowUpParmas } from '../OrderCenter/MakeFollowUp/data';
 
 
 const IntroduceRow = React.lazy(() => import('./components/IntroduceRow'));
@@ -61,27 +66,6 @@ class DashboardAnalysis extends Component<
     ]
   }
   
-  // isActive = (type: 'today' | 'week' | 'month' | 'year') => {
-  //   const { rangePickerValue } = this.state;
-  //   if (!rangePickerValue) {
-  //     return '';
-  //   }
-  //   const value = getTimeDistance(type);
-  //   if (!value) {
-  //     return '';
-  //   }
-  //   if (!rangePickerValue[0] || !rangePickerValue[1]) {
-  //     return '';
-  //   }
-  //   if (
-  //     rangePickerValue[0].isSame(value[0] as moment.Moment, 'day') &&
-  //     rangePickerValue[1].isSame(value[1] as moment.Moment, 'day')
-  //   ) {
-  //     return styles.currentDate;
-  //   }
-  //   return '';
-  // };
-
   componentDidMount () {
     fetchAdList({
       pageIndex: 1,
@@ -96,13 +80,25 @@ class DashboardAnalysis extends Component<
     // 加载统计数据
     fetchStaticData({}).then(res => {
       if (res.status === 0) {
+        const {potentialCustomerCount, loanCustomerCount} = res.data;
+        const $signData = [
+          {
+            x: '续费签约',
+            y: potentialCustomerCount
+          },
+          {
+            x: '待转化客户',
+            y: loanCustomerCount
+          }
+        ];
         this.setState({
           // @ts-ignore
-          // staticData: Object.assign({...res.data}, {totalLoanMoney: 30000})
-          staticData: res.data
+          staticData: res.data,
+          signData: $signData
         })
       }
-    })
+    });
+    // 加载做单列表信息
   }
 
   render() {
@@ -115,19 +111,39 @@ class DashboardAnalysis extends Component<
     const columns: ProColumns<Array<{[key: string]: any}>> = [
       {
         title: '计划时间',
-        dataIndex: 'a'
+        dataIndex: 'expectGetMoneyTime',
+        width: '25%',
+        render: (_, record) => {
+          const {loanExpect} = record;
+          return loanExpect.expectGetMoneyTime && moment(loanExpect.expectGetMoneyTime).format(DATETIME) || '--'
+        }
       },
       {
         title: '客户姓名',
-        dataIndex: 'b'
+        dataIndex: 'name',
+        width: '15%',
+        render: (_, record) => {
+          const {customerBase} = record;
+          return customerBase.name || '--'
+        }
       },
       {
         title: '计划内容',
-        dataIndex: 'c'
+        dataIndex: 'followDetails',
+        width: '30%',
+        render: (_, record) => {
+          const {followLog} = record;
+          return followLog.followDetails || '--'
+        }
       },
       {
         title: '金额',
-        dataIndex: 'd'
+        dataIndex: 'expectLoanMoney',
+        width: '20%',
+        render: (_, record) => {
+          const {loanExpect} = record;
+          return loanExpect.expectLoanMoney && numeral(loanExpect.expectLoanMoney).format('0,0.00') || '--'
+        }
       },
     ];
 
@@ -144,14 +160,6 @@ class DashboardAnalysis extends Component<
             <Row justify="space-between">
               <Col span={11}>
                 <h2>公司动态</h2>
-                  {/* <Pie
-                    animate={false}
-                    inner={0.8}
-                    tooltip={false}
-                    margin={[0, 0, 0, 0]}
-                    percent={90 * 100}
-                    height={200}
-                  /> */}
                   <Pie
                     hasLegend
                     animate={false}
@@ -190,6 +198,21 @@ class DashboardAnalysis extends Component<
                   search={false}
                   // @ts-ignore
                   columns={columns}
+                  // @ts-ignore
+                  request={(params: {[key: string]: any}) => {
+                    if (params) {
+                      const tempParms: MakeFollowUpParmas = {
+                        ...params,
+                        pageIndex: params.pageIndex || 1,
+                        pageSize: params.pageSize || 10
+                      }
+                      delete tempParms.current;
+                      // @ts-ignore
+                      delete tempParms._timestamp;
+                      return fetchFollowLogList(tempParms)
+                    }
+                    return {data: []}
+                  }}
                   pagination={false}
                 />
               </Col>

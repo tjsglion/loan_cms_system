@@ -2,7 +2,7 @@
 /* eslint-disable prefer-object-spread */
 import React, { useEffect } from 'react';
 import { Form, Button, message } from 'antd';
-import { COLLABEL, YESORNO, LENDER } from '@/constants';
+import { COLLABEL, YESORNO, LENDER, Repayment } from '@/constants';
 import { connect } from 'umi';
 import TableForm from '../TableForm';
 import { StateType } from '../../model';
@@ -29,23 +29,31 @@ const AddOrEditBank: React.FC<AddOrEditBankProps> = (props) => {
   }, [bandInfo])
 
   const columns: Array<{[key: string]: any}> = [
-    { label: '贷款笔数', span: 2 },
-    { label: '贷款银行', span: 4 },
-    { label: '是否通过', span: 4 },
-    { label: '批复金额', span: 4 },
-    { label: '月供金额', span: 4 },
-    { label: '放款机构', span: 4 },
+    // { label: '贷款笔数', span: 2 },
+    { label: '贷款银行', span: 3 },
+    { label: '放款时间', span: 3 },
+    { label: '放款期限', span: 2 },
+    { label: '是否通过', span: 2 },
+    { label: '批复金额', span: 2 },
+    { label: '月供金额', span: 2 },
+    { label: '放款机构', span: 2 },
+    { label: '还款方式', span: 3 },
+    { label: '备注', span: 3 },
     { label: '操作',  span: 2 }
   ];
 
   const formItems: Array<{[key: string]: any}> = [
     // name: 表单字段名 type: 表单类型 rules: 验证规则  width: 所占宽度，默认自动， options: 下拉时的选择值  addonAfter: 后缀
-    { type: 'index', span: 2},
-    { name: 'loanBank', rules: [], type: 'input', span: 4, options: [], addonAfter: ''},
-    { name: 'haveLoan', rules: [], type: 'radio', span: 4, options: YESORNO, addonAfter: ''},
-    { name: 'successLoanMoney', rules: [], type: 'input', inputType: 'number', span: 4, options: [], addonAfter: ''},
-    { name: 'monthlyMoney', rules: [], type: 'input', inputType: 'number',span: 4, options: []},
-    { name: 'loanOrganization', rules: [], type: 'radio', span: 4, options: LENDER, addonAfter: ''},
+    // { type: 'index', span: 2},
+    { name: 'loanBank', rules: [], type: 'input', span: 3, options: [], addonAfter: ''},
+    { name: 'loanTime', rules: [], type: 'datepick', span: 3, options: [], addonAfter: ''},
+    { name: 'loanTerm', rules: [], type: 'input', inputType: 'number', span: 2, options: [], addonAfter: ''},
+    { name: 'haveLoan', rules: [], type: 'radio', span: 2, options: YESORNO, addonAfter: ''},
+    { name: 'successLoanMoney', rules: [], type: 'input', inputType: 'number', span: 2, options: [], addonAfter: ''},
+    { name: 'monthlyMoney', rules: [], type: 'input', inputType: 'number',span: 2, options: []},
+    { name: 'loanOrganization', rules: [], type: 'radio', span: 2, options: LENDER, addonAfter: ''},
+    { name: 'repayType', rules: [], type: 'select', span: 3, options: Repayment, addonAfter: ''},
+    { name: 'loanRemarkInfo', rules: [], type: 'input', span: 3, options: [], addonAfter: ''},
     { type: 'option', span: 2 }
   ];
 

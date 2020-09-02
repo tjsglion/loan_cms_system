@@ -9,6 +9,7 @@ import locale from 'antd/lib/date-picker/locale/zh_CN';
 import { FollowUpItem } from './data';
 import { fetchCustomerFollowLogList } from './server';
 import styles from './index.less';
+import Authorized from '@/components/Authorized/Authorized';
 
 interface CustomerFollowUpProps {}
 
@@ -86,10 +87,13 @@ const CustomerFollowUp: React.FC<CustomerFollowUpProps> = () => {
     },
     {
       title: '完成日期',
-      dataIndex: 'finishDate',
+      dataIndex: 'followTime',
       hideInSearch: true,
       width: '12%',
-      render: (val) => val && moment(`${val}`).format(DATEFORMAT)
+      render: (_, record) => {
+        const {followLog} = record;
+        return followLog.followTime && moment(followLog.followTime).format(DATETIME) || '--'
+      }
     },
     {
       title: '跟进情况',
@@ -122,7 +126,9 @@ const CustomerFollowUp: React.FC<CustomerFollowUpProps> = () => {
         const { followLog: {id, customerId} } = record;
         return (
           <>
-            <Button type="link" onClick={() => history.push(`/order/follup/profile?id=${id}&customerId=${customerId}`)}>详情</Button>
+            <Authorized authority={['admin', '10']}>
+              <Button type="link" onClick={() => history.push(`/order/follup/profile?id=${id}&customerId=${customerId}`)}>详情</Button>
+            </Authorized>
           </>
         )
       }

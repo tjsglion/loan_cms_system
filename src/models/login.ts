@@ -5,6 +5,7 @@ import { history, Reducer, Effect } from 'umi';
 import { fakeAccountLogin } from '@/services/login';
 import { setAuthority } from '@/utils/authority';
 import { getPageQuery, setToken, setLocalUser, setSessionKey } from '@/utils/utils';
+import { reloadAuthorized } from '@/utils/Authorized';
 
 export interface StateType {
   status?: 'ok' | 'error';
@@ -37,12 +38,22 @@ const Model: LoginModelType = {
       const {data, status, info} = response;
       message.success(info);
       const {token, user, sessionKey} = data;
-      
       // 保存token
       if (token) setToken(token);
       if (sessionKey) setSessionKey(sessionKey);
       // 保存用户信息
-      if (user) setLocalUser(user);
+      if (user) {
+        setLocalUser(user);
+        if (user.priviStr) {
+          if (user.priviStr.indexOf(',') > -1) {
+            const authorized = user.priviStr.split(',');
+            setAuthority(authorized);
+          } else {
+            setAuthority(user.priviStr);
+          }
+          reloadAuthorized();
+        }
+      }
       if (status === 0) {
         const urlParams = new URL(window.location.href);
         const params = getPageQuery();

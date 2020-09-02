@@ -7,6 +7,8 @@ export interface VisitItem {
   haveReturnVisit: number;
   customerBase: {[key: string]: any};
   loanExpect: {[key: string]: any};
+  signUpBaseInfo: {[key: string]: any};
+  returnVisit: {[key: string]: any};
 }
 
 export interface VisitPaginagion {

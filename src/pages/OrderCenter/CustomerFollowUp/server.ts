@@ -13,3 +13,10 @@ export async function fetchFollowById (
 ) {
   return HttpClient.post('/api/work/base/followLog/getById', params);
 }
+
+// 添加点评
+export async function fetchAddComments (
+  params: {[key: string]: any}
+) {
+  return HttpClient.post('/api/work/base/followLogComment/create', params);
+}

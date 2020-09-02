@@ -20,3 +20,9 @@ export async function fetchAddOrEditProduct (
     params
   );
 }
+
+export async function fetchProductById (
+  params: {[key: string]: any}
+) {
+  return HttpClient.post('/api/base/creditProduct/getByProductId', params);
+}

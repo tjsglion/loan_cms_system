@@ -42,7 +42,7 @@ const AddOrEditChange: React.FC<AddOrEditChangeProps> = (props) => {
     // name: 表单字段名 type: 表单类型 rules: 验证规则  width: 所占宽度，默认自动， options: 下拉时的选择值  addonAfter: 后缀
     { type: 'index', span: 2},
     { name: 'changeTime', rules: [], type: 'datepick', span: 5, options: [], addonAfter: ''},
-    { name: 'changeItem', rules: [], type: 'select',span: 5, options: [{key: '股东变更', value: 1}, {key: '地址变更', value: 2}, {key: '经营范围变更', value: 3}]},
+    { name: 'changeItem', rules: [], type: 'select',span: 5, options: [{key: '股东变更', value: 1}, {key: '地址变更', value: 2}, {key: '经营范围变更', value: 3}, {key: '法人变更', value: 4}, {key: '名称变更', value: 5}]},
     { name: 'beforeChange', rules: [], type: 'input', span: 5, options: [], addonAfter: ''},
     { name: 'afterChange', rules: [], type: 'input', span: 5, options: [], addonAfter: ''},
     { type: 'option', span: 2 }

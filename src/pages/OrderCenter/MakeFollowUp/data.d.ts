@@ -11,6 +11,10 @@ export interface MakeFollowUpItem {
   followUpDate: string; // 跟进日期
   followUpPerson: string; // 跟进专员
   followUpType: string; // 跟进类容
+  customerBase: {[key: string]: any};
+  followLog: {[key: string]: any};
+  signUpDetails: {[key: string]: any};
+  loanExpect: {[key: string]: any};
 }
 
 export interface MakeFollowUpPagination {

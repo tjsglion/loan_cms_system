@@ -10,6 +10,7 @@ import { DATETIME } from '@/constants';
 import { CustomerAllotItem, CustomerAllotParmas } from './data.d';
 import { fetchCustomerAllotList } from './server';
 import AddOrEditAllot from './AddOrEditAllot';
+import Authorized from '@/components/Authorized/Authorized';
 
 
 interface CustomerAllotProps {}
@@ -72,7 +73,9 @@ const CustomerAllot: React.FC<CustomerAllotProps> = () => {
         const {id} = record;
         return (
           <>
-            <Button type="link" onClick={() => history.push(`/order/allot/profile?id=${id}`)}>详情</Button>
+            <Authorized authority={['admin', '18']}>
+              <Button type="link" onClick={() => history.push(`/order/allot/profile?id=${id}`)}>详情</Button>
+            </Authorized>
           </>
         )
       }
@@ -86,11 +89,13 @@ const CustomerAllot: React.FC<CustomerAllotProps> = () => {
         actionRef={actionRef}
         toolBarRender={() => [
           // <Button type="primary">客户分配</Button>
-          <Button type="primary" onClick={() => {
-            setVisible(true);
-            setType('add')
-            setFormValues({})
-          }}><PlusOutlined />客户分配</Button>
+          <Authorized authority={['admin', '17']}>
+            <Button type="primary" onClick={() => {
+              setVisible(true);
+              setType('add')
+              setFormValues({})
+            }}><PlusOutlined />客户分配</Button>
+          </Authorized>
         ]}
         // toolbarRender={false}
         search={false}

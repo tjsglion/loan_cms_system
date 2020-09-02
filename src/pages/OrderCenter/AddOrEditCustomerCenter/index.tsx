@@ -5,7 +5,7 @@ import { connect } from 'umi';
 import { DATEFORMAT } from '@/constants';
 import moment from 'moment';
 import AddOrEditInfo from './components/AddOrEditInfo';
-import AddOrEditBaseInfo from './components/AddOrEditBaseInfo';
+// import AddOrEditBaseInfo from './components/AddOrEditBaseInfo';
 import AddOrEditJob from './components/AddOrEditJob';
 import AddOrEditCompany from './components/AddOrEditCompany';
 import AddOrEditPartner from './components/AddOrEditPartner';
@@ -17,7 +17,7 @@ import { StateType } from './model';
 import { 
   fetchInfoById,
   fetchCompanyByCustomerId,
-  fetchBaseInfoByCustomerId,
+  // fetchBaseInfoByCustomerId,
   fetchJobInfoByCustomerId,
   fetchPartnerByCompanyId,
   fetchChangeByCompanyId,
@@ -38,7 +38,7 @@ interface AddOrEditCustomerCenterProps {
 const AddOrEditCustomerCenter: React.FC<AddOrEditCustomerCenterProps> = (props) => {
   const { location: {query}, dispatch } = props;
   const [baseForm, setBaseForm] = useState({});
-  const [baseInfoForm, setBaseInfoForm] = useState({});
+  // const [baseInfoForm, setBaseInfoForm] = useState({});
   const [jobInfo, setJobInfo] = useState({});
   const [companyInfo, setCompanyInfo] = useState({})
   const [partnerInfo, setPartnerInfo] = useState<{[key: string]: any}>({});
@@ -65,16 +65,16 @@ const AddOrEditCustomerCenter: React.FC<AddOrEditCustomerCenterProps> = (props) 
       })
       
       // 获取基本信息
-      fetchBaseInfoByCustomerId({
-        customerId:  $id
-      }).then(res => {
-        const {data = {}} = res;
-        if (data.list && data.list[0]) {
-          const bInfo = data.list[0];
-          bInfo.expectGetMoneyTime = moment(bInfo.expectGetMoneyTime, DATEFORMAT);
-          setBaseInfoForm(bInfo);
-        }
-      });
+      // fetchBaseInfoByCustomerId({
+      //   customerId:  $id
+      // }).then(res => {
+      //   const {data = {}} = res;
+      //   if (data.list && data.list[0]) {
+      //     const bInfo = data.list[0];
+      //     bInfo.expectGetMoneyTime = moment(bInfo.expectGetMoneyTime, DATEFORMAT);
+      //     setBaseInfoForm(bInfo);
+      //   }
+      // });
       // 获取职业信息
       fetchJobInfoByCustomerId({
         customerId:  $id
@@ -137,7 +137,7 @@ const AddOrEditCustomerCenter: React.FC<AddOrEditCustomerCenterProps> = (props) 
   return (
     <PageHeaderWrapper>
       <AddOrEditInfo formInfo={baseForm}/>
-      <AddOrEditBaseInfo baseInfoForm={baseInfoForm}/>
+      {/* <AddOrEditBaseInfo baseInfoForm={baseInfoForm}/> */}
       <AddOrEditJob jobInfo={jobInfo}/>
       <AddOrEditCompany companyInfo={companyInfo}/>
       <AddOrEditPartner partnerInfo={partnerInfo}/>

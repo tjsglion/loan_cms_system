@@ -20,3 +20,10 @@ export async function fetchAddOrEditFunders (
     params
   );
 }
+
+// 根据id获取资方信息
+export async function fetchFundersById (
+  params: {[key: string]: any}
+) {
+  return HttpClient.post('/api/base/capital/getByCapitalId', params);
+}

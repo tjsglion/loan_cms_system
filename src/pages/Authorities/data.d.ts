@@ -27,5 +27,7 @@ export interface UserManagerData {
 
 export interface UserManagerParmas {
   pageSize?: number;
+  pageIndex?: number;
+  current?: number;
   currentPage?: number;
 }

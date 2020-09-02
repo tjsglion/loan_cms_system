@@ -1,10 +1,15 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-return-assign */
 import React, { useState, useEffect } from 'react';
 import { Collapse } from 'antd';
 import { connect } from 'umi';
+import moment from 'moment';
+import { DATEFORMAT } from '@/constants';
 import AddOrEditBank from './AddOrEditBank';
 import { StateType } from '../../model';
 import { fetchCreditForBandByCustomerId, fetchCreditForOtherByCustomerId } from '../server';
 import AddOrEditOther from './AddOrEditOther';
+
 
 interface AddOrEditCreditProps {
   customerId?: StateType['customerId'];
@@ -27,6 +32,14 @@ const AddOrEditCredit: React.FC<AddOrEditCreditProps> = (props) => {
       // 查询银行信息
       fetchCreditForBandByCustomerId({customerId}).then(res => {
         const {data = {}} = res;
+        // let result = [];
+        if (data.list && data.list.length > 0) {
+          // moment(data.registerTime, DATEFORMAT)
+          data.list.forEach((item: {[key: string]: any}) => item.loanTime = moment(item.loanTime, DATEFORMAT));
+        //   // result = data.list.map(item => moment(item.loanTime).format(DATETIME))
+        //   result = data.list.map(item => moment(item.loanTime).format(DATETIME))
+        }
+        console.log('result:', data.list);
         setBandInfo({
             bank: data.list
           });
