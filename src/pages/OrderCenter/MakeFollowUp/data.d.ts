@@ -33,4 +33,6 @@ export interface MakeFollowUpParmas {
   pageIndex?: number;
   current?: number;
   currentPage?: number;
+  rejectReason?: string;
+  followUserName?: string;
 }

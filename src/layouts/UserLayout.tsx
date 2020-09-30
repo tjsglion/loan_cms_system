@@ -1,9 +1,10 @@
-import { DefaultFooter, MenuDataItem, getMenuData, getPageTitle } from '@ant-design/pro-layout';
+import {  MenuDataItem, getMenuData, getPageTitle } from '@ant-design/pro-layout';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { useIntl, ConnectProps, connect, Link } from 'umi';
 import React from 'react';
 import { ConnectState } from '@/models/connect';
-// import logo from '../assets/logo.svg';
+import logo from '../assets/logo.png';
+// import logo from '../../public/logo.jpeg';
 import styles from './UserLayout.less';
 
 export interface UserLayoutProps extends Partial<ConnectProps> {
@@ -33,6 +34,7 @@ const UserLayout: React.FC<UserLayoutProps> = (props) => {
     breadcrumb,
     ...props,
   });
+
   return (
     <HelmetProvider>
       <Helmet>
@@ -45,8 +47,8 @@ const UserLayout: React.FC<UserLayoutProps> = (props) => {
           <div className={styles.top}>
             <div className={styles.header}>
               <Link to="/">
-                {/* <img alt="logo" className={styles.logo} src={logo} /> */}
-                <span className={styles.title}>助贷CMS</span>
+                <img alt="logo" className={styles.logo} src={logo} />
+                {/* <span className={styles.title}>助贷CMS</span> */}
               </Link>
             </div>
           </div>

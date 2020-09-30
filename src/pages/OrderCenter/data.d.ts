@@ -30,4 +30,12 @@ export interface CustomerInfoParmas {
   pageSize?: number;
   pageIndex?: number;
   current?: number;
+  name?: string;
+  age?: number;
+  followUserName?: string;
+  phone?: string;
+  companyName?: string;
+  area?: string;
+  productName?: string;
+  _timestamp?: string;
 }

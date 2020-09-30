@@ -3,7 +3,7 @@
 /* eslint-disable prefer-object-spread */
 import React, { useState, useEffect } from 'react';
 // import { history } from 'umi';
-import { Form, Input, Select, Button, DatePicker, InputNumber, Spin } from 'antd';
+import { Form, Input, Select, Button, DatePicker, InputNumber, Spin, message } from 'antd';
 import { RULES, TEXTINFO, formItemLayout, OPTIONSPLACEHOLDER, submitFormLayout, DATEFORMAT } from '@/constants';
 import locale from 'antd/es/date-picker/locale/zh_CN';
 import _ from 'lodash';
@@ -17,6 +17,7 @@ import { queryCustomerLists, queryCustomerLoanExpectById, queryCustomerById } fr
 interface AddOrEditFollowUpProps {
   baseInfo?: {[key: string]: any };
   onFinish?: () => void;
+  onClose?: () => void;
   id?: number | string;
 }
 
@@ -25,7 +26,7 @@ const { Option } = Select;
 
 const AddOrEditFollowUp: React.FC<AddOrEditFollowUpProps> = (props) => {
 
-  const { onFinish, id} = props;
+  const { onFinish, id, onClose} = props;
   const [form] = Form.useForm();
   const [isDisabled] = useState(false);
   const [fetching, setFetching] = useState(false);
@@ -124,6 +125,7 @@ const AddOrEditFollowUp: React.FC<AddOrEditFollowUpProps> = (props) => {
         setProducts(data);
       } else {
         setProducts([]);
+        message.info('当前产品不存在, 请先添加产品信息')
       }
     })
   }, 500)
@@ -218,13 +220,16 @@ const AddOrEditFollowUp: React.FC<AddOrEditFollowUpProps> = (props) => {
         </Select>
       </FormItem>
 
-      <FormItem label="被拒原因" name="reason">
+      <FormItem label="被拒原因" name="rejectReason">
         <Input  {...TEXTINFO}/>
       </FormItem>
 
       <FormItem {...submitFormLayout}>
         <Button htmlType="submit" type="primary" style={{marginRight: '10px'}}>保存</Button>
-        <Button onClick={handleReset}>取消</Button>
+        <Button onClick={
+          !id ? handleReset : () => onClose && onClose()}>
+          { !id ? '重置' : '取消' }
+        </Button>
       </FormItem>
     </Form>
   );

@@ -30,4 +30,6 @@ export interface UserManagerParmas {
   pageIndex?: number;
   current?: number;
   currentPage?: number;
+  operAccount?: string;
+  name?: string;
 }

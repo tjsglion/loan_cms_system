@@ -39,7 +39,6 @@ const AddOrEditCredit: React.FC<AddOrEditCreditProps> = (props) => {
         //   // result = data.list.map(item => moment(item.loanTime).format(DATETIME))
         //   result = data.list.map(item => moment(item.loanTime).format(DATETIME))
         }
-        console.log('result:', data.list);
         setBandInfo({
             bank: data.list
           });

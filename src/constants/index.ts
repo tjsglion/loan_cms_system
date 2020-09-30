@@ -85,7 +85,7 @@ export const Repayment = [
 
 export const RULES = {
   rules: [
-    { required: true, message: '必填字段' }
+    { required: false, message: '必填字段' }
   ]
 }
 

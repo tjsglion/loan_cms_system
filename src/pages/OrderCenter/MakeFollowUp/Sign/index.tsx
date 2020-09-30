@@ -302,7 +302,9 @@ const Sign: React.FC<SignProps> = (props) => {
                 </Button>
                 <Button onClick={
                   type === 'add' ? handleReset : () => history.push('/order/make/follup')
-                }>取消</Button>
+                }>
+                  {type === 'add' ? '重置' : '取消'}
+                </Button>
               </FormItem>
             </Col>
           </Row>

@@ -10,6 +10,9 @@ export interface FollowUpItem {
   followPerson: string; // 跟进专员
   customerBase: {[key: string]: any};
   followLog: {[key: string]: any};
+  followTime?: any;
+  startTime: Date;
+  endTime: Date;
 }
 
 export interface FollowUpPagination {
@@ -28,4 +31,8 @@ export interface FollowUpParmas {
   pageIndex?: number;
   current?: number;
   currentPage?: number;
+  customerName?: string;
+  followTime?: Date | string;
+  startTime?: Date;
+  endTime?: Date;
 }

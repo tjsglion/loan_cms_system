@@ -22,7 +22,7 @@ const OwnCarInfo: React.FC<OwnCarInfoProps> = (props) => {
   const [form] = Form.useForm();
 
   useEffect(() => {
-    if (ownCarInfo && ownCarInfo.ownCar.length > 0) {
+    if (ownCarInfo && ownCarInfo.ownCar && ownCarInfo.ownCar.length > 0) {
       form.resetFields();
       setDisabled && setDisabled(true);
     }

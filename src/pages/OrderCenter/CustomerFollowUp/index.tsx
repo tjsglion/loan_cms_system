@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import ProTable, { ProColumns } from '@ant-design/pro-table';
-import { DATEFORMAT, DATETIME, FollowMethod } from '@/constants';
+import { DATETIME, FollowMethod } from '@/constants';
 import moment from 'moment';
 import { DatePicker, Button } from 'antd';
 import { history } from 'umi';
+import Authorized from '@/components/Authorized/Authorized';
 import locale from 'antd/lib/date-picker/locale/zh_CN';
-import { FollowUpItem } from './data';
+import { FollowUpItem, FollowUpParmas } from './data';
 import { fetchCustomerFollowLogList } from './server';
 import styles from './index.less';
-import Authorized from '@/components/Authorized/Authorized';
 
 interface CustomerFollowUpProps {}
-
+const { RangePicker } = DatePicker;
 const CustomerFollowUp: React.FC<CustomerFollowUpProps> = () => {
 
   const [activeIndex, setActiveIndex] = useState<number>(0);
@@ -20,7 +20,7 @@ const CustomerFollowUp: React.FC<CustomerFollowUpProps> = () => {
   const columns: ProColumns<FollowUpItem>[] = [
     {
       title: '计划时间',
-      dataIndex: 'followLog.followTime',
+      dataIndex: 'followTime',
       // width: '12%',
       // @ts-ignore
       renderFormItem: (
@@ -30,7 +30,7 @@ const CustomerFollowUp: React.FC<CustomerFollowUpProps> = () => {
           onChange: (value: any) => void;
         }
       ) => (
-        <DatePicker style={{ width: '100%' }} locale={locale} format="YYYY-MM-DD" onChange={config.onChange} />
+        <RangePicker style={{ width: '100%' }} locale={locale} format="YYYY-MM-DD" onChange={config.onChange} />
       ),
       render: (_, record) => {
         const {followLog} = record;
@@ -67,6 +67,10 @@ const CustomerFollowUp: React.FC<CustomerFollowUpProps> = () => {
     {
       title: '客户名称',
       dataIndex: 'customerName',
+      formItemProps: {
+        placeholder: '请输入',
+        allowClear: true
+      },
       render: (_, record) => {
         const {customerBase} = record;
         return (<span>{customerBase.name}</span>)
@@ -140,7 +144,16 @@ const CustomerFollowUp: React.FC<CustomerFollowUpProps> = () => {
         rowKey="id"
         toolBarRender={false}
         columns={columns}
-        
+        beforeSearchSubmit={params => {
+          if (params.followTime) {
+            const startTime = params.followTime[0];
+            const endTime = params.followTime[1];
+            params.startTime = moment(startTime).format('YYYY-MM-DD HH:mm:ss');
+            params.endTime = moment(endTime).format('YYYY-MM-DD HH:mm:ss');
+          }
+          delete params.followTime;
+          return params;
+        }}
         // @ts-ignore
         request={(params: {[key: string]: any}) => {
           if (params) {
@@ -150,6 +163,10 @@ const CustomerFollowUp: React.FC<CustomerFollowUpProps> = () => {
               pageSize: params.pageSize || 10
             }
             delete tempParms.current;
+            if (!tempParms.customerName) delete tempParms.customerName;
+            if (!tempParms.startTime) delete tempParms.startTime;
+            if (!tempParms.endTime) delete tempParms.endTime;
+            // if ()
             // @ts-ignore
             delete tempParms._timestamp;
             return fetchCustomerFollowLogList(tempParms)

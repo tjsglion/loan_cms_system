@@ -22,7 +22,7 @@ const OwnHouseInfo: React.FC<OwnHouseInfoProps> = (props) => {
   const [form] = Form.useForm();
 
   useEffect(() => {
-    if (ownHouseInfo && ownHouseInfo.ownHouse.length > 0) {
+    if (ownHouseInfo && ownHouseInfo.ownHouse && ownHouseInfo.ownHouse.length > 0) {
       form.resetFields();
       setDisabled && setDisabled(true);
     }

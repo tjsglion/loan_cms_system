@@ -1,39 +1,69 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
-import { Button, Divider } from 'antd';
+import { Button, Divider, Modal, Form, Upload, InputNumber } from 'antd';
 import ProTable, { ProColumns } from '@ant-design/pro-table';
 import { history, connect } from 'umi';
-import { PlusOutlined } from '@ant-design/icons/lib/icons';
+import { PlusOutlined, DownloadOutlined } from '@ant-design/icons/lib/icons';
+import Authorized from '@/components/Authorized/Authorized';
+import { headers, prod } from '@/core/http.request';
 // import CustomerCenterSearch from './components/CustomerCenterSearch';
 import { queryCustomerLists } from './server';
 import { CustomerInfoItem, CustomerInfoParmas } from './data';
 import { StateType } from './AddOrEditCustomerCenter/model';
-import Authorized from '@/components/Authorized/Authorized';
+
+const FormItem = Form.Item;
 
 const CustomerInfo: React.FC<{
   // @ts-ignore
   dispatch: Dispatch<any>
 }> = (props) => {
+
   const { dispatch } = props;
+  const [form] = Form.useForm();
+  const [visible] = useState(false);
   const columns: ProColumns<CustomerInfoItem>[] = [
     {
       title: '客户名称',
-      dataIndex: 'name',
-      key: 'name',
+      dataIndex: 'customerName',
+      key: 'customerName',
+      formItemProps: {
+        placeholder: '请输入',
+        allowClear: true
+      }
       // width: '8%'
     },
     {
-      title: '客户年龄',
+      title: '年龄',
       dataIndex: 'age',
       key: 'age',
       width: 80,
-      render: (val) => `${val}岁`
+      formItemProps: {
+        placeholder: '请输入',
+        allowClear: true
+      },
+      // @ts-ignore
+      renderFormItem: ( 
+        item: ProColumns<CustomerInfoItem>,
+        config: {
+          value?: any,
+          onChange: (value: any) => void;
+        }) => (
+          <InputNumber style={{width: '100%'}} onChange={config.onChange} value={config.value} />
+        )
+      ,
+      // hideInSearch: true,
+      render: (_, record) => {
+        return record.age ? `${record.age}岁` : '--'
+      }
     },
     {
       title: '客户经理',
-      dataIndex: 'product',
-      key: 'product',
-      // width: '8%'
+      dataIndex: 'followUserName',
+      key: 'followUserName',
+      formItemProps: {
+        placeholder: '请输入',
+        allowClear: true
+      },
     },
     {
       title: '联系电话',
@@ -43,8 +73,8 @@ const CustomerInfo: React.FC<{
     },
     {
       title: '公司名称',
-      dataIndex: 'company',
-      key: 'company',
+      dataIndex: 'companyName',
+      key: 'companyName',
       // width: '8%'
     },
     {
@@ -54,8 +84,8 @@ const CustomerInfo: React.FC<{
     },
     {
       title: '产品名称',
-      dataIndex: 'product',
-      key: 'product',
+      dataIndex: 'productName',
+      key: 'productName',
       // width: '8%'
     },
     {
@@ -129,8 +159,12 @@ const CustomerInfo: React.FC<{
               });
               history.push('/order/customer/profile');
             }}>新增客户</Button>
-          </Authorized>
-          
+          </Authorized>,
+          // <Authorized authority={['admin', '3']}>
+          //   <Button icon={<UploadOutlined />} type="primary" onClick={() => setVisible(true)}>
+          //     批量导入
+          //   </Button>
+          // </Authorized>
         ]}
         columns={columns}
         // @ts-ignore
@@ -144,6 +178,13 @@ const CustomerInfo: React.FC<{
                 pageSize: params.pageSize || 10
               }
               delete tempParms.current;
+              if (!tempParms.name) delete tempParms.name;
+              if (!tempParms.age) delete tempParms.age;
+              if (!tempParms.followUserName) delete tempParms.followUserName;
+              if (!tempParms.phone) delete tempParms.phone;
+              if (!tempParms.companyName) delete tempParms.companyName;
+              if (!tempParms.area) delete tempParms.area;
+              if (!tempParms.productName) delete tempParms.productName;
               // @ts-ignore
               delete tempParms._timestamp;
               return queryCustomerLists(tempParms)
@@ -157,6 +198,36 @@ const CustomerInfo: React.FC<{
           // showTotal: (t) => `${formatMessage({ id: 'pages.total' })}: ${t}`,
         }}
       />
+        <Modal
+          title="批量导入客户信息"
+          visible={visible}
+          footer={false}
+        >
+          <Form
+            form={form}
+          >
+            <FormItem label="选择文件">
+              {/* <Upload /> */}
+              <FormItem noStyle>
+                <Upload 
+                  name="file"
+                  multiple={false}
+                  showUploadList={false}
+                  headers={headers()}
+                  action={
+                    prod
+                      ? '/api/api/base/file/upload' 
+                      : '/api/api/base/file/upload'
+                  }
+                />
+              </FormItem>
+              <a href="" download="import_customer_template.xlsx">
+                <DownloadOutlined /> 下载模板
+              </a>
+            </FormItem>
+          </Form>
+        </Modal>
+      
     </PageHeaderWrapper>
   )
 }

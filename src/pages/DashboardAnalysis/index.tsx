@@ -111,39 +111,32 @@ class DashboardAnalysis extends Component<
     const columns: ProColumns<Array<{[key: string]: any}>> = [
       {
         title: '计划时间',
-        dataIndex: 'expectGetMoneyTime',
+        dataIndex: 'followTime',
         width: '25%',
-        render: (_, record) => {
-          const {loanExpect} = record;
-          return loanExpect.expectGetMoneyTime && moment(loanExpect.expectGetMoneyTime).format(DATETIME) || '--'
+        render: val => {
+          if (val && val !== '--') {
+            return moment(`${val}`).format(DATETIME);
+          }
+          return '--';
         }
       },
       {
         title: '客户姓名',
-        dataIndex: 'name',
+        dataIndex: 'customerName',
         width: '15%',
-        render: (_, record) => {
-          const {customerBase} = record;
-          return customerBase.name || '--'
-        }
+        render: val => val || '--'
       },
       {
         title: '计划内容',
         dataIndex: 'followDetails',
-        width: '30%',
-        render: (_, record) => {
-          const {followLog} = record;
-          return followLog.followDetails || '--'
-        }
+        width: '25%',
+        render: val => val || '--'
       },
       {
         title: '金额',
         dataIndex: 'expectLoanMoney',
-        width: '20%',
-        render: (_, record) => {
-          const {loanExpect} = record;
-          return loanExpect.expectLoanMoney && numeral(loanExpect.expectLoanMoney).format('0,0.00') || '--'
-        }
+        width: '25%',
+        render: val => `${numeral(val).format('0,00.00')}元` ||'--'
       },
     ];
 

@@ -22,7 +22,7 @@ const CreditCardInfo: React.FC<CreditCardInfoProps> = (props) => {
   const [form] = Form.useForm();
 
   useEffect(() => {
-    if (creditCardInfo && creditCardInfo.credit.length > 0) {
+    if (creditCardInfo && creditCardInfo.credit && creditCardInfo.credit.length > 0) {
       form.resetFields();
       setDisabled && setDisabled(true);
     }

@@ -208,6 +208,8 @@ const Authority: React.FC<{}> = () => {
               // eslint-disable-next-line no-underscore-dangle
               delete tempParams._timestamp;
               delete tempParams.current;
+              if (!tempParams.name) delete tempParams.name;
+              if (!tempParams.operAccount) delete tempParams.operAccount;
               return queryLists(tempParams)
             }
             return { data: []}

@@ -29,72 +29,56 @@ const MakeFollowUp: React.FC<MakeFollowUpProps> = () => {
   const columns: ProColumns<MakeFollowUpItem>[] = [
     {
       title: '协议编号',
-      dataIndex: 'code',
+      dataIndex: 'protocolNo',
       hideInSearch: true,
       // width: '10%',
-      render: (_, record) => {
-        const {signUpDetails = {}} = record;
-        if (signUpDetails) {
-          return signUpDetails.protocolNo || '--';
-        }
-        return '--'
-      }
+      render: (val) => val || '--'
     },
     {
       title: '客户姓名',
       dataIndex: 'customerName',
       hideInSearch: true,
       // width: '8%',
-      render: (_, record) => {
-        const {customerBase = {}} = record;
-        return customerBase.name || '--';
-      }
+      render: val => val || '--'
     },
     {
       title: '贷款产品',
-      dataIndex: 'product',
+      dataIndex: 'productName',
       hideInSearch: true,
       // width: '8%',
-      render: (_, record) => {
-        const {signUpDetails = {}} = record;
-        if (signUpDetails) {
-          return signUpDetails.productName || '--';
-        }
-        return '--'
-      }
+      render: val => val || '--'
     },
     {
       title: '签单时间',
-      dataIndex: 'signTime',
+      dataIndex: 'signUpTime',
       hideInSearch: true,
       // width: '10%',
-      render: (_, record) => {
-        const {signUpDetails = {}} = record;
-        if (signUpDetails) {
-          return signUpDetails.createTime && moment(signUpDetails.createTime).format(DATETIME) || '--';
+      render: val => {
+        if (val && val !== '-') {
+          return moment(`${val}`).format(DATETIME);
         }
-        return '--'
+        return '--';
       }
     },
     {
       title: '签单状态',
-      dataIndex: 'signStatus',
+      dataIndex: 'signUpStatus',
       hideInSearch: true,
       // width: '8%',
-      render: (_, record) => {
-        const {signUpDetails} = record;
-        return signUpDetails ? <span style={{ color: '#52c41a' }}>已签单</span> : '未签单'
-      }
+      // render: (_, record) => {
+      //   const {signUpDetails} = record;
+      //   return signUpDetails ? <span style={{ color: '#52c41a' }}>已签单</span> : '未签单'
+      // }
+      render: (val) => val === 1 ? '已签单' : '未签单'
     },
     {
       title: '做单状态',
-      dataIndex: 'status',
+      dataIndex: 'workStatus',
       hideInSearch: true,
-      render: (_, record) => {
-        const {loanExpect} = record;
-        if (loanExpect.status) {
+      render: (val) => {
+        if (val) {
           // return loanExpect.status === 1 ? '跟进中' : '';
-          switch (loanExpect.status) {
+          switch (val) {
             case 1: 
               return '踏进中';
             case 2: 
@@ -108,39 +92,48 @@ const MakeFollowUp: React.FC<MakeFollowUpProps> = () => {
     },
     {
       title: '贷款金额',
-      dataIndex: 'money',
+      dataIndex: 'expectLoanMoney',
       hideInSearch: true,
-      render: (_, record) => {
-        const {loanExpect} = record;
-        return loanExpect.expectLoanMoney ? numeral(loanExpect.expectLoanMoney).format('0,0.00') : '--'
+      render: (val) => {
+        return val ? numeral(val).format('0,0.00') : '--'
       }
     },
     {
       title: '跟进日期',
-      dataIndex: 'followUpDate',
+      dataIndex: 'followTime',
       hideInSearch: true,
-      render: (_, record) => {
-        const {followLog} = record;
-        return followLog.createTime && moment(followLog.createTime).format(DATETIME) || '--';
+      render: (val) => {
+        // return val && moment(`${val}`).format(DATETIME) || '--';
+        if (val && val !== '-') {
+          return moment(`${val}`).format(DATETIME);
+        }
+        return '--';
       }
     },
     {
       title: '跟进专员',
-      dataIndex: 'followUpPerson',
-      render: (_, record) => {
-        const {followLog} = record;
-        return followLog.followUserName || '--';
-      }
+      dataIndex: 'followUserName',
+      formItemProps: {
+        placeholder: '请输入',
+        allowClear: true
+      },
+      render: val => val || '--'
+    },
+    {
+      title: '被拒原因',
+      dataIndex: 'rejectReason',
+      formItemProps: {
+        placeholder: '请输入',
+        allowClear: true
+      },
+      render: val => val || '--'
     },
     {
       title: '跟进内容',
-      dataIndex: 'followUpType',
+      dataIndex: 'followDetails',
       hideInSearch: true,
       width: '8%',
-      render: (_, record) => {
-        const {followLog} = record;
-        return followLog.customerExpect || '--';
-      }
+      render: val => val || '--'
       // customerExpect
       
     },
@@ -155,14 +148,15 @@ const MakeFollowUp: React.FC<MakeFollowUpProps> = () => {
       // @ts-ignore
       render: (_, record) => {
         // const { customerId } = record;
-        const {customerBase: {customerId}, followLog: {workNo}, loanExpect = {}, signUpDetails } = record;
+        // const {customerBase: {customerId}, followLog: {workNo}, loanExpect = {}, signUpDetails } = record;
+        const {customerId, workNo, protocolNo} = record;
         return (
           <>
             <Authorized authority={['admin']}>
               <a onClick={() => {
                 setVisible(true);
                 setFormValues(record.signUpDetails);
-                setLoanId(loanExpect.id)
+                // setLoanId(loanExpect.id)
                 setType('update');
               }}>
                 编辑
@@ -174,7 +168,7 @@ const MakeFollowUp: React.FC<MakeFollowUpProps> = () => {
             <Authorized authority={['admin']}>
               <Divider type="vertical" />
               {
-                signUpDetails ? (
+                protocolNo ? (
                   <a onClick={() => history.push(`/order/make/follup/editSign?customerId=${customerId}&workNo=${workNo}&type=edit`)}>
                     编辑签单
                   </a>
@@ -228,6 +222,8 @@ const MakeFollowUp: React.FC<MakeFollowUpProps> = () => {
               pageSize: params.pageSize || 10
             }
             delete tempParms.current;
+            if (!tempParms.rejectReason) delete tempParms.rejectReason;
+            if (!tempParms.followUserName) delete tempParms.followUserName;
             // @ts-ignore
             delete tempParms._timestamp;
             return fetchFollowLogList(tempParms)
@@ -257,6 +253,7 @@ const MakeFollowUp: React.FC<MakeFollowUpProps> = () => {
                 id={loanId}
                 baseInfo={formValue}
                 onFinish={handleFinish}
+                onClose={() => setVisible(false)}
             />
             : <Skeleton avatar paragraph={{ rows: 4 }} />
         }

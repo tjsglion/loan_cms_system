@@ -25,4 +25,11 @@ export interface VisitData {
 export interface VisitParmas {
   pageSize?: number;
   pageIndex?: number;
+  loanMoney?: number;
+  name?: string;
+  expectLoanMoney?: number;
+  loanType?: number;
+  productName?: string;
+  followUserId?: string;
+  haveReturnVisit?: number;
 }

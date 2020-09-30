@@ -23,7 +23,7 @@ const InsuranceInfo: React.FC<InsuranceInfoProps> = (props) => {
   const [form] = Form.useForm();
 
   useEffect(() => {
-    if (insuranceInfo && insuranceInfo.insurance.length > 0) {
+    if (insuranceInfo && insuranceInfo.insurance && insuranceInfo.insurance.length > 0) {
       form.resetFields();
       setDisabled && setDisabled(true);
     }

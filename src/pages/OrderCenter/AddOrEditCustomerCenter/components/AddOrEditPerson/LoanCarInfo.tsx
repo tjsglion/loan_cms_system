@@ -23,7 +23,7 @@ const LoanCarInfo: React.FC<LoanCarInfoProps> = (props) => {
   const [form] = Form.useForm();
 
   useEffect(() => {
-    if (loanCarInfo && loanCarInfo.loanCar.length > 0) {
+    if (loanCarInfo && loanCarInfo.loanCar && loanCarInfo.loanCar.length > 0) {
       form.resetFields();
       setDisabled && setDisabled(true);
     }

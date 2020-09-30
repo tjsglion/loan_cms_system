@@ -29,6 +29,13 @@ export const routes = [
             path: '/dashboardanalysis',
             component: './DashboardAnalysis',
           },
+          // {
+          //   name: 'list',
+          //   icon: 'reconciliation',
+          //   path: '/list',
+          //   authority: ['admin'],
+          //   component: './ListTableList',
+          // },
           // 做单中心
           {
             name: 'order',
