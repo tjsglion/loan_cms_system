@@ -15,6 +15,9 @@ export interface MakeFollowUpItem {
   followLog: {[key: string]: any};
   signUpDetails: {[key: string]: any};
   loanExpect: {[key: string]: any};
+  customerId: string;
+  workNo: string;
+  protocolNo: string;
 }
 
 export interface MakeFollowUpPagination {
@@ -35,4 +38,6 @@ export interface MakeFollowUpParmas {
   currentPage?: number;
   rejectReason?: string;
   followUserName?: string;
+  status?: number;
+  timestamp?: any;
 }

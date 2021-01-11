@@ -40,7 +40,7 @@ const AddOrEditProduct: React.FC<AddOrEditProductProps> = (props) => {
     values.maxMonthRate = transfNumbToFloat(values.maxMonthRate);
     values.maxLimitLoanTime = +values.maxLimitLoanTime;
     values.minLimitLoanTime = +values.minLimitLoanTime;
-    values.capitalType = capitalType;
+    values.capitalType = capitalType || baseInfo.capitalType;
     values.coverRegions = values.coverRegions.join(',');
     if (isEdit) {
       values.productId = baseInfo.productId;

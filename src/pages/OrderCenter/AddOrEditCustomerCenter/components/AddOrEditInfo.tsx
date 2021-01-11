@@ -138,13 +138,18 @@ const AddOrEditInfo: React.FC<AddOrEditInfoProps> = (props) => {
         >
           <Row gutter={24}>
             <Col {...COLSPAN}>
-              <FormItem label="客户名称" name="name" {...RULES}>
+              <FormItem label="客户名称" name="name" rules={[
+            {
+              required: true, message: '必填字段'
+            }
+          ]}>
                 <Input disabled={isDisabled} {...TEXTINFO}/>
               </FormItem>
             </Col>
             <Col {...COLSPAN}>
               <FormItem label="联系电话" name="phone" rules={
                 [
+                  {required: true, message: '必填字段'},
                   {
                     pattern: /^1[3456789]\d{9}$/,
                     message: '手机号格式不正确'
@@ -157,7 +162,11 @@ const AddOrEditInfo: React.FC<AddOrEditInfoProps> = (props) => {
             </Col>
            
             <Col {...COLSPAN}>
-              <FormItem label="性别" name="sex" {...RULES}>
+              <FormItem label="性别" name="sex" rules={[
+            {
+              required: true, message: '必填字段'
+            }
+          ]}>
                 <Radio.Group disabled={isDisabled}>
                   <Radio value={1} key="1">男</Radio>
                   <Radio value={2} key="2">女</Radio>
@@ -165,17 +174,29 @@ const AddOrEditInfo: React.FC<AddOrEditInfoProps> = (props) => {
               </FormItem>
             </Col>
             <Col {...COLSPAN}>
-              <FormItem label="客户年龄" name="age" {...RULES}>
+              <FormItem label="客户年龄" name="age" rules={[
+            {
+              required: true, message: '必填字段'
+            }
+          ]}>
                 <InputNumber disabled={isDisabled} style={{ width: '100%' }} min={10} max={100} {...TEXTINFO}/>
               </FormItem>
             </Col>
             <Col {...COLSPAN}>
-              <FormItem label="客户地址" name="address" {...RULES}>
+              <FormItem label="客户地址" name="address" rules={[
+            {
+              required: true, message: '必填字段'
+            }
+          ]}>
                 <Input disabled={isDisabled} {...TEXTINFO}/>
               </FormItem>
             </Col>
             <Col {...COLSPAN}>
-              <FormItem label="婚姻状态" name="marriageInfo" {...RULES}>
+              <FormItem label="婚姻状态" name="marriageInfo" rules={[
+            {
+              required: true, message: '必填字段'
+            }
+          ]}>
                 <Select disabled={isDisabled} {...OPTIONSPLACEHOLDER}>
                   {
                     MarriageInfo.map(item => <Option key={`m_${item.value}`} value={item.value}>{item.key}</Option>)
@@ -184,7 +205,11 @@ const AddOrEditInfo: React.FC<AddOrEditInfoProps> = (props) => {
               </FormItem>
             </Col>
             <Col {...COLSPAN}>
-              <FormItem label="最高学历" name="highestEducation" {...RULES}>
+              <FormItem label="最高学历" name="highestEducation" rules={[
+            {
+              required: true, message: '必填字段'
+            }
+          ]}>
                 <Select disabled={isDisabled} {...OPTIONSPLACEHOLDER}>
                   {
                     HightEducation.map(item => <Option key={`h_${item.value}`} value={item.value}>{item.key}</Option>)
@@ -193,23 +218,39 @@ const AddOrEditInfo: React.FC<AddOrEditInfoProps> = (props) => {
               </FormItem>
             </Col>
             <Col {...COLSPAN}>
-              <FormItem label="芝麻分" name="sesameCreditScore" {...RULES}>
+              <FormItem label="芝麻分" name="sesameCreditScore" rules={[
+            {
+              required: true, message: '必填字段'
+            }
+          ]}>
                 <InputNumber disabled={isDisabled} style={{ width: '100%' }} min={1} {...TEXTINFO}/>
               </FormItem>
             </Col>
             <Col {...COLSPAN}>
-              <FormItem label="微信分" name="wxCreditScore" {...RULES}>
+              <FormItem label="微信分" name="wxCreditScore" rules={[
+            {
+              required: true, message: '必填字段'
+            }
+          ]}>
                 <InputNumber disabled={isDisabled} style={{ width: '100%' }} min={1} {...TEXTINFO}/>
               </FormItem>
             </Col>
 
             {/* <Col {...COLSPAN}>
-              <FormItem label="所选产品" name="product" {...RULES}>
+              <FormItem label="所选产品" name="product" rules={[
+            {
+              required: true, message: '必填字段'
+            }
+          ]}>
                 <InputNumber disabled={isDisabled} style={{ width: '100%' }} min={1} {...TEXTINFO}/>
               </FormItem>
             </Col>
             <Col {...COLSPAN}>
-              <FormItem label="被拒原因" name="reason" {...RULES}>
+              <FormItem label="被拒原因" name="reason" rules={[
+            {
+              required: true, message: '必填字段'
+            }
+          ]}>
                 <Select disabled={isDisabled} {...OPTIONSPLACEHOLDER}>
                   {
                     HightEducation.map(item => <Option key={`h_${item.value}`} value={item.value}>{item.key}</Option>)
@@ -233,7 +274,11 @@ const AddOrEditInfo: React.FC<AddOrEditInfoProps> = (props) => {
             </Col>
 
             <Col {...COLSPAN}>
-              <FormItem label="身份证照" name="idCardUrl" {...RULES}>
+              <FormItem label="身份证照" name="idCardUrl" rules={[
+            {
+              required: true, message: '必填字段'
+            }
+          ]}>
                 <Upload
                   disabled={isDisabled}
                   name="file"
@@ -258,7 +303,11 @@ const AddOrEditInfo: React.FC<AddOrEditInfoProps> = (props) => {
             </Col>
 
             {/* <Col {...COLSPAN}>
-              <FormItem label="客户意向" name="f" {...RULES}>
+              <FormItem label="客户意向" name="f" rules={[
+            {
+              required: true, message: '必填字段'
+            }
+          ]}>
                 <Select disabled={isDisabled} {...OPTIONSPLACEHOLDER}>
                   {
                     SearchParams.status.map(item => <Option key={item.value} value={item.value}>{item.key}</Option>)

@@ -22,9 +22,9 @@ const PermissionItem: React.FC<PermissionItemProps> = (props) => {
   const getAllValues = () => {
     const arrs: number[][] = [];
     const checkArrs: number[][] = [];
-
-    for (let i = 0, len = item.childPrivLst.length; i < len; i++) {
-      const priv = item.childPrivLst[i];
+    const len = (item.childPrivLst || item.childFieldLst).length;
+    for (let i = 0; i < len; i++) {
+      const priv = (item.childPrivLst || item.childFieldLst)[i];
       if (priv.childPrivLst && priv.childPrivLst.length > 0) {
         if (!arrs[i]) arrs[i] = []
         if (!checkArrs[i]) checkArrs[i] = [];
@@ -115,11 +115,11 @@ const PermissionItem: React.FC<PermissionItemProps> = (props) => {
       setIndeterminate(false);
     }
     item.hasChecked = flag;
-    item.childPrivLst.forEach((child: {[key: string]: any}) => {
+    (item.childPrivLst || item.childFieldLst).forEach((child: {[key: string]: any}) => {
       child.hasChecked = flag;
-      if (child.childPrivLst && child.childPrivLst.length > 0) {
+      if ((child.childPrivLst || child.childFieldLst) && (child.childPrivLst || child.childFieldLst).length > 0) {
         child.hasChecked = flag;
-        child.childPrivLst.forEach((c: {[key: string]: any}) => c.hasChecked = flag);
+        (child.childPrivLst || child.childFieldLst).forEach((c: {[key: string]: any}) => c.hasChecked = flag);
       }
     });
     const {arrs} = getAllValues()
@@ -129,7 +129,7 @@ const PermissionItem: React.FC<PermissionItemProps> = (props) => {
   }
 
   const generateItem = (child: {[key: string]: any}) => {
-    const privList = child.childPrivLst;
+    const privList = child.childPrivLst || child.childFieldLst;
     const second = privList.filter((priv: {[key: string]: any}) => (priv.childPrivLst && priv.childPrivLst.length > 0));
     const firstItem = privList.filter((priv: {[key: string]: any}) => (!priv.childPrivLst || priv.childPrivLst.length === 0));
     // 返回结果

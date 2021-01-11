@@ -1,21 +1,40 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import ProTable, { ProColumns } from '@ant-design/pro-table';
 import { DATETIME, FollowMethod } from '@/constants';
 import moment from 'moment';
-import { DatePicker, Button } from 'antd';
+import { DatePicker, Button, Select } from 'antd';
 import { history } from 'umi';
 import Authorized from '@/components/Authorized/Authorized';
 import locale from 'antd/lib/date-picker/locale/zh_CN';
+import { queryDepLists } from '@/pages/Authorities/Role/server';
+import { DepartmentItem } from '@/pages/Authorities/Department/data';
 import { FollowUpItem, FollowUpParmas } from './data';
 import { fetchCustomerFollowLogList } from './server';
 import styles from './index.less';
+import { filterEmptyFields } from '@/utils/utils';
+
 
 interface CustomerFollowUpProps {}
 const { RangePicker } = DatePicker;
+const { Option } = Select;
 const CustomerFollowUp: React.FC<CustomerFollowUpProps> = () => {
 
   const [activeIndex, setActiveIndex] = useState<number>(0);
+  const [department, setDepartment] = useState<DepartmentItem[]>();
+
+  useEffect(() => {
+    // 查看所有的部门信息
+    queryDepLists({
+      pageIndex: 1,
+      pageSize: 1000
+    }).then(res => {
+      if (res.data.length) {
+        // @ts-ignore
+        setDepartment(res.data);
+      }
+    });
+  }, []);
 
   const columns: ProColumns<FollowUpItem>[] = [
     {
@@ -77,6 +96,41 @@ const CustomerFollowUp: React.FC<CustomerFollowUpProps> = () => {
       }
     },
     // {
+    //   title: '公司名称',
+    //   dataIndex: 'companyName',
+    //   hideInTable: true,
+    //   formItemProps: {
+    //     placeholder: '请输入',
+    //     allowClear: true
+    //   },
+    // },
+    {
+      title: '客户经理',
+      dataIndex: 'followUserName',
+      hideInTable: true,
+      formItemProps: {
+        placeholder: '请输入',
+        allowClear: true
+      },
+    },
+    {
+      title: '部门',
+      dataIndex: 'followDepartId',
+      initialValue: '-1',
+      renderFormItem: (item, { type, defaultRender, ...rest }, form) => {
+        return (
+          <Select {...rest}>
+            <Option value="-1" key="-1">全部</Option>
+            {
+              department.length && department.map(d => (
+                <Option key={d.id} value={d.id}>{d.name}</Option>
+              ))
+            }
+          </Select>
+        )
+      }
+    },
+    // {
     //   title: '借款人',
     //   dataIndex: 'borrower',
     //   hideInSearch: true,
@@ -131,7 +185,7 @@ const CustomerFollowUp: React.FC<CustomerFollowUpProps> = () => {
         return (
           <>
             <Authorized authority={['admin', '10']}>
-              <Button type="link" onClick={() => history.push(`/order/follup/profile?id=${id}&customerId=${customerId}`)}>详情</Button>
+              <Button type="link" onClick={() => history.push(`/customer/followup/profile?id=${id}&customerId=${customerId}`)}>详情</Button>
             </Authorized>
           </>
         )
@@ -169,6 +223,8 @@ const CustomerFollowUp: React.FC<CustomerFollowUpProps> = () => {
             // if ()
             // @ts-ignore
             delete tempParms._timestamp;
+            if (tempParms.followDepartId === '-1') delete tempParms.followDepartId;
+            filterEmptyFields(tempParms);
             return fetchCustomerFollowLogList(tempParms)
           }
           return {data: []}

@@ -325,3 +325,41 @@ export async function fetchDeleteCreditCardById (
 ) {
   return HttpClient.post('/api/work/base/creditCard/delete', params);
 }
+// 信用卡汇总
+export async function fetchCreditCardSummary (
+  params: {[key: string]: any},
+  type: string
+) {
+  return HttpClient.post(
+    type === 'add'
+      ? '/api/work/base/cardSummary/create'
+      : '/api/work/base/cardSummary/update', 
+    params);
+}
+
+export async function fetchCreditCardSummaryByCustomerId (
+  params: {[key: string]: any}
+) {
+  return HttpClient.post('/api/work/base/cardSummary/getByCustomerId', params);
+}
+
+// 获取影像信息
+export async function fetchPicByCustomerId (
+  params: {[key: string]: any}
+) {
+  return HttpClient.post('/api/work/base/pic/listByCustomerId', params);
+}
+
+// 保存影像信息
+export async function fetchSavePicByCustomerId (
+  params: {[key: string]: any}
+) {
+  return HttpClient.post('/api/work/base/pic/add', params)
+}
+
+// 删除影像信息
+export async function fetchDelPicById (
+  params: {[key: string]: any}
+) {
+  return HttpClient.post('/api/work/base/pic/delete', params)
+}

@@ -9,6 +9,7 @@ import { history } from 'umi';
 import { fetchFundersList } from '@/pages/Config/Funders/server';
 import UpladImage from './UploadImg';
 import { queryAddOrEditSign, queryCustomerSignUpDetailsByWorkNo } from '../server';
+import { filterEmptyFields } from '@/utils/utils';
 
 interface SignProps {
   baseInfo: {[key: string]: any};
@@ -18,6 +19,7 @@ interface SignProps {
       customerId: string;
       workNo: string;
       type: string;
+      parentPath: string;
     }
   }
 }
@@ -30,7 +32,8 @@ const Sign: React.FC<SignProps> = (props) => {
   const {baseInfo = {}, location: { query: {
     customerId,
     workNo,
-    type
+    type,
+    parentPath
   }}} = props;
   const [form] = Form.useForm();
   const [isDisabled] = useState(false);
@@ -87,10 +90,12 @@ const Sign: React.FC<SignProps> = (props) => {
       ? Object.assign({...values}, { productName: prodName, capitalName, customerId, workNo })
       : Object.assign({...values}, { productName: prodName, capitalName, customerId, workNo, id: baseInfo.id })
     ;
+
+    filterEmptyFields(params);
     queryAddOrEditSign(params, type).then(res => {
       if (res.status === 0) {
         message.success(res.info);
-        history.push('/order/make/follup');
+        history.push(parentPath);
       }
     })
   }
@@ -100,7 +105,7 @@ const Sign: React.FC<SignProps> = (props) => {
     if (!value) return;
     setFetching(true);
     fetchProductList({
-      pageSize: 10,
+      pageSize: 100,
       pageIndex: 1,
       name: value
     }).then(res => {
@@ -146,12 +151,12 @@ const Sign: React.FC<SignProps> = (props) => {
 
           <Row gutter={24}>
             <Col {...COLSPAN}>
-              <FormItem label="协议编号" name="protocolNo" {...RULES}>
+              <FormItem label="协议编号" name="protocolNo" rules={[{required: true, message: '必填字段'}]}>
                 <Input disabled={isDisabled} {...TEXTINFO} />
               </FormItem>
             </Col>
             <Col {...COLSPAN}>
-              <FormItem label="资方名称" name="capitalId" {...RULES}>
+              <FormItem label="资方名称" name="capitalId" rules={[{required: true, message: '必填字段'}]}>
                 <Select 
                   disabled={isDisabled} 
                   {...OPTIONSPLACEHOLDER}
@@ -164,7 +169,7 @@ const Sign: React.FC<SignProps> = (props) => {
               </FormItem>
             </Col>
             <Col {...COLSPAN}>
-              <FormItem label="资方类型" name="capitalType" {...RULES}>
+              <FormItem label="资方类型" name="capitalType" rules={[{required: true, message: '必填字段'}]}>
                 <Select 
                   disabled={isDisabled} 
                   {...OPTIONSPLACEHOLDER}
@@ -176,7 +181,7 @@ const Sign: React.FC<SignProps> = (props) => {
               </FormItem>
             </Col>
             <Col {...COLSPAN}>
-              <FormItem label="产品名称" name="productId" {...RULES}>
+              <FormItem label="产品名称" name="productId" rules={[{required: true, message: '必填字段'}]}>
                 <Select
                   showSearch
                   placeholder="请输入贷款产品关键字"
@@ -195,7 +200,7 @@ const Sign: React.FC<SignProps> = (props) => {
 
             <Col {...COLSPAN}>
               {/* {uploadRender('半身照', 'customerHalfBodyUrl', 'bodyUrl')} */}
-              <FormItem label="半身照" name="customerHalfBodyUrl" {...RULES}>
+              <FormItem label="半身照" name="customerHalfBodyUrl" rules={[{required: true, message: '必填字段'}]}>
                 <UpladImage 
                   url={formValues.customerHalfBodyUrl}
                   isDisabled={false}
@@ -211,7 +216,7 @@ const Sign: React.FC<SignProps> = (props) => {
 
             <Col {...COLSPAN}>
               {/* {uploadRender('身份证正面', 'customerIdCardFrontUrl', 'frontUrl')} */}
-              <FormItem label="身份证正面" name="customerIdCardFrontUrl" {...RULES}>
+              <FormItem label="身份证正面" name="customerIdCardFrontUrl" rules={[{required: true, message: '必填字段'}]}>
                 <UpladImage 
                   url={formValues.customerIdCardFrontUrl}
                   isDisabled={false}
@@ -227,7 +232,7 @@ const Sign: React.FC<SignProps> = (props) => {
 
             <Col {...COLSPAN}>
               {/* {uploadRender('身份证反面', 'customerIdCardBackUrl', 'backUrl')} */}
-              <FormItem label="身份证反面" name="customerIdCardBackUrl" {...RULES}>
+              <FormItem label="身份证反面" name="customerIdCardBackUrl" rules={[{required: true, message: '必填字段'}]}>
                 <UpladImage 
                   url={formValues.customerIdCardBackUrl}
                   isDisabled={false}
@@ -243,7 +248,7 @@ const Sign: React.FC<SignProps> = (props) => {
 
             <Col {...COLSPAN}>
               {/* {uploadRender('营业执照', 'lisenceUrl', 'lisenceUrl')} */}
-              <FormItem label="营业执照" name="licenseUrl" {...RULES}>
+              <FormItem label="营业执照" name="licenseUrl" rules={[{required: true, message: '必填字段'}]}>
                 <UpladImage 
                   url={formValues.licenseUrl}
                   isDisabled={false}
@@ -259,7 +264,7 @@ const Sign: React.FC<SignProps> = (props) => {
 
             <Col {...COLSPAN}>
               {/* {uploadRender('委托协议', 'entrustProtocolUrl', 'protocolUrl')} */}
-              <FormItem label="委托协议" name="entrustProtocolUrl" {...RULES}>
+              <FormItem label="委托协议" name="entrustProtocolUrl" rules={[{required: true, message: '必填字段'}]}>
                 <UpladImage 
                   url={formValues.entrustProtocolUrl}
                   isDisabled={false}
@@ -274,24 +279,41 @@ const Sign: React.FC<SignProps> = (props) => {
             </Col>
 
             <Col {...COLSPAN}>
-              <FormItem label="打款银行" name="bankName" {...RULES}>
+              <FormItem label="打款银行" name="bankName" rules={[{required: true, message: '必填字段'}]}>
                 <Input disabled={isDisabled} {...TEXTINFO} />
               </FormItem>
             </Col>
 
             <Col {...COLSPAN}>
-              <FormItem label="银行卡号" name="bankNo" {...RULES}>
+              <FormItem label="银行卡号" name="bankNo" rules={[{required: true, message: '必填字段'}]}>
                 <Input disabled={isDisabled} {...TEXTINFO} />
               </FormItem>
             </Col>
 
             <Col {...COLSPAN}>
-              <FormItem label="银行面签" name="haveBankFaceSign" {...RULES}>
+              <FormItem label="银行面签" name="haveBankFaceSign" rules={[{required: true, message: '必填字段'}]}>
                 <Radio.Group disabled={isDisabled}>
                   {
                     YESORNO.map(item => <Radio value={item.value} key={item.key}>{item.key}</Radio>)
                   }
                 </Radio.Group>
+              </FormItem>
+            </Col>
+
+            <Col {...COLSPAN}>
+              <FormItem label="签单状态" name="status" rules={[{required: true, message: '必填字段'}]}>
+                <Select 
+                  disabled={isDisabled} 
+                  {...OPTIONSPLACEHOLDER}
+                  onChange={handleChange}
+                >
+                  <Option key="1" value={1}>待接订单</Option>
+                  <Option key="2" value={2}>进行中</Option>
+                  <Option key="3" value={3}>暂停</Option>
+                  <Option key="4" value={4}>已完成</Option>
+                  <Option key="5" value={5}>未完成</Option>
+                  <Option key="6" value={6}>已过期</Option>
+                </Select>
               </FormItem>
             </Col>
 
@@ -301,7 +323,7 @@ const Sign: React.FC<SignProps> = (props) => {
                   { type === 'add' ? '保存' : '更新' }
                 </Button>
                 <Button onClick={
-                  type === 'add' ? handleReset : () => history.push('/order/make/follup')
+                  type === 'add' ? handleReset : () => history.push(parentPath)
                 }>
                   {type === 'add' ? '重置' : '取消'}
                 </Button>

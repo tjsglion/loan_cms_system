@@ -1,7 +1,7 @@
 /* eslint-disable prefer-object-spread */
 import React, { useState, useEffect } from 'react';
 import { Form, Collapse, Button, message } from 'antd';
-import { COLLABEL } from '@/constants';
+import { COLLABEL, PartnerPos } from '@/constants';
 import { connect } from 'umi';
 import TableForm from './TableForm';
 import { StateType } from '../model';
@@ -42,7 +42,7 @@ const AddOrEditPartner: React.FC<AddOrEditPartnerProps> = (props) => {
     // name: 表单字段名 type: 表单类型 rules: 验证规则  width: 所占宽度，默认自动， options: 下拉时的选择值  addonAfter: 后缀
     { type: 'index', span: 2 },
     { name: 'name', rules: [], type: 'input', span: 5, options: [], addonAfter: ''},
-    { name: 'position', rules: [], type: 'select',span: 5, options: [{key: '董事', value: 1}, {key: '监事', value: 2}]},
+    { name: 'position', rules: [], type: 'select',span: 5, options: PartnerPos},
     { name: 'holdRate', rules: [], type: 'input', inputType: 'number', span: 5, options: [], addonAfter: '%'},
     { name: 'subscriptionMoney', rules: [], type: 'input', inputType: 'number', span: 5, options: [], addonAfter: ''},
     { type: 'option', span: 2 }

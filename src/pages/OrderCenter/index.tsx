@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
-import { Button, Divider, Modal, Form, Upload, InputNumber } from 'antd';
+import { Button, Divider, Modal, Form, Upload, InputNumber, Select } from 'antd';
 import ProTable, { ProColumns } from '@ant-design/pro-table';
 import { history, connect } from 'umi';
 import { PlusOutlined, DownloadOutlined } from '@ant-design/icons/lib/icons';
@@ -10,8 +10,11 @@ import { headers, prod } from '@/core/http.request';
 import { queryCustomerLists } from './server';
 import { CustomerInfoItem, CustomerInfoParmas } from './data';
 import { StateType } from './AddOrEditCustomerCenter/model';
+import { DepartmentItem } from '../Authorities/Department/data';
+import { queryDepLists } from '../Authorities/Department/server';
 
 const FormItem = Form.Item;
+const { Option } = Select;
 
 const CustomerInfo: React.FC<{
   // @ts-ignore
@@ -21,11 +24,26 @@ const CustomerInfo: React.FC<{
   const { dispatch } = props;
   const [form] = Form.useForm();
   const [visible] = useState(false);
+  const [department, setDepartment] = useState<DepartmentItem[]>();
+  
+  useEffect(() => {
+    // 查看所有的部门信息
+    queryDepLists({
+      pageIndex: 1,
+      pageSize: 1000
+    }).then(res => {
+      if (res.data.length) {
+        // @ts-ignore
+        setDepartment(res.data);
+      }
+    });
+  }, []);
+
   const columns: ProColumns<CustomerInfoItem>[] = [
     {
       title: '客户名称',
-      dataIndex: 'customerName',
-      key: 'customerName',
+      dataIndex: 'name',
+      hideInTable: true,
       formItemProps: {
         placeholder: '请输入',
         allowClear: true
@@ -36,6 +54,7 @@ const CustomerInfo: React.FC<{
       title: '年龄',
       dataIndex: 'age',
       key: 'age',
+      hideInSearch: true,
       width: 80,
       formItemProps: {
         placeholder: '请输入',
@@ -57,19 +76,50 @@ const CustomerInfo: React.FC<{
       }
     },
     {
+      title: '客户名称',
+      dataIndex: 'customerName',
+      key: 'customerName',
+      hideInSearch: true
+      // width: '8%'
+    },
+    {
       title: '客户经理',
       dataIndex: 'followUserName',
       key: 'followUserName',
-      formItemProps: {
-        placeholder: '请输入',
-        allowClear: true
-      },
+      hideInSearch: true,
     },
     {
       title: '联系电话',
       dataIndex: 'phone',
       key: 'phone',
       // width: '8%'
+    },
+    {
+      title: '客户经理',
+      dataIndex: 'followUserName',
+      key: 'followUserName',
+      hideInTable: true,
+      formItemProps: {
+        placeholder: '请输入',
+        allowClear: true
+      },
+    },
+    {
+      title: '部门',
+      dataIndex: 'departmentId',
+      initialValue: '-1',
+      renderFormItem: (item, { type, defaultRender, ...rest }, form) => {
+        return (
+          <Select {...rest}>
+            <Option value="-1" key="-1">全部</Option>
+            {
+              department.length && department.map(d => (
+                <Option key={d.id} value={d.id}>{d.name}</Option>
+              ))
+            }
+          </Select>
+        )
+      }
     },
     {
       title: '公司名称',
@@ -99,23 +149,21 @@ const CustomerInfo: React.FC<{
       // fixed: 'right',
       // @ts-ignore
       render: (_, record) => {
-        const { customerId, workNo } = record;
+        const { customerId, companyId, } = record;
         return (
           <>
             <Authorized authority={['admin', '4']}>
-              <Button type="link" onClick={() => history.push(`/order/customer/profile?customerId=${customerId}`)}>编辑</Button>
+              <Button type="link" onClick={() => history.push(`/customer/manager/profile?customerId=${customerId}`)}>编辑</Button>
             </Authorized>
             <Authorized authority={['admin', '6']}>
               <Divider type="vertical"/>
-              <Button type="link" onClick={() => history.push(`/order/customer/followup?customerId=${customerId}`)}>客户跟进</Button>
+              <Button type="link" onClick={() => history.push(`/customer/manager/add?customerId=${customerId}`)}>客户跟进</Button>
             </Authorized>
             <Authorized authority={['admin', '8']}>
               <Divider type="vertical"/>
               <Button type="link" onClick={() => {
-                if (workNo) {
-                  history.push(`/order/customer/sign?customerId=${customerId}&workNo=${workNo}`)
-                }
-              }}>签单</Button>
+                history.push(`/customer/manager/sign?customerId=${customerId}&companyId=${companyId}`)
+              }}>转入订单</Button>
             </Authorized>
           </>
         )
@@ -157,7 +205,7 @@ const CustomerInfo: React.FC<{
                   companyId: ''
                 }
               });
-              history.push('/order/customer/profile');
+              history.push('/customer/manager/profile');
             }}>新增客户</Button>
           </Authorized>,
           // <Authorized authority={['admin', '3']}>
@@ -185,6 +233,7 @@ const CustomerInfo: React.FC<{
               if (!tempParms.companyName) delete tempParms.companyName;
               if (!tempParms.area) delete tempParms.area;
               if (!tempParms.productName) delete tempParms.productName;
+              if (tempParms.departmentId === '-1') delete tempParms.departmentId;
               // @ts-ignore
               delete tempParms._timestamp;
               return queryCustomerLists(tempParms)

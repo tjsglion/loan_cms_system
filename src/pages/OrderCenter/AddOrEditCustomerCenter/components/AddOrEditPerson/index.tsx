@@ -15,6 +15,7 @@ import LoanCarInfo from './LoanCarInfo';
 import SocialSecurityInfo from './SocialSecurityInfo';
 import PunchCardInfo from './PunchCardInfo';
 import CreditCardInfo from './CreditCardInfo';
+import CreditCardSummary from './CreditCardSummary';
 import { 
   fetchOwnHouseByCustomerId,
   fetchLoanHouseByCustomerId,
@@ -24,8 +25,9 @@ import {
   fetchCreditCardByCustomerId,
   fetchPunchCardByCustomerId,
   fetchAccFundByCustomerId,
-  fetchSocialSecurityByCustomerId
+  fetchSocialSecurityByCustomerId, fetchCreditCardSummaryByCustomerId, fetchPicByCustomerId
 } from '../server';
+import AddOrEditPic from './AddOrEditPic';
 
 
 interface AddOrEditPersonProps {
@@ -48,6 +50,7 @@ const AddOrEditPerson: React.FC<AddOrEditPersonProps> = (props) => {
   const [socialDisable, setSocialDisable] = useState(false);
   const [punchDisable, setPunchDisable] = useState(false);
   const [creditDisable, setCreditDisable] = useState(false);
+  const [summaryDisable, setSummaryDisable] = useState(false);
   // 设置表单值
   const [accumulationFundInfo, setAccumulationFundInfo] = useState<{[key: string]: any}>({});
   const [creditCardInfo, setCreditCardInfo] = useState<{[key: string]: any}>({});
@@ -58,6 +61,8 @@ const AddOrEditPerson: React.FC<AddOrEditPersonProps> = (props) => {
   const [ownHouseInfo, setOwnHouseInfo] = useState<{[key: string]: any}>({});
   const [punchCardInfo, setPunchCardInfo] = useState<{[key: string]: any}>({});
   const [socialSecurityInfo, setSocialSecurityInfo] = useState<{[key: string]: any}>({});
+  const [creditCardSummary, setCreditCardSummary] = useState<{[key: string]: any}>({});
+  const [picInfo, setPicInfo] = useState<{[key: string]: any}>({});
   // 设置类型
   const [punchType, setPunchType] = useState('add');
   const [socialType, setSocialType] = useState('add');
@@ -90,7 +95,7 @@ const AddOrEditPerson: React.FC<AddOrEditPersonProps> = (props) => {
         } else if (type === 'punch') {
           data.punchTime = moment(data.punchTime, DATEFORMAT);
           setWrap(data);
-        } else if (type === 'accumu' || type === 'social') {
+        } else if (type === 'accumu' || type === 'social' || type === 'summary') {
           setWrap(data);
         } else {
           const {list} = data;
@@ -135,6 +140,16 @@ const AddOrEditPerson: React.FC<AddOrEditPersonProps> = (props) => {
       fetchCreditCardByCustomerId({customerId}).then(
         res => handleResp(res, setCreditCardInfo, 'credit')
       );
+      // 获取信用卡总汇总
+      fetchCreditCardSummaryByCustomerId({customerId}).then(
+        res => handleResp(res, setCreditCardSummary, 'summary')
+      );
+      // 获取影像信息
+      fetchPicByCustomerId({customerId}).then(
+        res => {
+          handleResp(res, setPicInfo, 'pic');
+        }
+      )
     }
   }, [customerId]);
 
@@ -292,6 +307,27 @@ const AddOrEditPerson: React.FC<AddOrEditPersonProps> = (props) => {
               setDisabled={
                 (flag: boolean) => setCreditDisable(flag)
               }
+            />
+          </Panel>
+          <Panel
+            header="信用卡总汇总"
+            key="10"
+            extra={customerId && creditDisable ? <a onClick={(e) => handleEdit(e, 'creditKey')}>编辑</a> : ''}
+          >
+            <CreditCardSummary 
+              creditCardSummary={creditCardSummary}
+              isDisabled={summaryDisable}
+              setDisabled={
+                (flag: boolean) => setSummaryDisable(flag)
+              }
+            />
+          </Panel>
+          <Panel
+            header="影像信息"
+            key="11"
+          >
+            <AddOrEditPic 
+              picInfo={picInfo.pic}
             />
           </Panel>
         </Collapse>

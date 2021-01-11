@@ -38,17 +38,29 @@ const AddOrEditPerson: React.FC<AddOrEditPersonProps> = (props) => {
         >
           <Row gutter={24}>
             <Col {...COLSPAN}>
-              <FormItem label="产权情况" name="company" {...RULES}>
+              <FormItem label="产权情况" name="company" rules={[
+            {
+              required: true, message: '必填字段'
+            }
+          ]}>
                 <Input {...TEXTINFO}/>
               </FormItem>
             </Col>
             <Col {...COLSPAN}>
-              <FormItem label="公司地址" name="address" {...RULES}>
+              <FormItem label="公司地址" name="address" rules={[
+            {
+              required: true, message: '必填字段'
+            }
+          ]}>
                 <Input {...TEXTINFO}/>
               </FormItem>
             </Col>
             <Col {...COLSPAN}>
-              <FormItem label="职业身份" name="a" {...RULES}>
+              <FormItem label="职业身份" name="a" rules={[
+            {
+              required: true, message: '必填字段'
+            }
+          ]}>
                 <Select {...OPTIONSPLACEHOLDER}>
                   {
                     RADIOIDENTITY.map(item => <Radio key={item.key} value={item.value}>{item.key}</Radio>)
@@ -62,12 +74,20 @@ const AddOrEditPerson: React.FC<AddOrEditPersonProps> = (props) => {
               </FormItem>
             </Col>
             <Col {...COLSPAN}>
-              <FormItem label="现金流" name="b" {...RULES}>
+              <FormItem label="现金流" name="b" rules={[
+            {
+              required: true, message: '必填字段'
+            }
+          ]}>
                 <Input {...TEXTINFO}/>
               </FormItem>
             </Col>
             <Col {...COLSPAN}>
-              <FormItem label="有无执照" name="c" {...RULES}>
+              <FormItem label="有无执照" name="c" rules={[
+            {
+              required: true, message: '必填字段'
+            }
+          ]}>
                 <Radio.Group>
                   {
                     YESORNO.map(item => <Radio value={item.value} key={item.key}>{item.key}</Radio>)
@@ -76,22 +96,38 @@ const AddOrEditPerson: React.FC<AddOrEditPersonProps> = (props) => {
               </FormItem>
             </Col>
             <Col {...COLSPAN}>
-              <FormItem label="注册时间" name="e" {...RULES}>
+              <FormItem label="注册时间" name="e" rules={[
+            {
+              required: true, message: '必填字段'
+            }
+          ]}>
                 <DatePicker style={{ width: '100%' }} locale={locale} format={DATEFORMAT}/>
               </FormItem>
             </Col>
             <Col {...COLSPAN}>
-              <FormItem label="所占股份" name="f" {...RULES}>
+              <FormItem label="所占股份" name="f" rules={[
+            {
+              required: true, message: '必填字段'
+            }
+          ]}>
                 <Input type="number" {...TEXTINFO} addonAfter="%"/>
               </FormItem>
             </Col>
             <Col {...COLSPAN}>
-              <FormItem label="经营范围" name="g" {...RULES}>
+              <FormItem label="经营范围" name="g" rules={[
+            {
+              required: true, message: '必填字段'
+            }
+          ]}>
                 <Input.TextArea {...TEXTINFO}  autoSize={{minRows: 1, maxRows: 2}}/>
               </FormItem>
             </Col>
             <Col {...COLSPAN}>
-              <FormItem label="单位下户" name="h" {...RULES}>
+              <FormItem label="单位下户" name="h" rules={[
+            {
+              required: true, message: '必填字段'
+            }
+          ]}>
                 <Radio.Group>
                   {
                     YESORNO2.map(item => <Radio value={item.value} key={item.key}>{item.key}</Radio>)
@@ -100,17 +136,29 @@ const AddOrEditPerson: React.FC<AddOrEditPersonProps> = (props) => {
               </FormItem>
             </Col>
             <Col {...COLSPAN}>
-              <FormItem label="年营业额" name="i" {...RULES}>
+              <FormItem label="年营业额" name="i" rules={[
+            {
+              required: true, message: '必填字段'
+            }
+          ]}>
                 <Input type="number" {...TEXTINFO} addonAfter="万元/年"/>
               </FormItem>
             </Col>
             <Col {...COLSPAN}>
-              <FormItem label="月营业额" name="j" {...RULES}>
+              <FormItem label="月营业额" name="j" rules={[
+            {
+              required: true, message: '必填字段'
+            }
+          ]}>
                 <Input type="number" {...TEXTINFO} addonAfter="万元/月"/>
               </FormItem>
             </Col>
             <Col {...COLSPAN}>
-              <FormItem label="需挂靠单位" name="k" {...RULES}>
+              <FormItem label="需挂靠单位" name="k" rules={[
+            {
+              required: true, message: '必填字段'
+            }
+          ]}>
                 <Radio.Group>
                   {
                     YESORNO.map(item => <Radio value={item.value} key={item.key}>{item.key}</Radio>)
@@ -119,7 +167,11 @@ const AddOrEditPerson: React.FC<AddOrEditPersonProps> = (props) => {
               </FormItem>
             </Col>
             <Col {...COLSPAN}>
-              <FormItem label="单位座机" name="l" {...RULES}>
+              <FormItem label="单位座机" name="l" rules={[
+            {
+              required: true, message: '必填字段'
+            }
+          ]}>
                 <Radio.Group>
                   {
                     YESORNO2.map(item => <Radio value={item.value} key={item.key}>{item.key}</Radio>)
@@ -128,17 +180,29 @@ const AddOrEditPerson: React.FC<AddOrEditPersonProps> = (props) => {
               </FormItem>
             </Col>
             <Col {...COLSPAN}>
-              <FormItem label="纳税金额" name="m" {...RULES}>
+              <FormItem label="纳税金额" name="m" rules={[
+            {
+              required: true, message: '必填字段'
+            }
+          ]}>
                 <Input {...TEXTINFO}/>
               </FormItem>
             </Col>
             <Col {...COLSPAN}>
-              <FormItem label="开票金额" name="n" {...RULES}>
+              <FormItem label="开票金额" name="n" rules={[
+            {
+              required: true, message: '必填字段'
+            }
+          ]}>
                 <Input {...TEXTINFO}/>
               </FormItem>
             </Col>
             <Col {...COLSPAN}>
-              <FormItem label="行政处罚" name="o" {...RULES}>
+              <FormItem label="行政处罚" name="o" rules={[
+            {
+              required: true, message: '必填字段'
+            }
+          ]}>
                 <Radio.Group>
                   {
                     YESORNO2.map(item => <Radio value={item.value} key={item.key}>{item.key}</Radio>)
@@ -147,17 +211,29 @@ const AddOrEditPerson: React.FC<AddOrEditPersonProps> = (props) => {
               </FormItem>
             </Col>
             <Col {...COLSPAN}>
-              <FormItem label="行政处罚金额" name="p" {...RULES}>
+              <FormItem label="行政处罚金额" name="p" rules={[
+            {
+              required: true, message: '必填字段'
+            }
+          ]}>
                 <Input {...TEXTINFO}/>
               </FormItem>
             </Col>
             <Col {...COLSPAN}>
-              <FormItem label="移除记录" name="q" {...RULES}>
+              <FormItem label="移除记录" name="q" rules={[
+            {
+              required: true, message: '必填字段'
+            }
+          ]}>
                 <Input {...TEXTINFO}/>
               </FormItem>
             </Col>
             <Col {...COLSPAN}>
-              <FormItem label="官司记录" name="r" {...RULES}>
+              <FormItem label="官司记录" name="r" rules={[
+            {
+              required: true, message: '必填字段'
+            }
+          ]}>
                 <Radio.Group>
                   {
                     YESORNO2.map(item => <Radio value={item.value} key={item.key}>{item.key}</Radio>)
@@ -166,17 +242,29 @@ const AddOrEditPerson: React.FC<AddOrEditPersonProps> = (props) => {
               </FormItem>
             </Col>
             <Col {...COLSPAN}>
-              <FormItem label="动产抵押" name="s" {...RULES}>
+              <FormItem label="动产抵押" name="s" rules={[
+            {
+              required: true, message: '必填字段'
+            }
+          ]}>
                 <Input {...TEXTINFO}/>
               </FormItem>
             </Col>
             <Col {...COLSPAN}>
-              <FormItem label="股权抵押" name="t" {...RULES}>
+              <FormItem label="股权抵押" name="t" rules={[
+            {
+              required: true, message: '必填字段'
+            }
+          ]}>
                 <Input  {...TEXTINFO}/>
               </FormItem>
             </Col>
             <Col {...COLSPAN}>
-              <FormItem label="有无副业" name="r" {...RULES}>
+              <FormItem label="有无副业" name="r" rules={[
+            {
+              required: true, message: '必填字段'
+            }
+          ]}>
                 <Radio.Group>
                   {
                     YESORNO2.map(item => <Radio value={item.value} key={item.key}>{item.key}</Radio>)
@@ -185,7 +273,11 @@ const AddOrEditPerson: React.FC<AddOrEditPersonProps> = (props) => {
               </FormItem>
             </Col>
             <Col {...COLSPAN}>
-              <FormItem label="副业收入" name="j" {...RULES}>
+              <FormItem label="副业收入" name="j" rules={[
+            {
+              required: true, message: '必填字段'
+            }
+          ]}>
                 <Input type="number" {...TEXTINFO} addonAfter="元/月"/>
               </FormItem>
             </Col>

@@ -12,6 +12,7 @@ export interface CustomerInfoItem {
   department: string; // 做单
   commissioner: string; // 跟进专员
   customerId: string;
+  companyId: string;
   workNo: string;
 }
 

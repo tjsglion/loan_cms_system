@@ -5,8 +5,9 @@ import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import ProTable, { ProColumns, ActionType } from '@ant-design/pro-table';
 // import moment from 'moment';
 import { PlusOutlined } from '@ant-design/icons';
-import { Button, Skeleton, Drawer } from 'antd';
+import { Button, Skeleton, Drawer, Divider } from 'antd';
 // import { DATETIME } from '@/constants';
+import { history } from 'umi';
 import { fetchProductList } from './server';
 import { ProductItem, ProductParmas } from './data';
 import AddOrEditProduct from './AddOrEditProduct';
@@ -124,9 +125,10 @@ const Product: React.FC<ProductProps> = () => {
       title: '操作',
       dataIndex: 'opration',
       valueType: 'option',
-      width: 100,
+      width: 150,
       align: 'center',
       render: (_, record) => {
+        const {productId} = record
         if (record.coverRegions.split) {
           // @ts-ignore
           record.coverRegions = record.coverRegions.split(',')
@@ -140,12 +142,22 @@ const Product: React.FC<ProductProps> = () => {
             }}>
               编辑
             </a>
+            <Divider type="vertical" />
+            <a onClick={() => {
+              history.push({
+                pathname: '/config/product/profile',
+                query: {
+                  productId,
+                },
+                state: record
+              })
+            }}>扩展字段</a>
           </>
+          
       )}
     }
   ];
 
-  console.log('信息: ', funders);
   return (
     <PageHeaderWrapper>
       <ProTable<ProductItem> 

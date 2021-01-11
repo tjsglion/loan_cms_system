@@ -74,7 +74,7 @@ const CustomerAllot: React.FC<CustomerAllotProps> = () => {
         return (
           <>
             <Authorized authority={['admin', '18']}>
-              <Button type="link" onClick={() => history.push(`/order/allot/profile?id=${id}`)}>详情</Button>
+              <Button type="link" onClick={() => history.push(`/customer/allot/profile?id=${id}`)}>详情</Button>
             </Authorized>
           </>
         )

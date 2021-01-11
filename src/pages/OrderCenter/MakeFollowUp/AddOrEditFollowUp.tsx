@@ -136,7 +136,7 @@ const AddOrEditFollowUp: React.FC<AddOrEditFollowUpProps> = (props) => {
       onFinish={handleFinish}
       initialValues={formValue}
     >
-      <FormItem label="客户信息" name="customerId" {...RULES}>
+      <FormItem label="客户信息" name="customerId" rules={[{required: true, message: '必填字段'}]}>
         {/* <InputNumber disabled={isDisabled} min={1} style={{ width: '100%' }} {...TEXTINFO} /> */}
         <Select
           showSearch
@@ -152,7 +152,7 @@ const AddOrEditFollowUp: React.FC<AddOrEditFollowUpProps> = (props) => {
           ))}
         </Select>
       </FormItem>
-      <FormItem label="贷款产品" name="productId" {...RULES}>
+      <FormItem label="贷款产品" name="productId" rules={[{required: true, message: '必填字段'}]}>
         {/* <InputNumber disabled={isDisabled} min={1} style={{ width: '100%' }} {...TEXTINFO} /> */}
         <Select
           showSearch
@@ -168,51 +168,51 @@ const AddOrEditFollowUp: React.FC<AddOrEditFollowUpProps> = (props) => {
           ))}
         </Select>
       </FormItem>
-      <FormItem label="预约贷款额度" name="expectLoanMoney" {...RULES}>
+      <FormItem label="预约贷款额度" name="expectLoanMoney" rules={[{required: true, message: '必填字段'}]}>
         <InputNumber disabled={isDisabled} min={1} style={{ width: '100%' }} {...TEXTINFO} />
       </FormItem>
 
-      <FormItem label="期望到账时间" name="expectGetMoneyTime" {...RULES}>
+      <FormItem label="期望到账时间" name="expectGetMoneyTime" rules={[{required: true, message: '必填字段'}]}>
         <DatePicker disabled={isDisabled} locale={locale} style={{ width: '100%' }} {...TEXTINFO}/>
       </FormItem>
 
-      <FormItem label="配偶知晓贷款" name="havePartnerKnown" {...RULES}>
+      <FormItem label="配偶知晓贷款" name="havePartnerKnown" rules={[{required: true, message: '必填字段'}]}>
         <Select disabled={isDisabled} {...OPTIONSPLACEHOLDER}>
           <Option key="1" value={1}>是</Option>
           <Option key="0" value={0}>否</Option>
         </Select>
       </FormItem>
 
-      <FormItem label="家属知晓贷款" name="haveFamilyKnown" {...RULES}>
+      <FormItem label="家属知晓贷款" name="haveFamilyKnown" rules={[{required: true, message: '必填字段'}]}>
         <Select disabled={isDisabled} {...OPTIONSPLACEHOLDER}>
           <Option key="1" value={1}>是</Option>
           <Option key="0" value={0}>否</Option>
         </Select>
       </FormItem>
 
-      <FormItem label="贷款方式" name="loanType" {...RULES}>
+      <FormItem label="贷款方式" name="loanType" rules={[{required: true, message: '必填字段'}]}>
         <Select disabled={isDisabled} {...OPTIONSPLACEHOLDER}>
           <Option key="1" value={1}>个人贷款</Option>
           <Option key="2" value={2}>企业贷款</Option>
         </Select>
       </FormItem>
 
-      <FormItem label="放款银行" name="bankName" {...RULES}>
+      <FormItem label="放款银行" name="bankName" rules={[{required: true, message: '必填字段'}]}>
         <Input disabled={isDisabled} {...TEXTINFO}/>
       </FormItem>
 
-      <FormItem label="银行卡号" name="bankNo" {...RULES}>
+      <FormItem label="银行卡号" name="bankNo" rules={[{required: true, message: '必填字段'}]}>
         <Input disabled={isDisabled} {...TEXTINFO}/>
       </FormItem>
 
-      <FormItem label="客户类型" name="customerType" {...RULES}>
+      <FormItem label="客户类型" name="customerType" rules={[{required: true, message: '必填字段'}]}>
         <Select disabled={isDisabled} {...OPTIONSPLACEHOLDER}>
           <Option key="1" value={1}>潜在客户</Option>
           <Option key="2" value={2}>单身客户</Option>
         </Select>
       </FormItem>
 
-      <FormItem label="做单状态" name="status" {...RULES}>
+      <FormItem label="做单状态" name="status" rules={[{required: true, message: '必填字段'}]}>
         <Select disabled={isDisabled} {...OPTIONSPLACEHOLDER}>
           <Option key="1" value={1}>跟进中</Option>
           <Option key="2" value={2}>已面签</Option>

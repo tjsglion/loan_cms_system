@@ -41,6 +41,14 @@ export const COLLABEL = {
   sm: {span: 12}, md: {span: 10}, lg: {span: 8}
 }
 
+export const COLSPAN1 = {
+  md: 8, lg: 8, sm: 12, xl: 8, xxl: 6,
+}
+
+export const COLLABEL1 = {
+  sm: {span: 16}, md: {span: 14}, lg: {span: 12}
+}
+
 export const TEXTINFO = {
   placeholder: '请输入'
 }
@@ -88,6 +96,10 @@ export const RULES = {
     { required: false, message: '必填字段' }
   ]
 }
+
+export const RULES1 = [
+  { required: false, message: '必填字段' }
+]
 
 // 客户中心查询条件
 export const SearchParams = {
@@ -154,4 +166,30 @@ export const FollowMethod = [
   { key: '电话跟进', value: 1 },
   { key: '邀约来访', value: 2 },
   { key: '上门拜访', value: 3 },
+];
+
+export const JobName = [
+  { key: '经理', value: 1},
+  { key: '销售', value: 2},
+  { key: '老板', value: 3},
+];
+
+export const HouseType = [
+  {key: '住宅', value: 1}, 
+  {key: '别墅', value: 2}, 
+  {key: '商住两用', value: 3}, 
+  {key: '商铺', value: 4}, 
+  {key: '厂房', value: 5}, 
+  {key: '自建房', value: 6}, 
+  {key: '其他', value: 7}
+];
+
+export const HousePosition = [
+  {key: '三环内', value: 1}, 
+  {key: '三环外', value: 0}
+];
+
+export const PartnerPos = [
+  {key: '董事', value: 1},
+  {key: '监事', value: 2}
 ];

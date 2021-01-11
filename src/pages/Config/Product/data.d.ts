@@ -18,6 +18,9 @@ export interface ProductItem {
   status: number; // 状态
   createTime: string; // 创建时间
   updateTime: string; // 更新时间
+  fieldStr: string;
+  createTime: string;
+  updateTime: string;
 }
 
 export interface ProductPaginagion {

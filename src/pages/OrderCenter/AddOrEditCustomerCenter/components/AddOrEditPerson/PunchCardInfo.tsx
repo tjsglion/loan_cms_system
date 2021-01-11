@@ -75,22 +75,22 @@ const PunchCardInfo: React.FC<PunchCardInfoProps> = (props) => {
     >
       <Row gutter={24}>
         <Col {...COLSPAN}>
-          <FormItem label="打卡时间" name="punchTime" {...RULES}>
+          <FormItem label="打卡时间" name="punchTime" rules={[{required: true, message: '必填字段'}]}>
           <DatePicker disabled={isDisabled} locale={locale} style={{ width: '100%' }} {...TEXTINFO}/>
           </FormItem>
         </Col>
         <Col {...COLSPAN}>
-          <FormItem label="打卡金额" name="punchMoney" {...RULES}>
+          <FormItem label="打卡金额" name="punchMoney" rules={[{required: true, message: '必填字段'}]}>
             <Input type="number" disabled={isDisabled} style={{ width: '100%' }} min={0}  {...TEXTINFO} addonAfter="元/月"/>
           </FormItem>
         </Col>
         <Col {...COLSPAN}>
-          <FormItem label="现金流" name="cashFlow" {...RULES}>
+          <FormItem label="现金流" name="cashFlow" rules={[{required: true, message: '必填字段'}]}>
             <Input type="number" disabled={isDisabled} style={{ width: '100%' }} min={0}  {...TEXTINFO} />
           </FormItem>
         </Col>
         <Col {...COLSPAN}>
-          <FormItem label="是否固定打卡" name="fixPunch" {...RULES}>
+          <FormItem label="是否固定打卡" name="fixPunch" rules={[{required: true, message: '必填字段'}]}>
             <Radio.Group disabled={isDisabled}>
               {
                 YESORNO.map(item => <Radio value={item.value} key={item.key}>{item.key}</Radio>)
@@ -99,7 +99,7 @@ const PunchCardInfo: React.FC<PunchCardInfoProps> = (props) => {
           </FormItem>
         </Col>
         {/* <Col {...COLSPAN}>
-          <FormItem label="总资产金额" name="totalMoney" {...RULES}>
+          <FormItem label="总资产金额" name="totalMoney" rules={[{required: true, message: '必填字段'}]}>
             <InputNumber disabled={isDisabled} style={{ width: '100%' }} min={0}/>
           </FormItem>
         </Col> */}

@@ -97,7 +97,7 @@ const AddOrEditAllot: React.FC<AddOrEditAllotProps> = (props) => {
           onChange={handleCustomer}
         >
           {
-            customerInfo.map((cus: {[key: string]: any}) => <Option key={cus.id} value={cus.customerId}>{cus.name}</Option>)
+            customerInfo.map((cus: {[key: string]: any}) => <Option key={cus.id} value={cus.customerId}>{cus.customerName}</Option>)
           }
         </Select>
       </FormItem>

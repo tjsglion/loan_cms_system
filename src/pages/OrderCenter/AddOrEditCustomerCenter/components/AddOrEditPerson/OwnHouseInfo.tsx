@@ -51,7 +51,7 @@ const OwnHouseInfo: React.FC<OwnHouseInfoProps> = (props) => {
     { name: 'position', span: 2, rules: [], type: 'select', options: [{key: '三环内', value: 1}, {key: '三环外', value: 0}]},
     { name: 'area', span: 3, rules: [], type: 'input', inputType: 'number', options: [], addonAfter: 'M²'},
     { name: 'buyTotalMoney', span: 3, rules: [], type: 'input', inputType: 'number', options: LENDER, addonAfter: '万元'},
-    { name: 'assessMoney', span: 3, rules: [], type: 'input', inputType: 'number', options: [], addonAfter: 'M²'},
+    { name: 'assessMoney', span: 3, rules: [], type: 'input', inputType: 'number', options: [], addonAfter: '万元'},
     { name: 'haveCert', span: 2, rules: [], type: 'radio', options: YESORNO, addonAfter: ''},
     { name: 'location', span: 2, rules: [],  type: 'select', options: Locations, addonAfter: ''},
     { type: 'option', span: 2 }

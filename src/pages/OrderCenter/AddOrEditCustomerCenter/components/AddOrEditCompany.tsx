@@ -96,47 +96,83 @@ const AddOrEditCompany: React.FC<AddOrEditCompanyProps> = (props) => {
         >
           <Row gutter={24}>
             <Col {...COLSPAN}>
-              <FormItem label="企业名称" name="name" {...RULES}>
+              <FormItem label="企业名称" name="name" rules={[
+            {
+              required: true, message: '必填字段'
+            }
+          ]}>
                 <Input disabled={isDisabled} {...TEXTINFO}/>
               </FormItem>
             </Col>
             {/* <Col {...COLSPAN}>
-              <FormItem label="地区" name="b" {...RULES}>
+              <FormItem label="地区" name="b" rules={[
+            {
+              required: true, message: '必填字段'
+            }
+          ]}>
                 <Input disabled={isDisabled} {...TEXTINFO}/>
               </FormItem>
             </Col> */}
             <Col {...COLSPAN}>
-              <FormItem label="法定代表人" name="legalPerson" {...RULES}>
+              <FormItem label="法定代表人" name="legalPerson" rules={[
+            {
+              required: true, message: '必填字段'
+            }
+          ]}>
                 <Input disabled={isDisabled} {...TEXTINFO}/>
               </FormItem>
             </Col>
             {/* <Col {...COLSPAN}>
-              <FormItem label="统一社会信用代码" name="d" {...RULES}>
+              <FormItem label="统一社会信用代码" name="d" rules={[
+            {
+              required: true, message: '必填字段'
+            }
+          ]}>
                 <Input disabled={isDisabled} {...TEXTINFO}/>
               </FormItem>
             </Col> */}
             <Col {...COLSPAN}>
-              <FormItem label="注册资本" name="registerMoney" {...RULES}>
+              <FormItem label="注册资本" name="registerMoney" rules={[
+            {
+              required: true, message: '必填字段'
+            }
+          ]}>
                 <InputNumber disabled={isDisabled} step={0.1} style={{width:'100%'}} min={1} {...TEXTINFO}/>
               </FormItem>
             </Col>
             <Col {...COLSPAN}>
-              <FormItem label="成立时间" name="registerTime" {...RULES}>
+              <FormItem label="成立时间" name="registerTime" rules={[
+            {
+              required: true, message: '必填字段'
+            }
+          ]}>
                 <DatePicker disabled={isDisabled} style={{ width: '100%' }} locale={locale} format={DATEFORMAT}/>
               </FormItem>
             </Col>
             <Col {...COLSPAN}>
-              <FormItem label="所需行业" name="industry" {...RULES}>
+              <FormItem label="所需行业" name="industry" rules={[
+            {
+              required: true, message: '必填字段'
+            }
+          ]}>
                 <Input disabled={isDisabled} {...TEXTINFO}/>
               </FormItem>
             </Col>
             <Col {...COLSPAN}>
-              <FormItem label="登记机关" name="registerOffice" {...RULES}>
+              <FormItem label="登记机关" name="registerOffice" rules={[
+            {
+              required: true, message: '必填字段'
+            }
+          ]}>
                 <Input disabled={isDisabled} {...TEXTINFO}/>
               </FormItem>
             </Col>
             <Col {...COLSPAN}>
-              <FormItem label="企业地址" name="address" {...RULES}>
+              <FormItem label="企业地址" name="address" rules={[
+            {
+              required: true, message: '必填字段'
+            }
+          ]}>
                 <Input disabled={isDisabled} {...TEXTINFO} />
               </FormItem>
             </Col>

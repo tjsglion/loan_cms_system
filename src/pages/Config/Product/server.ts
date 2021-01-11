@@ -26,3 +26,17 @@ export async function fetchProductById (
 ) {
   return HttpClient.post('/api/base/creditProduct/getByProductId', params);
 }
+
+// 获取所有产品字段
+export async function fetchAllProductFields (
+  params: {[key: string]: any}
+) {
+  return HttpClient.post('/api//base/productField/listAll', params)
+}
+
+// 根据产品id获取产品字段信息
+export async function fetchProductFields (
+  params: {[key: string]: any}
+) {
+  return HttpClient.post('/api/base/productField/listByProductId', params);
+}

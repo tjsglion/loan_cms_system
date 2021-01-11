@@ -1,32 +1,28 @@
-import React, { useState, useRef } from 'react';
-import { PageHeaderWrapper } from '@ant-design/pro-layout';
-import ProTable, { ProColumns, ActionType } from '@ant-design/pro-table';
-import { Button, Drawer, Skeleton, Divider } from 'antd';
-import { history } from 'umi';
-import numeral from 'numeral';
-import { PlusOutlined } from '@ant-design/icons';
-import Authorized from '@/components/Authorized/Authorized';
-import { DATETIME } from '@/constants';
-import moment from 'moment';
+import React, { useRef, useState } from 'react';
 import { MakeFollowUpItem, MakeFollowUpParmas } from './data';
 import { fetchFollowLogList } from './server';
 import AddOrEditFollowUp from './AddOrEditFollowUp';
+import ProTable, { ActionType, ProColumns } from '@ant-design/pro-table';
+import { PageHeaderWrapper } from '@ant-design/pro-layout';
+import Authorized from '@/components/Authorized/Authorized';
+import { history } from 'umi';
+import { Button, Divider, Drawer, Skeleton } from 'antd';
+import { PlusOutlined } from '@ant-design/icons';
+import { Columns } from './commonColumn';
 
-interface MakeFollowUpProps {}
+interface UnfinishedOrderIProps {}
 
-const statusMaps = {
-  1: '跟进中',
-  2: '已面签',
-  3: '已放款'
-}
-const MakeFollowUp: React.FC<MakeFollowUpProps> = () => {
+const UnfinishedOrder: React.FC<UnfinishedOrderIProps> = () => {
   const actionRef = useRef<ActionType>();
   const [visible, setVisible] = useState(false);
   const [type, setType] = useState('add');
   const [formValue, setFormValues] = useState({});
   const [loanId, setLoanId] = useState('');
-  
+
+  const path = history.location.pathname;
+
   const columns: ProColumns<MakeFollowUpItem>[] = [
+    ...Columns,
     {
       title: '操作',
       dataIndex: 'operation',
@@ -37,12 +33,10 @@ const MakeFollowUp: React.FC<MakeFollowUpProps> = () => {
       width: 150,
       // @ts-ignore
       render: (_, record) => {
-        // const { customerId } = record;
-        // const {customerBase: {customerId}, followLog: {workNo}, loanExpect = {}, signUpDetails } = record;
         const {customerId, workNo, protocolNo} = record;
         return (
           <>
-            <Authorized authority={['admin']}>
+            {/* <Authorized authority={['admin']}>
               <a onClick={() => {
                 setVisible(true);
                 setFormValues(record.signUpDetails);
@@ -51,24 +45,26 @@ const MakeFollowUp: React.FC<MakeFollowUpProps> = () => {
               }}>
                 编辑
               </a>
-            </Authorized>
+            </Authorized> */}
             {/* {
               record.
             } */}
             <Authorized authority={['admin']}>
-              <Divider type="vertical" />
-              {
+              {/* <Divider type="vertical" /> */}
+              {/* {
                 protocolNo ? (
-                  <a onClick={() => history.push(`/order/make/follup/editSign?customerId=${customerId}&workNo=${workNo}&type=edit`)}>
+                  <a onClick={() => history.push(`/order/waiting/editSign?customerId=${customerId}&workNo=${workNo}&type=edit&parentPath=${path}`)}>
                     编辑签单
                   </a>
                 ) : (
-                  <a onClick={() => history.push(`/order/make/follup/sign?customerId=${customerId}&workNo=${workNo}&type=add`)}>
+                  <a onClick={() => history.push(`/order/waiting/sign?customerId=${customerId}&workNo=${workNo}&type=add&parentPath=${path}`)}>
                     签单
                   </a>
                 )
-              }
-              
+              } */}
+               <a onClick={() => history.push(`/order/unfinished/editSign?customerId=${customerId}&workNo=${workNo}&type=edit&parentPath=${path}`)}>
+                编辑签单
+              </a>
             </Authorized>
           </>
         )
@@ -88,17 +84,18 @@ const MakeFollowUp: React.FC<MakeFollowUpProps> = () => {
       <ProTable<MakeFollowUpItem> 
         rowKey="id"
         actionRef={actionRef}
-        headerTitle="做单列表"
-        toolBarRender={() => [
-          <Authorized authority={['admin', '13']}>
-            <Button type="primary" onClick={() => {
-              setVisible(true);
-              setType('add')
-              setFormValues({})
-              setLoanId('');
-            }}><PlusOutlined />新增做单</Button>
-          </Authorized>
-        ]}
+        headerTitle="未完成的订单"
+        // toolBarRender={() => [
+        //   <Authorized authority={['admin', '13']}>
+        //     <Button type="primary" onClick={() => {
+        //       setVisible(true);
+        //       setType('add')
+        //       setFormValues({})
+        //       setLoanId('');
+        //     }}><PlusOutlined />新增做单</Button>
+        //   </Authorized>
+        // ]}
+        toolBarRender={false}
         columns={columns}
         // @ts-ignore
         request={(params: {[key: string]: any}) => {
@@ -112,7 +109,8 @@ const MakeFollowUp: React.FC<MakeFollowUpProps> = () => {
             if (!tempParms.rejectReason) delete tempParms.rejectReason;
             if (!tempParms.followUserName) delete tempParms.followUserName;
             // @ts-ignore
-            delete tempParms._timestamp;
+            delete tempParms.timestamp;
+            tempParms.status = 5;
             return fetchFollowLogList(tempParms)
           }
           return {data: []}
@@ -147,6 +145,6 @@ const MakeFollowUp: React.FC<MakeFollowUpProps> = () => {
       </Drawer>
     </PageHeaderWrapper>
   )
-}
+};
 
-export default MakeFollowUp;
+export default UnfinishedOrder;

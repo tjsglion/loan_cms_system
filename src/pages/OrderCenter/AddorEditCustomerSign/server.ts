@@ -8,3 +8,15 @@ export async function queryAddSignUpBase (
   return HttpClient.post('/api/work/loan/signUpBase/create', params)
 }
 
+export async function queryProductExpandInfoByProductIdAndCustomerId (
+  params: {[key: string]: any}
+) {
+  return HttpClient.post('/api/work/loan/signUpBase/getProductField', params);
+}
+
+// 根据 cutomerId 获取公司信息
+export async function queryCompanyBuCustomerId (
+  params: {[key: string]: any}
+) {
+  return HttpClient.post('/api/work/company/company/list', params);
+}

@@ -2,7 +2,7 @@
 /* eslint-disable prefer-object-spread */
 import React, { useEffect } from 'react';
 import { Form, Button, message } from 'antd';
-import { COLLABEL, LENDER, Locations } from '@/constants';
+import { COLLABEL, HousePosition, HouseType, LENDER, Locations } from '@/constants';
 import { connect } from 'umi';
 import TableForm from '../TableForm';
 import { StateType } from '../../model';
@@ -43,8 +43,8 @@ const LoanHouseInfo: React.FC<LoanHouseInfoProps> = (props) => {
     // name: 表单字段名 type: 表单类型 rules: 验证规则  width: 所占宽度，默认自动， options: 下拉时的选择值  addonAfter: 后缀
     // { type: 'index'},
     { name: 'propertyRightInfo', span: 4, rules: [], type: 'input', addonAfter: ''},
-    { name: 'type', span: 3, rules: [], type: 'select', options: [{key: '住宅', value: 1}, {key: '别墅', value: 2}, {key: '商住两用', value: 3}, {key: '商铺', value: 4}, {key: '厂房', value: 5}, {key: '自建房', value: 6}, {key: '其他', value: 7}], addonAfter: ''},
-    { name: 'position', span: 3, rules: [], type: 'select', options: [{key: '三环内', value: 1}, {key: '三环外', value: 0}]},
+    { name: 'type', span: 3, rules: [], type: 'select', options: HouseType, addonAfter: ''},
+    { name: 'position', span: 3, rules: [], type: 'select', options: HousePosition},
     { name: 'monthlyPayment', span: 4, rules: [], type: 'input', inputType: 'number', options: [], addonAfter: '元'},
     { name: 'paidCount', span: 4, rules: [], type: 'input', inputType: 'number', options: LENDER, addonAfter: '期'},
     { name: 'location', span: 4, rules: [],  type: 'select', options: Locations, addonAfter: ''},

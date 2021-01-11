@@ -35,4 +35,5 @@ export interface FollowUpParmas {
   followTime?: Date | string;
   startTime?: Date;
   endTime?: Date;
+  followDepartId?: string;
 }

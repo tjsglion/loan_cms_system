@@ -129,3 +129,16 @@ export function download(url: string, name: string): any {
   aLink.click();
   document.body.removeChild(aLink);
 }
+
+export function filterEmptyFields(obj: {[key: string]: any}) {
+
+  delete obj._timestamp;
+  const keys = Object.keys(obj);
+  keys.forEach(key => {
+    if (!obj[key]) {
+      delete obj[key];
+    }
+  });
+
+  return obj;
+}
