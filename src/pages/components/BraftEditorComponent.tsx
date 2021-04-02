@@ -9,7 +9,7 @@ import { ContentUtils } from 'braft-utils'
 // 引入编辑器样式
 import 'braft-editor/dist/index.css'
 import { UploadOutlined } from '@ant-design/icons';
-import { FormInstance } from 'antd/lib/form/Form';
+// import { FormInstance } from 'antd/lib/form/Form';
 import { prod, headers } from '@/core/http.request';
 
 // import { BASEURL } from '@/core/api';

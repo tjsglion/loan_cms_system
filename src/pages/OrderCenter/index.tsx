@@ -12,6 +12,8 @@ import { CustomerInfoItem, CustomerInfoParmas } from './data';
 import { StateType } from './AddOrEditCustomerCenter/model';
 import { DepartmentItem } from '../Authorities/Department/data';
 import { queryDepLists } from '../Authorities/Department/server';
+import { DATETIME } from '@/constants';
+import moment from 'moment';
 
 const FormItem = Form.Item;
 const { Option } = Select;
@@ -41,6 +43,16 @@ const CustomerInfo: React.FC<{
 
   const columns: ProColumns<CustomerInfoItem>[] = [
     {
+      title: '时间',
+      dataIndex: 'createTime',
+      hideInSearch: true,
+      render: (_, record) => {
+        const { createTime } = record;
+        if (createTime) return moment(createTime).format(DATETIME)
+        return '-'
+      }
+    },
+    {
       title: '客户名称',
       dataIndex: 'name',
       hideInTable: true,
@@ -50,37 +62,43 @@ const CustomerInfo: React.FC<{
       }
       // width: '8%'
     },
-    {
-      title: '年龄',
-      dataIndex: 'age',
-      key: 'age',
-      hideInSearch: true,
-      width: 80,
-      formItemProps: {
-        placeholder: '请输入',
-        allowClear: true
-      },
-      // @ts-ignore
-      renderFormItem: ( 
-        item: ProColumns<CustomerInfoItem>,
-        config: {
-          value?: any,
-          onChange: (value: any) => void;
-        }) => (
-          <InputNumber style={{width: '100%'}} onChange={config.onChange} value={config.value} />
-        )
-      ,
-      // hideInSearch: true,
-      render: (_, record) => {
-        return record.age ? `${record.age}岁` : '--'
-      }
-    },
+    // {
+    //   title: '年龄',
+    //   dataIndex: 'age',
+    //   key: 'age',
+    //   hideInSearch: true,
+    //   width: 80,
+    //   formItemProps: {
+    //     placeholder: '请输入',
+    //     allowClear: true
+    //   },
+    //   // @ts-ignore
+    //   renderFormItem: ( 
+    //     item: ProColumns<CustomerInfoItem>,
+    //     config: {
+    //       value?: any,
+    //       onChange: (value: any) => void;
+    //     }) => (
+    //       <InputNumber style={{width: '100%'}} onChange={config.onChange} value={config.value} />
+    //     )
+    //   ,
+    //   // hideInSearch: true,
+    //   render: (_, record) => {
+    //     return record.age ? `${record.age}岁` : '--'
+    //   }
+    // },
     {
       title: '客户名称',
       dataIndex: 'customerName',
       key: 'customerName',
       hideInSearch: true
       // width: '8%'
+    },
+    {
+      title: '联系电话',
+      dataIndex: 'phone',
+      hideInSearch: true,
+      render: (val) => val || '-'
     },
     {
       title: '客户经理',
@@ -133,9 +151,9 @@ const CustomerInfo: React.FC<{
       key: 'area',
     },
     {
-      title: '产品名称',
-      dataIndex: 'productName',
-      key: 'productName',
+      title: '申请记录',
+      dataIndex: 'record',
+      key: 'record',
       // width: '8%'
     },
     {
@@ -149,11 +167,11 @@ const CustomerInfo: React.FC<{
       // fixed: 'right',
       // @ts-ignore
       render: (_, record) => {
-        const { customerId, companyId, } = record;
+        const { customerId, workNo, productName} = record;
         return (
           <>
             <Authorized authority={['admin', '4']}>
-              <Button type="link" onClick={() => history.push(`/customer/manager/profile?customerId=${customerId}`)}>编辑</Button>
+              <Button type="link" onClick={() => history.push(`/customer/manager/profile?customerId=${customerId}&workNo=${workNo}`)}>编辑</Button>
             </Authorized>
             <Authorized authority={['admin', '6']}>
               <Divider type="vertical"/>
@@ -162,7 +180,7 @@ const CustomerInfo: React.FC<{
             <Authorized authority={['admin', '8']}>
               <Divider type="vertical"/>
               <Button type="link" onClick={() => {
-                history.push(`/customer/manager/sign?customerId=${customerId}&companyId=${companyId}`)
+                history.push(`/customer/manager/sign?customerId=${customerId}&workNo=${workNo}&productName=${productName}`)
               }}>转入订单</Button>
             </Authorized>
           </>

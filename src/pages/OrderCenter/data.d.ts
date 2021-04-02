@@ -14,6 +14,8 @@ export interface CustomerInfoItem {
   customerId: string;
   companyId: string;
   workNo: string;
+  createTime: string;
+  productName: string;
 }
 
 export interface CustomerInfoPagination {

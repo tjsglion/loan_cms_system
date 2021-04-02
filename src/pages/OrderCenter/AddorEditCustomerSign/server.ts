@@ -20,3 +20,18 @@ export async function queryCompanyBuCustomerId (
 ) {
   return HttpClient.post('/api/work/company/company/list', params);
 }
+
+// 新增产品字段
+export async function queryCustomerProductField (
+  params: {[key: string]: any}, 
+  type: string
+) {
+  return HttpClient.post(type === 'add' ? '/api/work/loan/customerProductField/add' : '/api/work/loan/customerProductField/update', params);
+}
+
+// 获取用户产品字段信息
+export async function queryCustomerProductFieldByWorkNo (
+  params: {workNo: string}
+) {
+  return HttpClient.post('/api/work/loan/customerProductField/getById', params);
+}

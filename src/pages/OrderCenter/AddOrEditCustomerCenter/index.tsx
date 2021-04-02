@@ -23,11 +23,13 @@ import {
   fetchChangeByCompanyId,
   fetchCourtByCompanyId,
 } from './components/server';
+import AddOrEditProductExpandField from './components/AddOrEditProductExpandField';
 
 interface AddOrEditCustomerCenterProps {
   location: {
     query: {
-      customerId: string
+      customerId: string;
+      workNo: string;
     }
   }
   // customerId?: StateType['customerId'];
@@ -44,7 +46,6 @@ const AddOrEditCustomerCenter: React.FC<AddOrEditCustomerCenterProps> = (props) 
   const [partnerInfo, setPartnerInfo] = useState<{[key: string]: any}>({});
   const [changeInfo, setChangeInfo] = useState<{[key: string]: any}>({});
   const [courtInfo, setCourtInfo] = useState<{[key: string]: any}>({});
-
 
   useEffect(() => {
     // 根据 customerId 获取客户信息
@@ -75,6 +76,8 @@ const AddOrEditCustomerCenter: React.FC<AddOrEditCustomerCenterProps> = (props) 
       //     setBaseInfoForm(bInfo);
       //   }
       // });
+      // 获取产品信息
+
       // 获取职业信息
       fetchJobInfoByCustomerId({
         customerId:  $id
@@ -134,10 +137,13 @@ const AddOrEditCustomerCenter: React.FC<AddOrEditCustomerCenterProps> = (props) 
       })
     }
   }, []);
+
   return (
     <PageHeaderWrapper>
       <AddOrEditInfo formInfo={baseForm}/>
       {/* <AddOrEditBaseInfo baseInfoForm={baseInfoForm}/> */}
+      {/* 添加产品信息 */}
+      <AddOrEditProductExpandField customerId={query.customerId} workNo={query.workNo}/>
       <AddOrEditJob jobInfo={jobInfo}/>
       <AddOrEditCompany companyInfo={companyInfo}/>
       <AddOrEditPartner partnerInfo={partnerInfo}/>

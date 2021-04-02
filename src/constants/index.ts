@@ -49,6 +49,14 @@ export const COLLABEL1 = {
   sm: {span: 16}, md: {span: 14}, lg: {span: 12}
 }
 
+export const COLSPAN2= {
+  md: 12, lg: 12, sm: 12, xl: 12, xxl: 12,
+}
+
+export const COLLABEL2 = {
+  sm: {span: 16}, md: {span: 14}, lg: {span: 12}
+}
+
 export const TEXTINFO = {
   placeholder: '请输入'
 }

@@ -113,10 +113,8 @@ class DashboardAnalysis extends Component<
         title: '计划时间',
         dataIndex: 'followTime',
         width: '25%',
-        render: val => {
-          if (val && val !== '--') {
-            return moment(`${val}`).format(DATETIME);
-          }
+        render: (_, record) => {
+          if (record.followTime) return moment(record.followTime).format(DATETIME);
           return '--';
         }
       },

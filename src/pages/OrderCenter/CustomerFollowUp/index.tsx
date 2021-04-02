@@ -9,10 +9,10 @@ import Authorized from '@/components/Authorized/Authorized';
 import locale from 'antd/lib/date-picker/locale/zh_CN';
 import { queryDepLists } from '@/pages/Authorities/Role/server';
 import { DepartmentItem } from '@/pages/Authorities/Department/data';
+import { filterEmptyFields } from '@/utils/utils';
 import { FollowUpItem, FollowUpParmas } from './data';
 import { fetchCustomerFollowLogList } from './server';
 import styles from './index.less';
-import { filterEmptyFields } from '@/utils/utils';
 
 
 interface CustomerFollowUpProps {}
@@ -63,7 +63,7 @@ const CustomerFollowUp: React.FC<CustomerFollowUpProps> = () => {
       hideInSearch: true,
       render: (_, record) => {
         const {followLog} = record;
-        console.log(record)
+        // console.log(record)
         return (
         <div
           className={styles['table-col-wrapper']}

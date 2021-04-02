@@ -8,7 +8,9 @@ import { fetchDelPicById, fetchSavePicByCustomerId } from '../server';
 
 interface AddOrEditPicIProps {
   customerId?: StateType['customerId'];
-  picInfo: Array<{[key: string]: any}>;
+  picInfo?: Array<{[key: string]: any}> | string;
+  type?: string;
+  onSuccess?: (url: string) => void;
 }
 
 export interface PicIProps {
@@ -17,10 +19,11 @@ export interface PicIProps {
   name: string;
   status: string;
   url: string;
+  
 }
 const AddOrEditPic: React.FC<AddOrEditPicIProps> = (props) => {
 
-  const { customerId, picInfo = [] } = props;
+  const { customerId, type = 'image', onSuccess, picInfo = [] } = props;
 
   const [fileList, setFileList] = useState<Array<PicIProps>>([]);
   const [previewVisible, setPreviewVisible] = useState<boolean>(false);
@@ -28,22 +31,35 @@ const AddOrEditPic: React.FC<AddOrEditPicIProps> = (props) => {
   const [previewTitle, setPreviewTitle] = useState<string>('');
 
   useEffect(() => {
-    if (picInfo && picInfo.length) {
+    if (picInfo && picInfo.length && type === 'image') {
       const result = picInfo.map(item => {
         return {
           id: item.id,
           uid: item.id,
-          name: item.picUrl.substring(item.picUrl.lastIndexOf('/') + 1),
+          name: (item.picUrl || item).substring((item.picUrl || item).lastIndexOf('/') + 1),
           status: 'done',
-          url: item.picUrl
+          url: (item.picUrl || item)
         }
       }) || [];
       setFileList(fileList.concat(result));
+    } else if (picInfo && picInfo.length && type === 'normal') {
+      console.log('当前图片地址信息:', picInfo);
+      const arrs = picInfo.split(';') || [];
+      const tmpArrs = [];
+      arrs.forEach(c => {
+        const obj = {
+          name: c.substring(c.lastIndexOf('/') + 1),
+          url: c,
+          uid: c
+        }
+        tmpArrs.push(obj)
+      })
+      setFileList(fileList.concat(tmpArrs || []));
     }
   }, [picInfo]);
 
   const beforeUpload = (file: {[key: string]: any}) => {
-    if (!customerId) {
+    if (type === 'image' && !customerId) {
       message.info('请先添加客户信息');
       return;
     };
@@ -77,6 +93,12 @@ const AddOrEditPic: React.FC<AddOrEditPicIProps> = (props) => {
     setPreviewTitle(file.name || file.url.substring(file.url.lastIndexOf('/') + 1));
   };
 
+  const handleResult = () => {
+    const tmp_url = fileList.map(item => item.response.data.url).join(';');
+    console.log('上传的图片url:', tmp_url);
+    if (onSuccess) onSuccess(tmp_url);
+  }
+
   // @ts-ignore
   const handleChange = ({ fileList, file }) => {
     setFileList(fileList);
@@ -86,20 +108,25 @@ const AddOrEditPic: React.FC<AddOrEditPicIProps> = (props) => {
         // form.setFieldsValue({'idCardUrl': response.data.url});
         // 获取图片的url并调用保存接口
         const {url} = response.data;
-        fetchSavePicByCustomerId({
-          picUrl: url,
-          customerId
-        }).then(res => {
-          if (res.status === 0) {
-            // 获取最后一个文件
-            const last = fileList[fileList.length - 1];
-            const {data} = res;
-            last['id'] = data.id;
-            setFileList(fileList);
-            message.success(res.info);
-          }
-        })
-       
+        if (type === 'image') {
+          // 保存影像
+          fetchSavePicByCustomerId({
+            picUrl: url,
+            customerId
+          }).then(res => {
+            if (res.status === 0) {
+              // 获取最后一个文件
+              const last = fileList[fileList.length - 1];
+              const {data} = res;
+              last['id'] = data.id;
+              setFileList(fileList);
+              message.success(res.info);
+            }
+          })
+        } else {
+          // 保存普通图片
+          handleResult();
+        }
       }
     }
   };
@@ -131,6 +158,14 @@ const AddOrEditPic: React.FC<AddOrEditPicIProps> = (props) => {
           })
         },
       });
+    } else {
+      const index = fileList.findIndex(item => item.uid === file.uid);
+      if (index > -1) {
+        fileList.splice(index, 1);
+        setFileList([...fileList]);
+        handleResult();
+        return true;
+      }
     }
     return false;
   }
@@ -149,7 +184,7 @@ const AddOrEditPic: React.FC<AddOrEditPicIProps> = (props) => {
           accept="image/*"
           action={
             prod
-              ? '/api/api/msg-developer/api/application/uploadImg' 
+              ? '/api/api/base/file/upload' 
               : '/api/api/base/file/upload'
           }
           // @ts-ignore

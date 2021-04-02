@@ -408,7 +408,7 @@ export const routes = [
                 path: '/config/product/profile',
                 name: 'product.profile',
                 authority: ['admin', '52'],
-                component: './Config/Product/AddOrEditExpandFields',
+                component: './Config/Product/AddOrEditProductExpandFields',
                 hideInMenu: true
               },
               {
