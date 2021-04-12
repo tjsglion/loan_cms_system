@@ -36,7 +36,7 @@ const FieldsItem: React.FC<FieldsItemIprops> = (props) => {
       onChange={handleChange}
     >
       {
-        childrens.map(item => (
+        childrens && childrens.length > 0 && childrens.map(item => (
           <Checkbox value={item.id} key={item.id}>
             {item.name}
             {

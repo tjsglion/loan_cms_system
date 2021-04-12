@@ -41,6 +41,7 @@ const AddOrEditFields: React.FC<AddOrEditFieldsIProps> = (props) => {
           // @ts-ignore
           onSubmit(type === 'edit' ? val : data);
         }
+        // window.location.reload();
       } else {
         message.error(res.info);
       }

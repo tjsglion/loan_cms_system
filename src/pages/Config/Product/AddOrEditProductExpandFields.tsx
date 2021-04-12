@@ -163,8 +163,9 @@ const AddOrEditProductExpandFields: React.FC<AddOrEditProductExpandFieldsIProps>
               allFields.splice(index, 1, item)
               setAllFields([...allFields]);
             } else {
+              allFields.push(item)
               // @ts-ignore
-              setAllFields(allFields.push(item))
+              setAllFields([...allFields]);
             }
           }}
           onCancel={() => setVisible(false)}

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable no-param-reassign */
 import React, { useState } from 'react';
-import { Form, Input, Select } from 'antd';
+import { Form, Input, InputNumber, Select } from 'antd';
 import { formItemLayout2, submitFormLayout, OPTIONSPLACEHOLDER } from '@/constants';
 import SubmitFormBtn from '@/pages/components/SubmitFormBtn';
 import { citys } from '@/constants/city';
@@ -198,20 +198,21 @@ const AddOrEditProduct: React.FC<AddOrEditProductProps> = (props) => {
         </Select>
       </FormItem>
 
-      <Form.Item label="月化利率" style={{ marginBottom: 0 }}>
+      <Form.Item label="月化利率(个月)" style={{ marginBottom: 0 }}>
         <Form.Item
           name="minMonthRate"
           rules={[{ required: true, message: '月化利率不能为空' }]}
           style={{ display: 'inline-block', width: 'calc(50% - 8px)' }}
         >
-          <Input type="number" addonAfter="个月"/>
+          {/* <Input type="number" addonAfter="个月"/> */}
+          <InputNumber style={{ width: '100%' }} step={0.01} min={0} placeholder="最小利率"/>
         </Form.Item>
         <Form.Item
           name="maxMonthRate"
           rules={[{ required: true, message: '月化利率不能为空' }]}
           style={{ display: 'inline-block', width: 'calc(50% - 8px)', margin: '0 8px' }}
         >
-          <Input type="number" addonAfter="个月"/>
+          <InputNumber style={{ width: '100%' }} step={0.01} min={0} placeholder="最大利率"/>
         </Form.Item>
       </Form.Item>
 
