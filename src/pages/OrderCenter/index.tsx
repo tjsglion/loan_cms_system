@@ -110,6 +110,7 @@ const CustomerInfo: React.FC<{
       title: '联系电话',
       dataIndex: 'phone',
       key: 'phone',
+      hideInTable: true,
       // width: '8%'
     },
     {

@@ -146,11 +146,11 @@ const AddOrEditCustomerCenter: React.FC<AddOrEditCustomerCenterProps> = (props) 
       <AddOrEditProductExpandField customerId={query.customerId} workNo={query.workNo}/>
       <AddOrEditJob jobInfo={jobInfo}/>
       <AddOrEditCompany companyInfo={companyInfo}/>
-      <AddOrEditPartner partnerInfo={partnerInfo}/>
+      {/* <AddOrEditPartner partnerInfo={partnerInfo}/>
       <AddOrEditChange changeInfo={changeInfo}/>
       <AddOrEditCourt courtInfo={courtInfo}/>
       <AddOrEditCredit />
-      <AddOrEditPerson />
+      <AddOrEditPerson /> */}
     </PageHeaderWrapper> 
   );
 }
