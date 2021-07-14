@@ -128,11 +128,7 @@ const AddOrEditCredit: React.FC<AddOrEditCreditProps> = (props) => {
 
           <Row gutter={24}>
             <Col {...COLSPAN}>
-              <FormItem label="提供贷后材料" name="h" rules={[
-            {
-              required: true, message: '必填字段'
-            }
-          ]}>
+              <FormItem label="提供贷后材料" name="h">
                 <Radio.Group>
                   {
                     YESORNO.map(item => <Radio value={item.value} key={item.key}>{item.key}</Radio>)
@@ -141,11 +137,7 @@ const AddOrEditCredit: React.FC<AddOrEditCreditProps> = (props) => {
               </FormItem>
             </Col>
             <Col {...COLSPAN}>
-              <FormItem label="征信查询次数" name="i" rules={[
-            {
-              required: true, message: '必填字段'
-            }
-          ]}>
+              <FormItem label="征信查询次数" name="i">
                 <Select {...OPTIONSPLACEHOLDER}>
                   {
                     RADIOIDENTITY.map(item => <Radio key={item.key} value={item.value}>{item.key}</Radio>)
@@ -154,20 +146,12 @@ const AddOrEditCredit: React.FC<AddOrEditCreditProps> = (props) => {
               </FormItem>
             </Col>
             <Col {...COLSPAN}>
-              <FormItem label="近3个月网贷次数" name="j" rules={[
-            {
-              required: true, message: '必填字段'
-            }
-          ]}>
+              <FormItem label="近3个月网贷次数" name="j">
                 <Input {...TEXTINFO} addonAfter="次"/>
               </FormItem>
             </Col>
             <Col {...COLSPAN}>
-              <FormItem label="是否当前逾期" name="k" rules={[
-            {
-              required: true, message: '必填字段'
-            }
-          ]}>
+              <FormItem label="是否当前逾期" name="k">
                 <Radio.Group>
                   {
                     YESORNO.map(item => <Radio value={item.value} key={item.key}>{item.key}</Radio>)
@@ -176,20 +160,12 @@ const AddOrEditCredit: React.FC<AddOrEditCreditProps> = (props) => {
               </FormItem>
             </Col>
             <Col {...COLSPAN}>
-              <FormItem label="当前逾期金额" name="l" rules={[
-            {
-              required: true, message: '必填字段'
-            }
-          ]}>
+              <FormItem label="当前逾期金额" name="l">
                 <Input {...TEXTINFO} />
               </FormItem>
             </Col>
             <Col {...COLSPAN}>
-              <FormItem label="逾期情况" name="i" rules={[
-            {
-              required: true, message: '必填字段'
-            }
-          ]}>
+              <FormItem label="逾期情况" name="i">
                 <Select {...OPTIONSPLACEHOLDER}>
                   {
                     RADIOIDENTITY.map(item => <Radio key={item.key} value={item.value}>{item.key}</Radio>)
@@ -198,20 +174,12 @@ const AddOrEditCredit: React.FC<AddOrEditCreditProps> = (props) => {
               </FormItem>
             </Col>
             <Col {...COLSPAN}>
-              <FormItem label="总负债金额" name="l" rules={[
-            {
-              required: true, message: '必填字段'
-            }
-          ]}>
+              <FormItem label="总负债金额" name="l">
                 <Input {...TEXTINFO} />
               </FormItem>
             </Col>
             <Col {...COLSPAN}>
-              <FormItem label="总资产金额" name="l" rules={[
-            {
-              required: true, message: '必填字段'
-            }
-          ]}>
+              <FormItem label="总资产金额" name="l">
                 <Input {...TEXTINFO} />
               </FormItem>
             </Col>

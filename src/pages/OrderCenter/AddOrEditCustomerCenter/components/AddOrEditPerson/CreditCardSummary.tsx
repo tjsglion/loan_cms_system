@@ -79,47 +79,47 @@ const CreditCardSummary: React.FC<CreditCardSummaryProps> = (props) => {
     >
       <Row gutter={24}>
         <Col {...COLSPAN1}>
-          <FormItem label="发卡机构数" name="cardOrganizationCount" rules={[{required: true, message: '必填字段'}]}>
+          <FormItem label="发卡机构数" name="cardOrganizationCount">
             <Input type="number" disabled={isDisabled} {...TEXTINFO}/>
           </FormItem>
         </Col>
         <Col {...COLSPAN1}>
-          <FormItem label="账户数" name="accountCount" rules={[{required: true, message: '必填字段'}]}>
+          <FormItem label="账户数" name="accountCount">
             <Input type="number" disabled={isDisabled} style={{ width: '100%' }} min={0}  {...TEXTINFO}/>
           </FormItem>
         </Col>
         <Col {...COLSPAN1}>
-          <FormItem label="授信总额" name="totalCreditAmount" rules={[{required: true, message: '必填字段'}]}>
+          <FormItem label="授信总额" name="totalCreditAmount">
             <Input type="number" disabled={isDisabled} style={{ width: '100%' }} min={0}  {...TEXTINFO} addonAfter="元"/>
           </FormItem>
         </Col>
         <Col {...COLSPAN1}>
-          <FormItem label="单卡机构最高授信额" name="maxSingleCreditAmount" rules={[{required: true, message: '必填字段'}]}>
+          <FormItem label="单卡机构最高授信额" name="maxSingleCreditAmount">
             <Input type="number" disabled={isDisabled} style={{ width: '100%' }} min={0}  {...TEXTINFO} addonAfter="元"/>
           </FormItem>
         </Col>
         <Col {...COLSPAN1}>
-          <FormItem label="单卡机构最低授信额"  name="minSingleCreditAmount" rules={[{required: true, message: '必填字段'}]}>
+          <FormItem label="单卡机构最低授信额"  name="minSingleCreditAmount">
             <Input type="number" disabled={isDisabled} style={{ width: '100%' }} min={0}  {...TEXTINFO} addonAfter="元"/>
           </FormItem>
         </Col>
         <Col {...COLSPAN1}>
-          <FormItem label="已用额度" name="usedCreditAmount" rules={[{required: true, message: '必填字段'}]}>
+          <FormItem label="已用额度" name="usedCreditAmount">
             <Input type="number" disabled={isDisabled} style={{ width: '100%' }} min={0}  {...TEXTINFO} addonAfter="元"/>
           </FormItem>
         </Col>
         <Col {...COLSPAN1}>
-          <FormItem label="最近六个月平均使用额度" name="averageUsedCreditAmount" rules={[{required: true, message: '必填字段'}]}>
+          <FormItem label="最近六个月平均使用额度" name="averageUsedCreditAmount">
             <Input type="number" disabled={isDisabled} style={{ width: '100%' }} min={0}  {...TEXTINFO} addonAfter="元"/>
           </FormItem>
         </Col>
         <Col {...COLSPAN1}>
-          <FormItem label="使用比例" name="usedRate" rules={[{required: true, message: '必填字段'}]}>
+          <FormItem label="使用比例" name="usedRate">
             <Input type="number" disabled={isDisabled} style={{ width: '100%' }} min={0}  {...TEXTINFO} addonAfter="%"/>
           </FormItem>
         </Col>
         {/* <Col {...COLSPAN}>
-          <FormItem label="总资产金额" name="totalMoney" rules={[{required: true, message: '必填字段'}]}>
+          <FormItem label="总资产金额" name="totalMoney">
             <InputNumber disabled={isDisabled} style={{ width: '100%' }} min={0}/>
           </FormItem>
         </Col> */}

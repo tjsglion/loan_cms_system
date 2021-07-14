@@ -70,7 +70,7 @@ const UpladImage: React.FC<UploadImageProps> = (props) => {
       action={
         prod
           // ? '/api/msg-developer/api/api/application/uploadImg' 
-          ? '/api/api/base/file/upload'
+          ? '/crm-manage-api/api/base/file/upload'
           : '/api/api/base/file/upload'
       }
       beforeUpload={beforeUpload}

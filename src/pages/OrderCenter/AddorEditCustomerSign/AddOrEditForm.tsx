@@ -92,12 +92,12 @@ const AddOrEditForm: React.FC<AddOrEditFormProps> = (props) => {
     >
       <Row gutter={24}>
         <Col {...COLSPAN}>
-          <FormItem label="委托甲方" name="entrustFirstParty" rules={[{required: true, message: '必填字段'}]}>
+          <FormItem label="委托甲方" name="entrustFirstParty">
             <Input {...TEXTINFO}/>
           </FormItem>
         </Col>
         <Col {...COLSPAN}>
-          <FormItem label="资方类型" name="capitalType" rules={[{required: true, message: '必填字段'}]}>
+          <FormItem label="资方类型" name="capitalType">
             <Select {...OPTIONSPLACEHOLDER}>
               <Option key="0" value={0}>aaa</Option>
               <Option key="1" value={1}>bbb</Option>
@@ -105,7 +105,7 @@ const AddOrEditForm: React.FC<AddOrEditFormProps> = (props) => {
           </FormItem>
         </Col>
         <Col {...COLSPAN}>
-          <FormItem label="资方名称" name="capitalId" rules={[{required: true, message: '必填字段'}]}>
+          <FormItem label="资方名称" name="capitalId">
             <Select
               showSearch
               optionFilterProp="children"
@@ -119,7 +119,7 @@ const AddOrEditForm: React.FC<AddOrEditFormProps> = (props) => {
           </FormItem>
         </Col>
         <Col {...COLSPAN}>
-          <FormItem label="产品名称" name="productId" rules={[{required: true, message: '必填字段'}]}>
+          <FormItem label="产品名称" name="productId">
           <Select
             showSearch
             optionFilterProp="children"
@@ -133,7 +133,7 @@ const AddOrEditForm: React.FC<AddOrEditFormProps> = (props) => {
           </FormItem>
         </Col>
         <Col {...COLSPAN}>
-          <FormItem label="进件类型" name="jinjianType" rules={[{required: true, message: '必填字段'}]}>
+          <FormItem label="进件类型" name="jinjianType">
             <Radio.Group>
               <Radio key="1" value={1}>抵押</Radio>
               <Radio key="2" value={2}>信贷</Radio>
@@ -141,17 +141,17 @@ const AddOrEditForm: React.FC<AddOrEditFormProps> = (props) => {
           </FormItem>
         </Col>
         <Col {...COLSPAN}>
-          <FormItem label="贷款金额" name="loanMoney" rules={[{required: true, message: '必填字段'}]}>
+          <FormItem label="贷款金额" name="loanMoney">
             <InputNumber style={{ width: '100%' }} min={0} {...TEXTINFO}/>
           </FormItem>
         </Col>
         <Col {...COLSPAN}>
-          <FormItem label="已收定金" name="alreadyDepositMoney" rules={[{required: true, message: '必填字段'}]}>
+          <FormItem label="已收定金" name="alreadyDepositMoney">
           <InputNumber style={{ width: '100%' }} min={0} {...TEXTINFO}/>
           </FormItem>
         </Col>
         <Col {...COLSPAN}>
-          <FormItem label="收款方式" name="chequeType" rules={[{required: true, message: '必填字段'}]}>
+          <FormItem label="收款方式" name="chequeType">
             <Radio.Group>
               <Radio key="1" value={1}>按比例收取</Radio>
               <Radio key="2" value={2}>按笔数收取</Radio>
@@ -159,22 +159,22 @@ const AddOrEditForm: React.FC<AddOrEditFormProps> = (props) => {
           </FormItem>
         </Col>
         <Col {...COLSPAN}>
-          <FormItem label="贷款收费" name="loanFee" rules={[{required: true, message: '必填字段'}]}>
+          <FormItem label="贷款收费" name="loanFee">
           <InputNumber style={{ width: '100%' }} min={0} {...TEXTINFO}/>
           </FormItem>
         </Col>
         <Col {...COLSPAN}>
-          <FormItem label="收费说明" name="feeRemark" rules={[{required: true, message: '必填字段'}]}>
+          <FormItem label="收费说明" name="feeRemark">
             <Input.TextArea {...TEXTINFO}  autoSize={{minRows: 1, maxRows: 2}}/>
           </FormItem>
         </Col>
         <Col {...COLSPAN}>
-          <FormItem label="签单时间" name="signUpTime" rules={[{required: true, message: '必填字段'}]}>
+          <FormItem label="签单时间" name="signUpTime">
             <DatePicker style={{ width: '100%' }} locale={locale} format={DATEFORMAT}/>
           </FormItem>
         </Col>
         <Col {...COLSPAN}>
-          <FormItem label="评估方式" name="assessType" rules={[{required: true, message: '必填字段'}]}>
+          <FormItem label="评估方式" name="assessType">
             <Radio.Group>
               <Radio key="1" value={1}>按比例</Radio>
               <Radio key="2" value={2}>按笔数</Radio>
@@ -183,7 +183,7 @@ const AddOrEditForm: React.FC<AddOrEditFormProps> = (props) => {
         </Col>
         {/* 评估收费 */}
         {/* <Col {...COLSPAN}>
-          <FormItem label="评估收费" name="capitalId" rules={[{required: true, message: '必填字段'}]}>
+          <FormItem label="评估收费" name="capitalId">
             <Select {...OPTIONSPLACEHOLDER}>
               <Option key="0" value={0}>aaa</Option>
               <Option key="1" value={1}>bbb</Option>
@@ -191,7 +191,7 @@ const AddOrEditForm: React.FC<AddOrEditFormProps> = (props) => {
           </FormItem>
         </Col> */}
         <Col {...COLSPAN}>
-          <FormItem label="做单部门" name="followDepartId" rules={[{required: true, message: '必填字段'}]}>
+          <FormItem label="做单部门" name="followDepartId">
             <Select {...OPTIONSPLACEHOLDER}>
               <Option key="0" value={0}>aaa</Option>
               <Option key="1" value={1}>bbb</Option>
@@ -199,12 +199,12 @@ const AddOrEditForm: React.FC<AddOrEditFormProps> = (props) => {
           </FormItem>
         </Col>
         <Col {...COLSPAN}>
-          <FormItem label="做单人员" name="followUserId" rules={[{required: true, message: '必填字段'}]}>
+          <FormItem label="做单人员" name="followUserId">
             <Input {...TEXTINFO} />
           </FormItem>
         </Col>
         <Col {...COLSPAN}>
-          <FormItem label="签单须知" name="signUpNeedKnows" rules={[{required: true, message: '必填字段'}]}>
+          <FormItem label="签单须知" name="signUpNeedKnows">
             <Input.TextArea {...TEXTINFO}  autoSize={{minRows: 1, maxRows: 2}}/>
           </FormItem>
         </Col>

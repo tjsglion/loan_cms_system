@@ -98,7 +98,7 @@ const BraftEditorComponent: React.FC<BraftEditorComponentProps> = (props) => {
           accept="image/*"
           action={
             prod
-              ? '/api/application/uploadImg' 
+              ? '/crm-manage-api/api/application/uploadImg' 
               : '/api/base/file/upload'
           }
           showUploadList={false}

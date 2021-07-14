@@ -87,30 +87,18 @@ const AddOrEditBaseInfo: React.FC<AddOrEditBaseInfoProps> = (props) => {
         >
           <Row gutter={24}>
             <Col {...COLSPAN}>
-              <FormItem label="预约贷款额度" name="expectLoanMoney" rules={[
-            {
-              required: true, message: '必填字段'
-            }
-          ]}>
+              <FormItem label="预约贷款额度" name="expectLoanMoney">
                 <InputNumber disabled={isDisabled} min={1} style={{ width: '100%' }} {...TEXTINFO} />
               </FormItem>
             </Col>
             <Col {...COLSPAN}>
-              <FormItem label="期望到账时间" name="expectGetMoneyTime" rules={[
-            {
-              required: true, message: '必填字段'
-            }
-          ]}>
+              <FormItem label="期望到账时间" name="expectGetMoneyTime">
                 <DatePicker disabled={isDisabled} locale={locale} style={{ width: '100%' }} {...TEXTINFO}/>
               </FormItem>
             </Col>
             
             <Col {...COLSPAN}>
-              <FormItem label="配偶知晓贷款" name="havePartnerKnown" rules={[
-            {
-              required: true, message: '必填字段'
-            }
-          ]}>
+              <FormItem label="配偶知晓贷款" name="havePartnerKnown">
                 <Select disabled={isDisabled} {...OPTIONSPLACEHOLDER}>
                   <Option key="1" value={1}>是</Option>
                   <Option key="0" value={0}>否</Option>
@@ -118,11 +106,7 @@ const AddOrEditBaseInfo: React.FC<AddOrEditBaseInfoProps> = (props) => {
               </FormItem>
             </Col>
             <Col {...COLSPAN}>
-              <FormItem label="家属知晓贷款" name="haveFamilyKnown" rules={[
-            {
-              required: true, message: '必填字段'
-            }
-          ]}>
+              <FormItem label="家属知晓贷款" name="haveFamilyKnown">
                 <Select disabled={isDisabled} {...OPTIONSPLACEHOLDER}>
                   <Option key="1" value={1}>是</Option>
                   <Option key="0" value={0}>否</Option>
@@ -130,11 +114,7 @@ const AddOrEditBaseInfo: React.FC<AddOrEditBaseInfoProps> = (props) => {
               </FormItem>
             </Col>
             <Col {...COLSPAN}>
-              <FormItem label="贷款方式" name="loanType" rules={[
-            {
-              required: true, message: '必填字段'
-            }
-          ]}>
+              <FormItem label="贷款方式" name="loanType">
                 <Select disabled={isDisabled} {...OPTIONSPLACEHOLDER}>
                   <Option key="1" value={1}>个人贷款</Option>
                   <Option key="2" value={2}>企业贷款</Option>
@@ -143,31 +123,19 @@ const AddOrEditBaseInfo: React.FC<AddOrEditBaseInfoProps> = (props) => {
             </Col>
 
             <Col {...COLSPAN}>
-              <FormItem label="放款银行" name="bankName" rules={[
-            {
-              required: true, message: '必填字段'
-            }
-          ]}>
+              <FormItem label="放款银行" name="bankName">
                 <Input disabled={isDisabled} {...TEXTINFO}/>
               </FormItem>
             </Col>
 
             <Col {...COLSPAN}>
-              <FormItem label="银行卡号" name="bankNo" rules={[
-            {
-              required: true, message: '必填字段'
-            }
-          ]}>
+              <FormItem label="银行卡号" name="bankNo">
                 <Input disabled={isDisabled} {...TEXTINFO}/>
               </FormItem>
             </Col>
 
             <Col {...COLSPAN}>
-              <FormItem label="客户类型" name="customerType" rules={[
-            {
-              required: true, message: '必填字段'
-            }
-          ]}>
+              <FormItem label="客户类型" name="customerType">
                 <Select disabled={isDisabled} {...OPTIONSPLACEHOLDER}>
                   <Option key="1" value={1}>潜在客户</Option>
                   <Option key="2" value={2}>单身客户</Option>
@@ -176,11 +144,7 @@ const AddOrEditBaseInfo: React.FC<AddOrEditBaseInfoProps> = (props) => {
             </Col>
 
             <Col {...COLSPAN}>
-              <FormItem label="做单状态" name="status" rules={[
-            {
-              required: true, message: '必填字段'
-            }
-          ]}>
+              <FormItem label="做单状态" name="status">
                 <Select disabled={isDisabled} {...OPTIONSPLACEHOLDER}>
                   <Option key="1" value={1}>跟进中</Option>
                   <Option key="2" value={2}>已面签</Option>

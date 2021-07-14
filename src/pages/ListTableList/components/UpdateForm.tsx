@@ -103,7 +103,6 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
           <FormItem
             name="time"
             label="开始时间"
-            rules={[{ required: true, message: '请选择开始时间！' }]}
           >
             <DatePicker
               style={{ width: '100%' }}
@@ -126,14 +125,12 @@ const UpdateForm: React.FC<UpdateFormProps> = (props) => {
         <FormItem
           name="name"
           label="规则名称"
-          rules={[{ required: true, message: '请输入规则名称！' }]}
         >
           <Input placeholder="请输入" />
         </FormItem>
         <FormItem
           name="desc"
           label="规则描述"
-          rules={[{ required: true, message: '请输入至少五个字符的规则描述！', min: 5 }]}
         >
           <TextArea rows={4} placeholder="请输入至少五个字符" />
         </FormItem>

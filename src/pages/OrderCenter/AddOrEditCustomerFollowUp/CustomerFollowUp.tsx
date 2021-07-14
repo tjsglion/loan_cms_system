@@ -75,20 +75,12 @@ const CustomerFollowUp: React.FC<CustomerFollowUpProps> = (props) => {
     >
       <Row gutter={24}>
         <Col {...COLSPAN}>
-          <FormItem label="跟进人名称" name="followUserName" rules={[
-            {
-              required: true, message: '必填字段'
-            }
-          ]}>
+          <FormItem label="跟进人名称" name="followUserName">
             <Input {...TEXTINFO}/>
           </FormItem>
         </Col>
         <Col {...COLSPAN}>
-          <FormItem label="跟进方式" name="followType" rules={[
-            {
-              required: true, message: '必填字段'
-            }
-          ]}>
+          <FormItem label="跟进方式" name="followType">
             <Select {...OPTIONSPLACEHOLDER}>
               {
                 FollowMethod.map(f => <Option key={f.value} value={f.value}>{f.key}</Option>)
@@ -97,29 +89,17 @@ const CustomerFollowUp: React.FC<CustomerFollowUpProps> = (props) => {
           </FormItem>
         </Col>
         <Col {...COLSPAN}>
-          <FormItem label="跟进时间" name="followTime" rules={[
-            {
-              required: true, message: '必填字段'
-            }
-          ]}>
+          <FormItem label="跟进时间" name="followTime">
             <DatePicker style={{ width: '100%' }} locale={locale} format={DATEFORMAT}/>
           </FormItem>
         </Col>
         <Col {...COLSPAN}>
-          <FormItem label="下次跟进时间" name="nextFollowTime" rules={[
-            {
-              required: true, message: '必填字段'
-            }
-          ]}>
+          <FormItem label="下次跟进时间" name="nextFollowTime">
             <DatePicker style={{ width: '100%' }} locale={locale} format={DATEFORMAT}/>
           </FormItem>
         </Col>
         <Col {...COLSPAN}>
-          <FormItem label="跟进产品" name="productId" rules={[
-            {
-              required: true, message: '必填字段'
-            }
-          ]}>
+          <FormItem label="跟进产品" name="productId">
             <Select 
               value={productId}
               showSearch

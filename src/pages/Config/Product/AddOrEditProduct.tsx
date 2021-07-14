@@ -41,7 +41,7 @@ const AddOrEditProduct: React.FC<AddOrEditProductProps> = (props) => {
     values.maxLimitLoanTime = +values.maxLimitLoanTime;
     values.minLimitLoanTime = +values.minLimitLoanTime;
     values.capitalType = capitalType || baseInfo.capitalType;
-    values.coverRegions = values.coverRegions.join(',');
+    values.coverRegions = values.coverRegions?.join(',');
     if (isEdit) {
       values.productId = baseInfo.productId;
     }
@@ -73,11 +73,6 @@ const AddOrEditProduct: React.FC<AddOrEditProductProps> = (props) => {
       <FormItem
         name="name"
         label="产品名称"
-        rules={
-          [
-            {required: true, message: '产品名称不能为空'}
-          ]
-        }
       >
         <Input placeholder="输入产品名称"/>
       </FormItem>
@@ -90,11 +85,6 @@ const AddOrEditProduct: React.FC<AddOrEditProductProps> = (props) => {
       <FormItem
         name="productType"
         label="产品类型"
-        rules={
-          [
-            {required: true, message: '产品类型不能为空'}
-          ]
-        }
       >
         <Select>
           <Option key="1" value={1}>激活</Option>
@@ -104,11 +94,6 @@ const AddOrEditProduct: React.FC<AddOrEditProductProps> = (props) => {
       <FormItem
         name="capitalId"
         label="出资方类型"
-        rules={
-          [
-            {required: true, message: '出资方类型不能为空'}
-          ]
-        }
       >
        {/* <Input type="text" placeholder="请输入"/> */}
        <Select onChange={handleChange} {...OPTIONSPLACEHOLDER}>
@@ -135,14 +120,12 @@ const AddOrEditProduct: React.FC<AddOrEditProductProps> = (props) => {
       <Form.Item label="额度范围" style={{ marginBottom: 0 }}>
         <Form.Item
           name="minLimitMoney"
-          rules={[{ required: true, message: '额度范围不能为空' }]}
           style={{ display: 'inline-block', width: 'calc(50% - 8px)' }}
         >
           <Input type="number" addonAfter="万元"/>
         </Form.Item>
         <Form.Item
           name="maxLimitMoney"
-          rules={[{ required: true, message: '额度范围不能为空' }]}
           style={{ display: 'inline-block', width: 'calc(50% - 8px)', margin: '0 8px' }}
         >
           <Input type="number" addonAfter="万元"/>
@@ -152,14 +135,12 @@ const AddOrEditProduct: React.FC<AddOrEditProductProps> = (props) => {
       <Form.Item label="贷款期限" style={{ marginBottom: 0 }}>
         <Form.Item
           name="minLimitLoanTime"
-          rules={[{ required: true, message: '贷款期限不能为空' }]}
           style={{ display: 'inline-block', width: 'calc(50% - 8px)' }}
         >
           <Input type="number" addonAfter="个月"/>
         </Form.Item>
         <Form.Item
           name="maxLimitLoanTime"
-          rules={[{ required: true, message: '贷款期限不能为空' }]}
           style={{ display: 'inline-block', width: 'calc(50% - 8px)', margin: '0 8px' }}
         >
           <Input type="number" addonAfter="个月"/>
@@ -169,11 +150,6 @@ const AddOrEditProduct: React.FC<AddOrEditProductProps> = (props) => {
       <FormItem
         name="averageLoanTime"
         label="平均放款时间"
-        rules={
-          [
-            {required: true, message: '放款时间不能为空'}
-          ]
-        }
       >
         <Input placeholder="请输入放款时间" addonAfter="天"/>
       </FormItem>
@@ -181,11 +157,6 @@ const AddOrEditProduct: React.FC<AddOrEditProductProps> = (props) => {
       <FormItem
         name="coverRegions"
         label="覆盖城市(可多选)"
-        rules={
-          [
-            {required: true, message: '覆盖城市不能为空'}
-          ]
-        }
       >
         <Select 
           mode="multiple"
@@ -201,7 +172,6 @@ const AddOrEditProduct: React.FC<AddOrEditProductProps> = (props) => {
       <Form.Item label="月化利率(个月)" style={{ marginBottom: 0 }}>
         <Form.Item
           name="minMonthRate"
-          rules={[{ required: true, message: '月化利率不能为空' }]}
           style={{ display: 'inline-block', width: 'calc(50% - 8px)' }}
         >
           {/* <Input type="number" addonAfter="个月"/> */}
@@ -209,7 +179,6 @@ const AddOrEditProduct: React.FC<AddOrEditProductProps> = (props) => {
         </Form.Item>
         <Form.Item
           name="maxMonthRate"
-          rules={[{ required: true, message: '月化利率不能为空' }]}
           style={{ display: 'inline-block', width: 'calc(50% - 8px)', margin: '0 8px' }}
         >
           <InputNumber style={{ width: '100%' }} step={0.01} min={0} placeholder="最大利率"/>

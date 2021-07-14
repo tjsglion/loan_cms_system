@@ -54,11 +54,6 @@ const AddOrEditUser: React.FC<AddOrEditUserProps> = (props) => {
       <FormItem
         name="operAccount"
         label="账号"
-        rules={
-          [
-            {required: true, message: '运营账号不能为空'}
-          ]
-        }
       >
         <Input disabled={baseInfo.id} placeholder={TEXTINFO.placeholder}/>
       </FormItem>
@@ -66,7 +61,6 @@ const AddOrEditUser: React.FC<AddOrEditUserProps> = (props) => {
       <Form.Item
         name="departmentId"
         label="部门"
-        rules={[{ required: true, message: '部门信息不能为空' }]}
       >
         <Select 
           // mode="multiple"
@@ -82,11 +76,6 @@ const AddOrEditUser: React.FC<AddOrEditUserProps> = (props) => {
       <FormItem
         name="name"
         label="姓名"
-        rules={
-          [
-            {required: true, message: '姓名不能为空'}
-          ]
-        }
       >
         <Input placeholder={TEXTINFO.placeholder}/>
       </FormItem>
@@ -94,30 +83,12 @@ const AddOrEditUser: React.FC<AddOrEditUserProps> = (props) => {
       <FormItem
         name="phone"
         label="手机号码"
-        rules={
-          [
-            {required: true, message: '手机号码不能为空'},
-            {
-              pattern: /^1[3456789]\d{9}$/,
-              message: '手机号格式不正确'
-            },
-          ]
-        }
       >
         <Input type="tel" placeholder={TEXTINFO.placeholder}/>
       </FormItem>
       <FormItem
         name="email"
         label="电子邮箱"
-        rules={
-          [
-            {required: true, message: '电子邮箱不能为空'},
-            {
-              pattern: /^\w+((.\w+)|(-\w+))@[A-Za-z0-9]+((.|-)[A-Za-z0-9]+).[A-Za-z0-9]+$/,
-              message: '手机号格式不正确'
-            },
-          ]
-        }
       >
         <Input type="email" placeholder={TEXTINFO.placeholder}/>
       </FormItem>
@@ -125,7 +96,6 @@ const AddOrEditUser: React.FC<AddOrEditUserProps> = (props) => {
       <Form.Item label="分配角色" style={{ marginBottom: 0 }}>
         <Form.Item
           name="role"
-          rules={[{ required: true, message: '角色不能为空' }]}
           style={{ display: 'inline-block', width: 'calc(80% - 8px)' }}
         >
           <Select 
@@ -147,7 +117,6 @@ const AddOrEditUser: React.FC<AddOrEditUserProps> = (props) => {
       <FormItem 
         label="状态"
         name="status"
-        rules={[{ required: true, message: '状态不能为空' }]}
       >
         <Radio.Group>
           <Radio value={1} key="1">正常</Radio>

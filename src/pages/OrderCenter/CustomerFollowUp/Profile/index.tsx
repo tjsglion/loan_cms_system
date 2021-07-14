@@ -134,7 +134,6 @@ const CustomerFollowUpProfile: React.FC<CustomerFollowUpProfileProps> = (props) 
     >
       <Form.Item
         name="commentDetails"
-        rules={[{ required: true, message: '评论内容不能为空'}]}
       >
         <TextArea 
           style={{ width: '100%' }} 

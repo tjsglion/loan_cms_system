@@ -83,11 +83,6 @@ const AddOrEditAllot: React.FC<AddOrEditAllotProps> = (props) => {
       <FormItem
         name="customerId"
         label="客户名称"
-        rules={
-          [
-            {required: true, message: '客户名称不能为空'}
-          ]
-        }
       >
         {/* <Input placeholder="输入客户名称"/> */}
         <Select
@@ -104,11 +99,6 @@ const AddOrEditAllot: React.FC<AddOrEditAllotProps> = (props) => {
       <FormItem
         name="customerStatus"
         label="客户状态"
-        rules={
-          [
-            {required: true, message: '客户状态不能为空'}
-          ]
-        }
       >
         <Select>
           <Option key="1" value={1}>激活</Option>
@@ -118,11 +108,6 @@ const AddOrEditAllot: React.FC<AddOrEditAllotProps> = (props) => {
       <FormItem
         name="distributeReason"
         label="分配原因"
-        rules={
-          [
-            {required: true, message: '分配原因不能为空'}
-          ]
-        }
       >
        <Input type="text" placeholder="请输入"/>
       </FormItem>
@@ -130,11 +115,6 @@ const AddOrEditAllot: React.FC<AddOrEditAllotProps> = (props) => {
       <FormItem
         name="beforeFollowerId"
         label="分配前销售"
-        rules={
-          [
-            {required: true, message: '分配前销售不能为空'}
-          ]
-        }
       >
         <Select
           showSearch
@@ -150,11 +130,6 @@ const AddOrEditAllot: React.FC<AddOrEditAllotProps> = (props) => {
       <FormItem
         name="afterFollowerId"
         label="分配后销售"
-        rules={
-          [
-            {required: true, message: '分配后销售不能为空'}
-          ]
-        }
       >
         <Select
           showSearch

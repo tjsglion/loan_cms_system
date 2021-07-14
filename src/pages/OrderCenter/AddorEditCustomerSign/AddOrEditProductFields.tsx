@@ -1,5 +1,6 @@
 import { COLLABEL, COLSPAN2, TEXTINFO } from '@/constants';
 import { BaseFieldsIProps } from '@/pages/Config/Product/AddOrEditProductExpandFields';
+import { filterEmptyFields } from '@/utils/utils';
 import { Button, Col, Form, Input, message, Row } from 'antd';
 import React, { useEffect, useState } from 'react';
 import AddOrEditPic from '../AddOrEditCustomerCenter/components/AddOrEditPerson/AddOrEditPic';

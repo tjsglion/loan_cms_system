@@ -284,7 +284,7 @@ const CustomerInfo: React.FC<{
                   headers={headers()}
                   action={
                     prod
-                      ? '/api/api/base/file/upload' 
+                      ? '/crm-manage-api/api/base/file/upload' 
                       : '/api/api/base/file/upload'
                   }
                 />

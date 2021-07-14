@@ -74,22 +74,22 @@ const AccumulationFundInfo: React.FC<AccumulationFundInfoProps> = (props) => {
     >
       <Row gutter={24}>
         <Col {...COLSPAN}>
-          <FormItem label="缴存年限" name="storageYear" rules={[{required: true, message: '必填字段'}]}>
+          <FormItem label="缴存年限" name="storageYear">
             <Input type="number" disabled={isDisabled} {...TEXTINFO} addonAfter="年"/>
           </FormItem>
         </Col>
         <Col {...COLSPAN}>
-          <FormItem label="共缴金额" name="storageMoney" rules={[{required: true, message: '必填字段'}]}>
+          <FormItem label="共缴金额" name="storageMoney">
             <Input type="number" disabled={isDisabled} style={{ width: '100%' }} min={0}  {...TEXTINFO} addonAfter="元"/>
           </FormItem>
         </Col>
         <Col {...COLSPAN}>
-          <FormItem label="公积金基数" name="accumulationFundBase" rules={[{required: true, message: '必填字段'}]}>
+          <FormItem label="公积金基数" name="accumulationFundBase">
             <Input type="number" disabled={isDisabled} style={{ width: '100%' }} min={0}  {...TEXTINFO} addonAfter="元"/>
           </FormItem>
         </Col>
         <Col {...COLSPAN}>
-          <FormItem label="是否断缴" name="haveBreakRecord" rules={[{required: true, message: '必填字段'}]}>
+          <FormItem label="是否断缴" name="haveBreakRecord">
             <Radio.Group disabled={isDisabled}>
               {
                 YESORNO.map(item => <Radio value={item.value} key={item.key}>{item.key}</Radio>)
@@ -98,7 +98,7 @@ const AccumulationFundInfo: React.FC<AccumulationFundInfoProps> = (props) => {
           </FormItem>
         </Col>
         {/* <Col {...COLSPAN}>
-          <FormItem label="总资产金额" name="totalMoney" rules={[{required: true, message: '必填字段'}]}>
+          <FormItem label="总资产金额" name="totalMoney">
             <InputNumber disabled={isDisabled} style={{ width: '100%' }} min={0}/>
           </FormItem>
         </Col> */}

@@ -73,11 +73,7 @@ const AddOrEditOther: React.FC<AddOrEditOtherProps> = (props) => {
     >
       <Row gutter={24}>
         <Col {...COLSPAN}>
-          <FormItem label="提供贷后材料" name="postLoanMaterials" rules={[
-            {
-              required: true, message: '必填字段'
-            }
-          ]}>
+          <FormItem label="提供贷后材料" name="postLoanMaterials">
             <Radio.Group disabled={isDisabled}>
               {
                 YESORNO.map(item => <Radio value={item.value} key={item.key}>{item.key}</Radio>)
@@ -86,29 +82,17 @@ const AddOrEditOther: React.FC<AddOrEditOtherProps> = (props) => {
           </FormItem>
         </Col>
         <Col {...COLSPAN}>
-          <FormItem label="征信查询次数" name="creditInvestigationQueryCount" rules={[
-            {
-              required: true, message: '必填字段'
-            }
-          ]}>
+          <FormItem label="征信查询次数" name="creditInvestigationQueryCount">
             <InputNumber disabled={isDisabled} style={{ width: '100%' }} min={0}/>
           </FormItem>
         </Col>
         <Col {...COLSPAN}>
-          <FormItem label="近3个月网贷次数" name="currentLoanCount" rules={[
-            {
-              required: true, message: '必填字段'
-            }
-          ]}>
+          <FormItem label="近3个月网贷次数" name="currentLoanCount">
             <InputNumber disabled={isDisabled} style={{ width: '100%' }} min={0}/>
           </FormItem>
         </Col>
         <Col {...COLSPAN}>
-          <FormItem label="是否当前逾期" name="haveCurrentOverdue" rules={[
-            {
-              required: true, message: '必填字段'
-            }
-          ]}>
+          <FormItem label="是否当前逾期" name="haveCurrentOverdue">
             <Radio.Group disabled={isDisabled}>
               {
                 YESORNO.map(item => <Radio value={item.value} key={item.key}>{item.key}</Radio>)
@@ -117,38 +101,22 @@ const AddOrEditOther: React.FC<AddOrEditOtherProps> = (props) => {
           </FormItem>
         </Col>
         <Col {...COLSPAN}>
-          <FormItem label="当前逾期金额" name="currentOverdueAmount" rules={[
-            {
-              required: true, message: '必填字段'
-            }
-          ]}>
+          <FormItem label="当前逾期金额" name="currentOverdueAmount">
             <InputNumber disabled={isDisabled} style={{ width: '100%' }} min={0}/>
           </FormItem>
         </Col>
         <Col {...COLSPAN}>
-          <FormItem label="逾期情况" name="overdueInfo" rules={[
-            {
-              required: true, message: '必填字段'
-            }
-          ]}>
+          <FormItem label="逾期情况" name="overdueInfo">
             <Input disabled={isDisabled} {...TEXTINFO} />
           </FormItem>
         </Col>
         <Col {...COLSPAN}>
-          <FormItem label="总资产金额" name="totalMoney" rules={[
-            {
-              required: true, message: '必填字段'
-            }
-          ]}>
+          <FormItem label="总资产金额" name="totalMoney">
             <InputNumber disabled={isDisabled} style={{ width: '100%' }} min={0}/>
           </FormItem>
         </Col>
         {/* <Col {...COLSPAN}>
-          <FormItem label="总资产金额" name="totalMoney" rules={[
-            {
-              required: true, message: '必填字段'
-            }
-          ]}>
+          <FormItem label="总资产金额" name="totalMoney">
             <InputNumber disabled={isDisabled} style={{ width: '100%' }} min={0}/>
           </FormItem>
         </Col> */}

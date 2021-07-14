@@ -184,7 +184,7 @@ const AddOrEditPic: React.FC<AddOrEditPicIProps> = (props) => {
           accept="image/*"
           action={
             prod
-              ? '/api/api/base/file/upload' 
+              ? '/crm-manage-api/api/base/file/upload' 
               : '/api/api/base/file/upload'
           }
           // @ts-ignore

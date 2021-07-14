@@ -91,17 +91,17 @@ const AddOrEditJob: React.FC<AddOrEditJobProps> = (props) => {
         >
           <Row gutter={24}>
             <Col {...COLSPAN}>
-              <FormItem label="公司名称" name="companyName" rules={[{required: true, message: '必填字段'}]}>
+              <FormItem label="公司名称" name="companyName">
                 <Input disabled={isDisabled} {...TEXTINFO}/>
               </FormItem>
             </Col>
             <Col {...COLSPAN}>
-              <FormItem label="公司地址" name="companyAddress" rules={[{required: true, message: '必填字段'}]}>
+              <FormItem label="公司地址" name="companyAddress">
                 <Input disabled={isDisabled} {...TEXTINFO}/>
               </FormItem>
             </Col>
             <Col {...COLSPAN}>
-              <FormItem label="职业身份" name="jobName" rules={[{required: true, message: '必填字段'}]}>
+              <FormItem label="职业身份" name="jobName">
                 <Select disabled={isDisabled} {...OPTIONSPLACEHOLDER}>
                   <Option key="1" value={1}>经理</Option>
                   <Option key="2" value={2}>销售</Option>
@@ -110,12 +110,12 @@ const AddOrEditJob: React.FC<AddOrEditJobProps> = (props) => {
               </FormItem>
             </Col>
             <Col {...COLSPAN}>
-              <FormItem label="现金流" name="cashFlow" rules={[{required: true, message: '必填字段'}]}>
+              <FormItem label="现金流" name="cashFlow">
                 <InputNumber disabled={isDisabled} style={{ width: '100%' }} min={1} {...TEXTINFO}/>
               </FormItem>
             </Col>
             <Col {...COLSPAN}>
-              <FormItem label="有无执照" name="hasLicense" rules={[{required: true, message: '必填字段'}]}>
+              <FormItem label="有无执照" name="hasLicense">
                 <Radio.Group disabled={isDisabled}>
                   {
                     YESORNO.map(item => <Radio value={item.value} key={item.key}>{item.key}</Radio>)
@@ -124,22 +124,22 @@ const AddOrEditJob: React.FC<AddOrEditJobProps> = (props) => {
               </FormItem>
             </Col>
             <Col {...COLSPAN}>
-              <FormItem label="注册时间" name="registerTime" rules={[{required: true, message: '必填字段'}]}>
+              <FormItem label="注册时间" name="registerTime">
                 <DatePicker disabled={isDisabled} style={{ width: '100%' }} locale={locale} format={DATEFORMAT}/>
               </FormItem>
             </Col>
             <Col {...COLSPAN}>
-              <FormItem label="所占股份" name="shareholderRate" rules={[{required: true, message: '必填字段'}]}>
+              <FormItem label="所占股份" name="shareholderRate">
                 <Input disabled={isDisabled} type="number" {...TEXTINFO} addonAfter="%"/>
               </FormItem>
             </Col>
             <Col {...COLSPAN}>
-              <FormItem label="经营范围" name="businessScope" rules={[{required: true, message: '必填字段'}]}>
+              <FormItem label="经营范围" name="businessScope">
                 <Input.TextArea disabled={isDisabled} {...TEXTINFO}  autoSize={{minRows: 1, maxRows: 2}}/>
               </FormItem>
             </Col>
             <Col {...COLSPAN}>
-              <FormItem label="单位下户" name="companyResidence" rules={[{required: true, message: '必填字段'}]}>
+              <FormItem label="单位下户" name="companyResidence">
                 <Radio.Group disabled={isDisabled}>
                   {
                     YESORNO2.map(item => <Radio value={item.value} key={item.key}>{item.key}</Radio>)
@@ -148,17 +148,17 @@ const AddOrEditJob: React.FC<AddOrEditJobProps> = (props) => {
               </FormItem>
             </Col>
             <Col {...COLSPAN}>
-              <FormItem label="年营业额" name="companyYearTurnover" rules={[{required: true, message: '必填字段'}]}>
+              <FormItem label="年营业额" name="companyYearTurnover">
                 <Input disabled={isDisabled} type="number" {...TEXTINFO} addonAfter="万元/年"/>
               </FormItem>
             </Col>
             <Col {...COLSPAN}>
-              <FormItem label="月营业额" name="companyMonthTurnover" rules={[{required: true, message: '必填字段'}]}>
+              <FormItem label="月营业额" name="companyMonthTurnover">
                 <Input disabled={isDisabled} type="number" {...TEXTINFO} addonAfter="万元/月"/>
               </FormItem>
             </Col>
             <Col {...COLSPAN}>
-              <FormItem label="需挂靠单位" name="needDependCompany" rules={[{required: true, message: '必填字段'}]}>
+              <FormItem label="需挂靠单位" name="needDependCompany">
                 <Radio.Group disabled={isDisabled}>
                   {
                     YESORNO.map(item => <Radio value={item.value} key={item.key}>{item.key}</Radio>)
@@ -167,7 +167,7 @@ const AddOrEditJob: React.FC<AddOrEditJobProps> = (props) => {
               </FormItem>
             </Col>
             <Col {...COLSPAN}>
-              <FormItem label="单位座机" name="companyPhone" rules={[{required: true, message: '必填字段'}]}>
+              <FormItem label="单位座机" name="companyPhone">
                 <Radio.Group disabled={isDisabled}>
                   {
                     YESORNO2.map(item => <Radio value={item.value} key={item.key}>{item.key}</Radio>)
@@ -176,17 +176,17 @@ const AddOrEditJob: React.FC<AddOrEditJobProps> = (props) => {
               </FormItem>
             </Col>
             <Col {...COLSPAN}>
-              <FormItem label="纳税金额" name="taxMoney" rules={[{required: true, message: '必填字段'}]}>
+              <FormItem label="纳税金额" name="taxMoney">
                 <Input disabled={isDisabled} {...TEXTINFO}/>
               </FormItem>
             </Col>
             <Col {...COLSPAN}>
-              <FormItem label="开票金额" name="invoiceMoney" rules={[{required: true, message: '必填字段'}]}>
+              <FormItem label="开票金额" name="invoiceMoney">
                 <Input disabled={isDisabled} {...TEXTINFO}/>
               </FormItem>
             </Col>
             <Col {...COLSPAN}>
-              <FormItem label="行政处罚" name="administrationPunish" rules={[{required: true, message: '必填字段'}]}>
+              <FormItem label="行政处罚" name="administrationPunish">
                 <Radio.Group disabled={isDisabled}>
                   {
                     YESORNO2.map(item => <Radio value={item.value} key={item.key}>{item.key}</Radio>)
@@ -195,17 +195,17 @@ const AddOrEditJob: React.FC<AddOrEditJobProps> = (props) => {
               </FormItem>
             </Col>
             <Col {...COLSPAN}>
-              <FormItem label="行政处罚金额" name="punishMoney" rules={[{required: true, message: '必填字段'}]}>
+              <FormItem label="行政处罚金额" name="punishMoney">
                 <Input disabled={isDisabled} {...TEXTINFO}/>
               </FormItem>
             </Col>
             <Col {...COLSPAN}>
-              <FormItem label="移除记录" name="removeRecord" rules={[{required: true, message: '必填字段'}]}>
+              <FormItem label="移除记录" name="removeRecord">
                 <Input disabled={isDisabled} {...TEXTINFO}/>
               </FormItem>
             </Col>
             <Col {...COLSPAN}>
-              <FormItem label="官司记录" name="disputeRecord" rules={[{required: true, message: '必填字段'}]}>
+              <FormItem label="官司记录" name="disputeRecord">
                 <Radio.Group disabled={isDisabled}>
                   {
                     YESORNO2.map(item => <Radio value={item.value} key={item.key}>{item.key}</Radio>)
@@ -214,17 +214,17 @@ const AddOrEditJob: React.FC<AddOrEditJobProps> = (props) => {
               </FormItem>
             </Col>
             <Col {...COLSPAN}>
-              <FormItem label="动产抵押" name="movablesMortgage" rules={[{required: true, message: '必填字段'}]}>
+              <FormItem label="动产抵押" name="movablesMortgage">
                 <Input disabled={isDisabled} {...TEXTINFO}/>
               </FormItem>
             </Col>
             <Col {...COLSPAN}>
-              <FormItem label="股权抵押" name="shareholderMortgage" rules={[{required: true, message: '必填字段'}]}>
+              <FormItem label="股权抵押" name="shareholderMortgage">
                 <Input disabled={isDisabled}  {...TEXTINFO}/>
               </FormItem>
             </Col>
             <Col {...COLSPAN}>
-              <FormItem label="有无副业" name="hasSideline" rules={[{required: true, message: '必填字段'}]}>
+              <FormItem label="有无副业" name="hasSideline">
                 <Radio.Group disabled={isDisabled}>
                   {
                     YESORNO2.map(item => <Radio value={item.value} key={item.key}>{item.key}</Radio>)
@@ -233,7 +233,7 @@ const AddOrEditJob: React.FC<AddOrEditJobProps> = (props) => {
               </FormItem>
             </Col>
             <Col {...COLSPAN}>
-              <FormItem label="副业收入" name="sidelineMonthIncome" rules={[{required: true, message: '必填字段'}]}>
+              <FormItem label="副业收入" name="sidelineMonthIncome">
                 <Input disabled={isDisabled} type="number" {...TEXTINFO} addonAfter="元/月"/>
               </FormItem>
             </Col>
