@@ -42,3 +42,13 @@ export async function queryCustomerSignUpDetailsByWorkNo (
     params
   );
 }
+
+// 下载
+export async function fetchOrderDownload (
+  params: {[key: string]: any}
+) {
+  return HttpClient.post(
+    '/api/work/loan/followLog/download',
+    params
+  )
+}

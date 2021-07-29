@@ -142,3 +142,13 @@ export function filterEmptyFields(obj: {[key: string]: any}) {
 
   return obj;
 }
+
+// export function download(url: string, name: string): any {
+//   const aLink = document.createElement('a');
+//   document.body.appendChild(aLink);
+//   aLink.style.display = 'none';
+//   aLink.href = url;
+//   if (name) aLink.download = `${name}`;
+//   aLink.click();
+//   document.body.removeChild(aLink);
+// }

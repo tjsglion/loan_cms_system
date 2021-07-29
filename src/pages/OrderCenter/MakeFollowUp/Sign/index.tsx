@@ -301,6 +301,12 @@ const Sign: React.FC<SignProps> = (props) => {
             </Col>
 
             <Col {...COLSPAN}>
+              <FormItem label="进度信息" name="processInfo">
+                <Input.TextArea rows={2} disabled={isDisabled} {...TEXTINFO} />
+              </FormItem>
+            </Col>
+
+            <Col {...COLSPAN}>
               <FormItem label="签单状态" name="status">
                 <Select 
                   disabled={isDisabled} 
@@ -309,11 +315,17 @@ const Sign: React.FC<SignProps> = (props) => {
                 >
                   <Option key="1" value={1}>待接订单</Option>
                   <Option key="2" value={2}>进行中</Option>
-                  <Option key="3" value={3}>暂停</Option>
+                  {/* <Option key="3" value={3}>暂停</Option> */}
                   <Option key="4" value={4}>已完成</Option>
                   <Option key="5" value={5}>未完成</Option>
-                  <Option key="6" value={6}>已过期</Option>
+                  {/* <Option key="6" value={6}>已过期</Option> */}
                 </Select>
+              </FormItem>
+            </Col>
+
+            <Col {...COLSPAN}>
+              <FormItem label="被拒原因" name="rejectReason">
+                <Input.TextArea rows={2} disabled={isDisabled} {...TEXTINFO} />
               </FormItem>
             </Col>
 
@@ -329,6 +341,8 @@ const Sign: React.FC<SignProps> = (props) => {
                 </Button>
               </FormItem>
             </Col>
+
+            
           </Row>
         </Form>
       </Card>

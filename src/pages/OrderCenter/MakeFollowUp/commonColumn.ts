@@ -14,21 +14,29 @@ const maps = {
 }
 export const Columns: ProColumns<MakeFollowUpItem>[] = [
   {
-    title: '协议编号',
-    dataIndex: 'protocolNo',
+    title: '创建时间',
+    dataIndex: 'createTime',
     hideInSearch: true,
-    // width: '10%',
-    render: (val) => val || '--'
+    render: (_, record) => {
+      return record.createTime && moment(+record.createTime).format('YYYY-MM-DD HH:mm:ss') || '--'
+    }
   },
   {
-    title: '客户姓名',
-    dataIndex: 'customerName',
-    hideInSearch: true,
+    title: '公司名称',
+    dataIndex: 'companyName',
+    // hideInSearch: true,
     // width: '8%',
     render: val => val || '--'
   },
   {
-    title: '贷款产品',
+    title: '客户姓名',
+    dataIndex: 'customerName',
+    // hideInSearch: true,
+    // width: '8%',
+    render: val => val || '--'
+  },
+  {
+    title: '产品名称',
     dataIndex: 'productName',
     hideInSearch: true,
     // width: '8%',
@@ -39,36 +47,30 @@ export const Columns: ProColumns<MakeFollowUpItem>[] = [
     dataIndex: 'signUpTime',
     hideInSearch: true,
     // width: '10%',
-    render: val => {
-      if (val && val !== '-') {
-        return moment(`${val}`).format(DATETIME);
+    render: (_, record) => {
+      // if (val && val !== '-') {
+      //   return moment(`${val}`).format(DATETIME);
+      // }
+      try {
+        return record.signUpTime ? moment(record.signUpTime).format(DATETIME) : '--'
+      } catch (e) {
+        return record.signUpTime && moment(+record.signUpTime).format('YYYY-MM-DD HH:mm:ss') || '--'
       }
-      return '--';
     }
-  },
-  {
-    title: '签单状态',
-    dataIndex: 'status',
-    hideInSearch: true,
-    render: (val) => maps[`${val || 1}`]
   },
   {
     title: '做单状态',
     dataIndex: 'workStatus',
     hideInSearch: true,
+    render: (val) => maps[`${val || 1}`]
+  },
+  {
+    title: '签单状态',
+    dataIndex: 'signUpStatus',
+    hideInSearch: true,
     render: (val) => {
-      if (val) {
-        // return loanExpect.status === 1 ? '跟进中' : '';
-        switch (val) {
-          case 1: 
-            return '跟进中';
-          case 2: 
-            return '已面签';
-          default:
-            return '--';
-        }
-      }
-      return '';
+      
+      return val === 1 ? '已签单' : '未签单';
     }
   },
   {
@@ -83,12 +85,13 @@ export const Columns: ProColumns<MakeFollowUpItem>[] = [
     title: '跟进日期',
     dataIndex: 'followTime',
     hideInSearch: true,
-    render: (val) => {
+    render: (_, record) => {
       // return val && moment(`${val}`).format(DATETIME) || '--';
-      if (val && val !== '-') {
-        return moment(`${val}`).format(DATETIME);
+      try {
+        return record.followTime ? moment(record.followTime).format(DATETIME) : '--'
+      } catch (e) {
+        return record.followTime && moment(+record.followTime).format('YYYY-MM-DD HH:mm:ss') || '--'
       }
-      return '--';
     }
   },
   {
@@ -107,6 +110,7 @@ export const Columns: ProColumns<MakeFollowUpItem>[] = [
       placeholder: '请输入',
       allowClear: true
     },
+    hideInSearch: true,
     render: val => val || '--'
   },
   {

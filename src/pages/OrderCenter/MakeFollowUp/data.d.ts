@@ -18,6 +18,8 @@ export interface MakeFollowUpItem {
   customerId: string;
   workNo: string;
   protocolNo: string;
+  createTime: string;
+  productId: string;
 }
 
 export interface MakeFollowUpPagination {
@@ -40,4 +42,8 @@ export interface MakeFollowUpParmas {
   followUserName?: string;
   status?: number;
   timestamp?: any;
+  times: Date[];
+  startTime: string;
+  endTime: string;
+  productId: string;
 }

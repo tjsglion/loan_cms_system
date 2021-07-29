@@ -137,12 +137,12 @@ export const routes = [
                 authority: ['admin', '11', '12', '13', '14'],
                 component: './OrderCenter/MakeFollowUp/ProcessingOrder'
               },
-              {
-                path: '/order/pause',
-                name: 'pause',
-                authority: ['admin', '11', '12', '13', '14'],
-                component: './OrderCenter/MakeFollowUp/PauseOrder'
-              },
+              // {
+              //   path: '/order/pause',
+              //   name: 'pause',
+              //   authority: ['admin', '11', '12', '13', '14'],
+              //   component: './OrderCenter/MakeFollowUp/PauseOrder'
+              // },
               {
                 path: '/order/completed',
                 name: 'completed',
@@ -155,72 +155,13 @@ export const routes = [
                 authority: ['admin', '11', '12', '13', '14'],
                 component: './OrderCenter/MakeFollowUp/UnfinishedOrder'
               },
-              {
-                path: '/order/expired',
-                name: 'expired',
-                authority: ['admin', '11', '12', '13', '14'],
-                component: './OrderCenter/MakeFollowUp/ExpiredOrder'
-              },
-              // 客户中心
               // {
-              //   path: '/order/customer',
-              //   icon: 'user',
-              //   name: 'customerCenter',
-              //   authority: ['admin', '1', '2', '4', '5', '6', '7', '9', '11'],
-              //   component: './OrderCenter'
-              // },
-              // {
-              //   path: '/order/customer/profile',
-              //   icon: 'user',
-              //   name: 'customerCenter.profile',
-              //   component: './OrderCenter/AddOrEditCustomerCenter',
-              //   hideInMenu: true
-              // },
-              // {
-              //   path: '/order/customer/followUp',
-              //   icon: 'user',
-              //   name: 'customerCenter.followup',
-              //   component: './OrderCenter/AddOrEditCustomerFollowUp',
-              //   hideInMenu: true
-              // },
-              // {
-              //   path: '/order/customer/sign',
-              //   icon: 'user',
-              //   name: 'customerCenter.sign',
-              //   component: './OrderCenter/AddorEditCustomerSign',
-              //   hideInMenu: true
-              // },
-              // // 客户跟进
-              // {
-              //   path: '/order/follup',
-              //   name: 'customerFollowUp',
-              //   authority: ['admin', '6', '7', '10', '8', '9'],
-              //   component: './OrderCenter/CustomerFollowUp'
-              // },
-              // {
-              //   path: '/order/follup/profile',
-              //   name: 'customerFollowUp.profile',
-              //   component: './OrderCenter/CustomerFollowUp/Profile',
-              //   hideInMenu: true
-              // },
-              // {
-              //   path: '/order/follup/add',
-              //   name: 'customerFollowUp.add',
-              //   component: './OrderCenter/AddCustomerFollowUp'
-              // },
-              // 做单跟进
-              // {
-              //   path: '/order/make/follup',
-              //   name: 'makeFollowUp',
+              //   path: '/order/expired',
+              //   name: 'expired',
               //   authority: ['admin', '11', '12', '13', '14'],
-              //   component: './OrderCenter/MakeFollowUp'
+              //   component: './OrderCenter/MakeFollowUp/ExpiredOrder'
               // },
-              // {
-              //   path: '/order/make/follup/profile',
-              //   name: 'makeFollowUp.profile',
-              //   component: './OrderCenter/MakeFollowUp/Profile',
-              //   hideInMenu: true
-              // },
+              // 客户中心
               // 待接订单
               {
                 path: '/order/waiting/sign',

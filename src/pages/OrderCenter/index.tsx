@@ -155,6 +155,7 @@ const CustomerInfo: React.FC<{
       title: '申请记录',
       dataIndex: 'record',
       key: 'record',
+      hideInSearch: true,
       // width: '8%'
     },
     {

@@ -51,7 +51,7 @@ const AddOrEditProductExpandField: React.FC<AddOrEditProductExpandFieldIProps> =
       queryCustomerProductFieldByWorkNo({workNo}).then(res => {
         if (res.status === 0) {
           if (res.data && res.data.list) {
-            setProductId(res.data.list[0].productId);
+            setProductId(res.data.list[0]?.productId);
             setProductFields(res.data.list);
             handleProductFields(res.data.list);
             setDisabled(true);
