@@ -6,6 +6,7 @@ import { prod, headers } from '@/core/http.request';
 import { Dispatch, connect } from 'umi';
 import { fetchSubmittedInfo } from './server';
 import { StateType } from '../model';
+import { queryAddOrEditFollupUp } from '../../MakeFollowUp/server';
 
 interface AddOrEditInfoProps {
   formInfo?: {[key: string]: any};
@@ -107,6 +108,12 @@ const AddOrEditInfo: React.FC<AddOrEditInfoProps> = (props) => {
           saveCustomerIdToDva(data.customerId);
         }
         setIsDisabled(true);
+        // console.log('返回的客户信息:====>>', res)
+        queryAddOrEditFollupUp({customerId: res.data.customerId}, type).then(r => {
+          // if (r.status === 0) {
+          //   // queryAddSignUpBase({customerId: res.data.customerId});
+          // }
+        });
       }
     })
   } 

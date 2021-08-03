@@ -8,6 +8,7 @@ import { history } from 'umi';
 import { fetchFundersList } from '@/pages/Config/Funders/server';
 import { fetchProductList } from '@/pages/Config/Product/server';
 import { queryAddSignUpBase } from './server';
+import { queryDepLists } from '@/pages/Authorities/Role/server';
 
 interface AddOrEditFormProps {
   customerId: string;
@@ -25,6 +26,7 @@ const AddOrEditForm: React.FC<AddOrEditFormProps> = (props) => {
   const [products, setProducts] = useState<Array<{[key: string]: any}>>([]);
   const [capitalName, setCapitalName] = useState('');
   const [productName, setProductName] = useState('');
+  const [departments, setDepartments] = useState<Array<{[key: string]: any}>>([]);
   // const [customerName, setCustomerName] = useState('');
 
   useEffect(() => {
@@ -45,6 +47,10 @@ const AddOrEditForm: React.FC<AddOrEditFormProps> = (props) => {
         setProducts(res.data);
       }
     })
+    // 部门信息
+    queryDepLists(params).then((res: {[key: string]: any}) => {
+      setDepartments(res.data || []);
+    });
   }, []);
   
   // 获取所有产品信息
@@ -96,14 +102,14 @@ const AddOrEditForm: React.FC<AddOrEditFormProps> = (props) => {
             <Input {...TEXTINFO}/>
           </FormItem>
         </Col>
-        <Col {...COLSPAN}>
+        {/* <Col {...COLSPAN}>
           <FormItem label="资方类型" name="capitalType">
             <Select {...OPTIONSPLACEHOLDER}>
               <Option key="0" value={0}>aaa</Option>
               <Option key="1" value={1}>bbb</Option>
             </Select>
           </FormItem>
-        </Col>
+        </Col> */}
         <Col {...COLSPAN}>
           <FormItem label="资方名称" name="capitalId">
             <Select
@@ -127,7 +133,7 @@ const AddOrEditForm: React.FC<AddOrEditFormProps> = (props) => {
             onChange={handleProduct}
           >
               {
-                products.map(p => <Option key={p.id} value={p.id}>{p.name}</Option>)
+                products.map(p => <Option key={p.productId} value={p.productId}>{p.name}</Option>)
               }
             </Select>
           </FormItem>
@@ -193,8 +199,9 @@ const AddOrEditForm: React.FC<AddOrEditFormProps> = (props) => {
         <Col {...COLSPAN}>
           <FormItem label="做单部门" name="followDepartId">
             <Select {...OPTIONSPLACEHOLDER}>
-              <Option key="0" value={0}>aaa</Option>
-              <Option key="1" value={1}>bbb</Option>
+            {
+              departments.map(p => <Option key={p.id} value={p.id}>{p.name}</Option>)
+            }
             </Select>
           </FormItem>
         </Col>
